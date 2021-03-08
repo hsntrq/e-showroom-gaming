@@ -6,6 +6,10 @@
     padding: 20px;
 }
 
+.jumbotron h5{
+    line-height: 3;
+}
+
 footer{
     background-color:#276678;
     color: #f6f5f5;
@@ -24,19 +28,11 @@ footer{
 	color:black;
 	font-size: 60px;
 }
-.banner p {
-    color: #fff;
-    margin: 10px 0 30px 0;
-    font-size: 18px;
-}
 .banner input {
 	text-decoration: none;
     color: #fff;
     font-size: 17px;
     padding: 10px 20px;
-}
-.banner input:hover{
-    background-color: #fff;
 }
 .banner button{
 	background:#fff;
