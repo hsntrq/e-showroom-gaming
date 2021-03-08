@@ -1,0 +1,43 @@
+.jumbotron{
+    background: #1687a7;
+    color: #d3e0ea;
+    margin: 0 0 0 0;
+    height: 120px;
+    padding: 20px;
+}
+
+footer{
+    background-color:#276678;
+    color: #f6f5f5;
+    padding: 50px 0 0 0;
+}
+
+.banner {
+	background:url('../images/banner.jpg') no-repeat 0px 0px;
+	background-size:cover;
+    background-position: center;
+	min-height:400px;
+	padding:130px 0 0 0;
+}
+
+.banner h3 {
+	color:black;
+	font-size: 60px;
+}
+.banner p {
+    color: #fff;
+    margin: 10px 0 30px 0;
+    font-size: 18px;
+}
+.banner input {
+	text-decoration: none;
+    color: #fff;
+    font-size: 17px;
+    padding: 10px 20px;
+}
+.banner input:hover{
+    background-color: #fff;
+}
+.banner button{
+	background:#fff;
+}
