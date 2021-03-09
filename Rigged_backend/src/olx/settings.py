@@ -76,8 +76,16 @@ WSGI_APPLICATION = 'olx.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE' : 'sql_server.pyodbc',
+        'PORT' : '1433',
+        'NAME' : 'Test',
+        'PASSWORD' : 'rigged',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'unicode_results': True,
+        },
     }
 }
 
