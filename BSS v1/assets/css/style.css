@@ -1,0 +1,106 @@
+.jumbotron {
+  background: #1687a7;
+  color: #d3e0ea;
+  margin: 0 0 0 0;
+  height: 120px;
+  padding: 20px;
+}
+
+.navbar-brand {
+  font-size: 30px;
+}
+
+.btn.btn-primary.ml-auto {
+  margin: 0 10px;
+}
+
+.jumbotron h5 {
+  line-height: 3;
+}
+
+footer {
+  background-color: #000000e6;
+  color: #f6f5f5;
+  padding: 50px 0 0 0;
+}
+
+.banner {
+  background: url('../../assets/img//banner.jpg') no-repeat 0px 0px;
+  background-size: cover;
+  background-position: center;
+  min-height: 400px;
+  padding: 130px 0 0 0;
+}
+
+.banner h3 {
+  color: black;
+  font-size: 60px;
+}
+
+.banner input {
+  text-decoration: none;
+  color: #fff;
+  font-size: 17px;
+  padding: 10px 20px;
+}
+
+.banner button {
+  background: #fff;
+}
+
+.navbar {
+  background: #00b5d6f6;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  /*-webkit-appearance: none;*/
+  /*margin: 0;*/
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.p-info {
+  margin: 2%;
+  font-size: x-large;
+}
+
+.container.info-container {
+  margin: 3% 1.5%;
+  width: auto;
+}
+
+@media (min-width: 992px) {
+  .container.info-container {
+    margin: 3% 9%;
+    width: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav-b {
+    font-size: smaller;
+    margin: 3px !important;
+  }
+}
+
+.ad-box:hover div {
+  border-width: 2px;
+}
+
+.ad-box:hover {
+  color: rgb(0,0,0);
+  text-decoration: initial;
+}
+
+.ad-box {
+  color: rgb(0,0,0);
+}
+
+#back {
+  margin-top: -60px;
+  margin-bottom: 60px;
+  margin-left: 25px;
+}
+
