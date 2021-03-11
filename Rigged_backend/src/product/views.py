@@ -28,4 +28,10 @@ def productdetail(request, product_slug):
 
 #####
 def productad(request):
-    productad = Product.objects
+    productad = Product.create_new()
+
+    template = 'Product/post.html'
+
+    context = {'product_ad' : productad}
+
+    return render(request, template, context)

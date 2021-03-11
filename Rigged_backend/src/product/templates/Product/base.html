@@ -24,7 +24,7 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
-        <div class="container"><a class="navbar-brand" href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="RIGGED logo" style="height: 50px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
+        <div class="container"><a class="navbar-brand" href="base.html"><img src="{% static 'assets/img/logo.png' %}" alt="RIGGED logo" style="height: 50px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
             <div class="collapse navbar-collapse" id="navcol-1"></div><a class="btn btn-primary ml-auto nav-b" role="button" id="login-b" href="#">Log In | Sign Up</a><a class="btn btn-primary ml-auto nav-b" role="button" id="post-ad" href="#">Post Ad</a>
         </div>
     </nav>
@@ -154,7 +154,7 @@
     });
     $("#post-ad").click(function(){
         if (loggedin){
-            window.location.href = "post.html"
+            window.location.href = "{% static 'post.html' %}"
         } else {
             $('#LoginModal').modal('show');
         }
