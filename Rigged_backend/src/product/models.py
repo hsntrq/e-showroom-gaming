@@ -21,9 +21,14 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete = models.SET_NULL, null = True)
     brand = models.ForeignKey('Brand', on_delete = models.SET_NULL, null = True)
     price = models.DecimalField(max_digits=10, decimal_places = 2)
+    image = models.ImageField(upload_to='main_product/', blank = True, null = True)
     created = models.DateTimeField(default = timezone.now)
 
     slug = models.SlugField(blank=True, null=True)
+
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
     def save(self, *args, **kwargs):  
         if not self.slug and self.name : 
