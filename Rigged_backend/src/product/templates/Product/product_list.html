@@ -31,7 +31,7 @@
 			{% for product in product_list %}
                                     <a href="{% url 'products:product_detail' product.slug %}">
                                         <li>
-                                        
+										
                                         <section class="list-left">
                                         <h5 class="title">{{product.name}}</h5>
                                         <span class="adprice">${{product.price}}</span>
