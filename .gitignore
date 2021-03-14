@@ -1,4 +1,9 @@
 node_modules
-.vs
+package-lock.json
+package.json
 BSS v2.zip
-
+Rigged_backend.zip
+package.json
+package-lock.json
+.vs
+*.json

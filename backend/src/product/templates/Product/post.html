@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block body %}
+<section class="text-center" style="background: #ffffff;">
+    <div class="container" style="border-radius: 8px;padding: 10px;width: auto;">
+        <h2 id="postH" class="text-left" style="padding-left: 12px;">DETAILS OF YOUR PRODUCT:</h2>
+        <form style="background: #f4f4f4;padding: 15px;border-radius: 12px;" action = '/post.html' method="POST">
+            <div class="form-row">
+                <div class="col-sm-12 col-md-6">
+                    <label class="float-left" for="product_title">Ad Title: *&nbsp;</label>
+                    <input class="form-control" type="text" id="product_title" name="product_title"  placeholder="Enter Product Title..." required value = {{name}} >
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label class="float-left" for="price">Set a Price: *</label>
+                    <input class="form-control" type="number" id="price" name="price"  placeholder="Enter Price..." required value={{price}}>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 col-md-6">
+                    <label class="float-left" for="brand">Brand: *&nbsp;</label>
+                    <input class="form-control" type="text" id="brand" name="brand"  placeholder="Enter the Brand of Your Product..." required value={{brand}}>
+                    </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="float-left" style="padding-left: 15px;padding-top: 20px;">
+                        <div class="form-check">
+                            <input type="radio" id="radio-1" class="form-check-input" name="condition" value = {{condition}}> 
+                            <label class="form-check-label" for="radio-1">New</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="radio-2" class="form-check-input" name="condition" value = {{condition}}>
+                            <label class="form-check-label" for="radio-2">Used</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12">
+                    <label class="float-left" for="categories">Categories: *&nbsp;</label>
+                    <select class="form-control" id="categories" name="categories" value = {{category}} style="margin-bottom: 5px;">
+                        <option value="None" selected="" hidden="">Select a Category for Your Product Here...</option>
+                        <option value="vgames">Video Games</option>
+                        <option value="console">Console</option>
+                        <option value="mouse">Gaming Mouse</option>
+                        <option value="keyboard">Gaming Keyboard</option>
+                        <option value="headphones">Headphones</option>
+                        <option value="mpad">Mouse Pad</option>
+                        <option value="gcard">Graphic Card</option>
+                        <option value="processor">Processor</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 col-md-6">
+                    <label class="float-left" for="description">Description: *&nbsp;</label>
+                    <textarea class="form-control" id="description" name="description" value = {{description}} placeholder="Enter Description of Your Product Here... (less than 500 characters)"
+                        style="height: 200px;" maxlength="500" required></textarea>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-row">
+                        <div class="col-sm-12"><label class="col-form-label float-left" for="price">Upload Photos:
+                                *</label></div>
+                        <div class="col-sm-12">
+                            <div class="dashed_upload">
+                                <div class="wrapper">
+                                    <div class="drop">
+                                        <div class="cont">
+                                            <i class="fa fa-cloud-upload"></i>
+                                            <div class="tit">
+                                                Drag & Drop
+                                            </div>
+                                            <div class="desc">
+                                                or
+                                            </div>
+                                            <div class="browse">
+                                                click here to browse
+                                            </div>
+                                        </div>
+                                        <output id="list"></output><input id="files" multiple name="files[]" type="file"
+                                            accept="image/*" />
+                                    </div>
+                                </div>
+                                <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12">
+                    <div class="form-check form-switch">
+                        <label class="float-left" for="feature-c">Do You Want To Feature Your Ad?</label>
+                        <label class="switch float-left">
+                            <input class="form-check-input" id="feature-c" type="checkbox" onclick="checkfeature()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="feature-block" class="bg-white rounded-lg shadow-sm p-5" style="display: none;margin:1%">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check" style="margin:1%">
+                            <label class="float-left">Select Package:</label>
+                            <div class="form-check form-check-inline float-left" style="margin: 0 7%;">
+                                <input class="form-check-input" name="pkg" type="radio" id="pkg1" value="1000">
+                                <label class="form-check-label" for="pkg1">1000 PKR</label>
+                            </div>
+                            <div class="form-check form-check-inline float-left" style="margin: 0 7%;">
+                                <input class="form-check-input" name="pkg" type="radio" id="pkg2" value="2000">
+                                <label class="form-check-label" for="pkg2">2000 PKR</label>
+                            </div>
+                            <div class="form-check form-check-inline float-left" style="margin: 0 7%;">
+                                <input class="form-check-input" name="pkg" type="radio" id="pkg3" value="5000" checked>
+                                <label class="form-check-label" for="pkg3">5000 PKR</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col mx-auto">
+                        
+                        <i class="fa fa-credit-card"></i>
+                        <h4>Credit Card</h4>
+                        <div id="nav-tab-card" class="tab-pane fade show active">
+                            <p class="alert alert-success" hidden>Some text success or error</p>
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="cardName" class="float-left">Full name</label>
+                                    <input type="text" id="cardName" placeholder="Your Name on Card" required
+                                        class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardNumber" class="float-left">Card number</label>
+                                    <div class="input-group">
+                                        <input type="text" id="cardNumber" placeholder="Your Card Number"
+                                            class="form-control" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-muted">
+                                                <i class="fa fa-cc-visa mx-1"></i>
+                                                <i class="fa fa-cc-amex mx-1"></i>
+                                                <i class="fa fa-cc-mastercard mx-1"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label><span class="hidden-xs">Expiration</span></label>
+                                            <div class="input-group">
+                                                <input type="number" placeholder="MM" id="cardMonth"
+                                                    class="form-control" required>
+                                                <input type="number" placeholder="YY" id="cardYear"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group mb-4">
+                                            <label data-toggle="tooltip"
+                                                title="Three-digits code on the back of your card">CVV
+                                                <i class="fa fa-question-circle"></i>
+                                            </label>
+                                            <input type="text" id="CVV" required class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                                <div class="g-recaptcha" data-sitekey="6LdBgnoaAAAAANqS73wudosG5HbwXII4QcvLZ5XB">
+                                </div>
+                                <button class="btn btn-primary" type="submit" value="OK">Confirm</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <button class="btn btn-primary" type="submit" value="OK"
+                        style="margin-top: 10px;padding-right: 60px;padding-left: 60px;">POST</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script>
+    function checkfeature() {
+        if (document.getElementById("feature-c").checked) {
+            document.getElementById("feature-block").style.display = "block";
+        } else {
+            document.getElementById("feature-block").style.display = "none";
+        }
+    }
+
+</script>
+{% endblock body %}
