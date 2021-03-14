@@ -22,7 +22,7 @@
  <body>
      <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
          <div class="container">
-            <a class="navbar-brand" href="home/">
+            <a class="navbar-brand" href="../">
                 <img src="{% static 'assets/img/logo.png' %}" alt="RIGGED logo" style="height: 50px;">
             </a>
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
@@ -66,7 +66,10 @@
 
 {% endblock body %}
 
-<!-- <script>
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script>
     $("#login-b").click(function(){
         if (loggedin){
             document.getElementById("login-b").innerHTML = "Log In | Sign Up";
@@ -102,7 +105,7 @@
             $('#LoginModal').modal('show');
         }
     });
-</script> -->
+</script>
 
 
     <footer class="footer">
@@ -130,9 +133,6 @@
             </div>
         </div>
     </footer>
-    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/script.js' %}"></script>
 </body>
 
 </html>

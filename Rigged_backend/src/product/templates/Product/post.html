@@ -88,7 +88,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-row">
                 <div class="col-12">
                     <div class="form-check form-switch">
@@ -101,84 +100,81 @@
                 </div>
             </div>
 
-            <div id="feature-block" style="display: none;">
+            <div id="feature-block" class="bg-white rounded-lg shadow-sm p-5" style="display: none;margin:1%">
                 <div class="row">
-                    <div class="col ">
+                    <div class="col">
                         <div class="form-check" style="margin:1%">
-                            <label class="float-left" style="margin: 0 1%;">Select Package:</label>
-                            <div class="form-check form-check-inline float-left">
-                                <input class="form-check-input" type="radio" id="pkg1" value="5">
-                                <label class="form-check-label" for="pkg1">5 usd</label>
+                            <label class="float-left">Select Package:</label>
+                            <div class="form-check form-check-inline float-left" style="margin: 0 7%;">
+                                <input class="form-check-input" name="pkg" type="radio" id="pkg1" value="1000">
+                                <label class="form-check-label" for="pkg1">1000 PKR</label>
                             </div>
-                            <div class="form-check form-check-inline float-left">
-                                <input class="form-check-input" type="radio" id="pkg2" value="20">
-                                <label class="form-check-label" for="pkg2">20 usd</label>
+                            <div class="form-check form-check-inline float-left" style="margin: 0 7%;">
+                                <input class="form-check-input" name="pkg" type="radio" id="pkg2" value="2000">
+                                <label class="form-check-label" for="pkg2">2000 PKR</label>
                             </div>
-                            <div class="form-check form-check-inline float-left">
-                                <input class="form-check-input" type="radio" id="pkg3" value="50" checked>
-                                <label class="form-check-label" for="pkg3">50 usd</label>
+                            <div class="form-check form-check-inline float-left" style="margin: 0 7%;">
+                                <input class="form-check-input" name="pkg" type="radio" id="pkg3" value="5000" checked>
+                                <label class="form-check-label" for="pkg3">5000 PKR</label>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-                <div class="row" style="margin:1%">
+                
+                <div class="row">
                     <div class="col mx-auto">
-                        <div class="bg-white rounded-lg shadow-sm p-5">
-                            <i class="fa fa-credit-card"></i>
-                            <h4>Credit Card</h4>
-                            <div id="nav-tab-card" class="tab-pane fade show active">
-                                <p class="alert alert-success" hidden>Some text success or error</p>
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label for="cardName" class="float-left">Full name</label>
-                                        <input type="text" id="cardName" placeholder="Your Name on Card" required
-                                            class="form-control">
+                        
+                        <i class="fa fa-credit-card"></i>
+                        <h4>Credit Card</h4>
+                        <div id="nav-tab-card" class="tab-pane fade show active">
+                            <p class="alert alert-success" hidden>Some text success or error</p>
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="cardName" class="float-left">Full name</label>
+                                    <input type="text" id="cardName" placeholder="Your Name on Card" required
+                                        class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardNumber" class="float-left">Card number</label>
+                                    <div class="input-group">
+                                        <input type="text" id="cardNumber" placeholder="Your Card Number"
+                                            class="form-control" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-muted">
+                                                <i class="fa fa-cc-visa mx-1"></i>
+                                                <i class="fa fa-cc-amex mx-1"></i>
+                                                <i class="fa fa-cc-mastercard mx-1"></i>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="cardNumber" class="float-left">Card number</label>
-                                        <div class="input-group">
-                                            <input type="text" id="cardNumber" placeholder="Your Card Number"
-                                                class="form-control" required>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text text-muted">
-                                                    <i class="fa fa-cc-visa mx-1"></i>
-                                                    <i class="fa fa-cc-amex mx-1"></i>
-                                                    <i class="fa fa-cc-mastercard mx-1"></i>
-                                                </span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label><span class="hidden-xs">Expiration</span></label>
+                                            <div class="input-group">
+                                                <input type="number" placeholder="MM" id="cardMonth"
+                                                    class="form-control" required>
+                                                <input type="number" placeholder="YY" id="cardYear"
+                                                    class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <label><span class="hidden-xs">Expiration</span></label>
-                                                <div class="input-group">
-                                                    <input type="number" placeholder="MM" id="cardMonth"
-                                                        class="form-control" required>
-                                                    <input type="number" placeholder="YY" id="cardYear"
-                                                        class="form-control" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group mb-4">
-                                                <label data-toggle="tooltip"
-                                                    title="Three-digits code on the back of your card">CVV
-                                                    <i class="fa fa-question-circle"></i>
-                                                </label>
-                                                <input type="text" id="CVV" required class="form-control">
-                                            </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group mb-4">
+                                            <label data-toggle="tooltip"
+                                                title="Three-digits code on the back of your card">CVV
+                                                <i class="fa fa-question-circle"></i>
+                                            </label>
+                                            <input type="text" id="CVV" required class="form-control">
                                         </div>
                                     </div>
-                                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-                                    <div class="g-recaptcha" data-sitekey="6LdBgnoaAAAAANqS73wudosG5HbwXII4QcvLZ5XB">
-                                    </div>
-                                </form>
-                            </div>
-
-
+                                </div>
+                                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                                <div class="g-recaptcha" data-sitekey="6LdBgnoaAAAAANqS73wudosG5HbwXII4QcvLZ5XB">
+                                </div>
+                                <button class="btn btn-primary" type="submit" value="OK">Confirm</button>
+                            </form>
                         </div>
                     </div>
                 </div>
