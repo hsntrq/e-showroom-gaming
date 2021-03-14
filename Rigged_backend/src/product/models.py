@@ -34,17 +34,7 @@ class Product(models.Model):
         if not self.slug and self.name : 
             self.slug = slugify(self.name)   # will remove spaces in the product name and replace it with underscore
         super(Product, self).save(*args, **kwargs)
-    def create_new(self, Name, Owner, Desc, Cond, Cat, Brand, Price, Img, Time):
-
-        self.name = Name
-        self.owner = Owner
-        self.description = Desc
-        self.condition = Cond
-        self.brand = Brand
-        self.price = Price
-        self.image = Img
-        self.created = Time 
-
+    
     def __str__(self):
         return self.name
 
