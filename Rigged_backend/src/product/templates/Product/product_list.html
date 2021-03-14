@@ -29,21 +29,6 @@
 	<div class="container">
 		<div class="row">
 			{% for product in product_list %}
-				<!-- <a href="{% url 'products:product_detail' product.slug %}">
-					<li>
-					
-					<section class="list-left">
-					<h5 class="title">{{product.name}}</h5>
-					<span class="adprice">${{product.price}}</span>
-					<p class="catpath">Mobile Phones » {{product.brand}}</p>
-					</section>
-					<section class="list-right">
-					<span class="date">Date, {{product.created}}</span>
-					<span class="cityname">City name</span>
-					</section>
-					<div class="clearfix"></div>
-					</li> 
-				</a> -->
 				<div class="col-md-3">
 					<a class="ad-box" href="{% url 'products:product_detail' product.slug %}">
 					<div class="mx-auto mb-5 mb-lg-0 mb-lg-3" style="border-radius: 10px;border-width: 0px;border-style: solid;">
@@ -52,7 +37,6 @@
 							<span class="badge badge-warning">{{product.price}}</span>
 						</div>
 						<h3 style="margin: 20px 0 0;">{{product.name}}</h3>
-						<p class="lead mb-0">Ad 1 description</p>
 					</div>
 					</a>
 				</div>
