@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, ProductImages
 from .forms import PostAd 
 
@@ -32,12 +32,31 @@ def productdetail(request, product_slug):
 
 def create(request):
     if request.method == 'POST':
+        
         form = PostAd(request.POST, request.FILES)
         if form.is_valid():
             new = form.save(commit=False)
             new.owner = request.user
             new.save()
+            return redirect('home')
         else:
             pass
     else:
        return render(request, 'Product/post.html', {'form':PostAd()}) 
+    # if request.method == 'POST':
+    #     title = request.POST['product_title']
+    #     price = request.POST['price']
+    #     brand = request.POST['brand']
+    #     condition = request.POST['condition']
+    #     category = request.POST['categories']
+    #     description = request.POST['description']
+    # context ={
+    #         'product_title': product_title,
+    #         'price': price,
+    #         'brand': email,
+    #         'condition': condition,
+    #         'categories': category,
+    #         'description': description,
+    #     }
+
+    # return render(request, 'Product/post.html', context) 
