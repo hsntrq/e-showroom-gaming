@@ -15,7 +15,7 @@ class Product(models.Model):
     )
     ## will contain product information
     name = models.CharField(max_length=100)
-    owner = models.CharField(max_length=50, default='Hasan')
+    owner = models.CharField(max_length=50, default='HasanNaseem')
     description = models.TextField(max_length=500)
     condition = models.CharField(max_length=100, choices = CONDITION_TYPE)
     category = models.ForeignKey('Category', on_delete = models.SET_NULL, null = True)
