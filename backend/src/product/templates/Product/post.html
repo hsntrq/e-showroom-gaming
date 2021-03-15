@@ -6,60 +6,60 @@
 <section class="text-center" style="background: #ffffff;">
     <div class="container" style="border-radius: 8px;padding: 10px;width: auto;">
         <h2 id="postH" class="text-left" style="padding-left: 12px;">DETAILS OF YOUR PRODUCT:</h2>
-        <form style="background: #f4f4f4;padding: 15px;border-radius: 12px;" action = '/post.html' method="POST">
+        <form style="background: #f4f4f4;padding: 15px;border-radius: 12px;" method="POST" action = '.' enctype="multipart/form-data">{% csrf_token %}
             <div class="form-row">
                 <div class="col-sm-12 col-md-6">
-                    <label class="float-left" for="product_title">Ad Title: *&nbsp;</label>
-                    <input class="form-control" type="text" id="product_title" name="product_title"  placeholder="Enter Product Title..." required value = {{name}} >
+                    <label class="float-left" for="name">Ad Title: *&nbsp;</label>
+                    <input class="form-control" type="text" id="product_title" name="name"  placeholder="Enter Product Title..." required>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <label class="float-left" for="price">Set a Price: *</label>
-                    <input class="form-control" type="number" id="price" name="price"  placeholder="Enter Price..." required value={{price}}>
+                    <input class="form-control" type="number" id="price" name="price"  placeholder="Enter Price..." required>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label class="float-left" for="owner">Owner: *</label>
+                    <input class="form-control" type="text" name="owner"  placeholder="Enter Your Name..." required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-sm-12 col-md-6">
                     <label class="float-left" for="brand">Brand: *&nbsp;</label>
-                    <input class="form-control" type="text" id="brand" name="brand"  placeholder="Enter the Brand of Your Product..." required value={{brand}}>
+                    <input class="form-control" type="text" name="brand"  placeholder="Enter the Brand of Your Product..." required>
                     </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="float-left" style="padding-left: 15px;padding-top: 20px;">
                         <div class="form-check">
-                            <input type="radio" id="radio-1" class="form-check-input" name="condition" value = {{condition}}> 
-                            <label class="form-check-label" for="radio-1">New</label>
+                            <input type="radio" id="radio-1" class="form-check-input" name="condition" value="New"> 
+                            <label class="form-check-label" for="condition">New</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" id="radio-2" class="form-check-input" name="condition" value = {{condition}}>
-                            <label class="form-check-label" for="radio-2">Used</label></div>
+                            <input type="radio" id="radio-2" class="form-check-input" name="condition" value="Used">
+                            <label class="form-check-label" for="condition">Used</label></div>
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-12">
-                    <label class="float-left" for="categories">Categories: *&nbsp;</label>
-                    <select class="form-control" id="categories" name="categories" value = {{category}} style="margin-bottom: 5px;">
+                    <label class="float-left" for="category">Categories: *&nbsp;</label>
+                    <select class="form-control" name="category" style="margin-bottom: 5px;">
                         <option value="None" selected="" hidden="">Select a Category for Your Product Here...</option>
-                        <option value="vgames">Video Games</option>
-                        <option value="console">Console</option>
-                        <option value="mouse">Gaming Mouse</option>
-                        <option value="keyboard">Gaming Keyboard</option>
-                        <option value="headphones">Headphones</option>
-                        <option value="mpad">Mouse Pad</option>
-                        <option value="gcard">Graphic Card</option>
-                        <option value="processor">Processor</option>
+                        <option value="2">Console</option>
+                        <option value="4">Gaming Mouse</option>
+                        <option value="1">Gaming Keyboard</option>
+                        <option value="3">Headphones</option>
+                        <option value="5">Graphic Card</option>
+                        <option value="6">Processor</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-sm-12 col-md-6">
                     <label class="float-left" for="description">Description: *&nbsp;</label>
-                    <textarea class="form-control" id="description" name="description" value = {{description}} placeholder="Enter Description of Your Product Here... (less than 500 characters)"
-                        style="height: 200px;" maxlength="500" required></textarea>
+                    <textarea class="form-control" name="description" placeholder="Enter Description of Your Product Here... (less than 500 characters)" style="height: 200px;" maxlength="500" required></textarea>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-row">
-                        <div class="col-sm-12"><label class="col-form-label float-left" for="price">Upload Photos:
-                                *</label></div>
+                        <div class="col-sm-12"><label class="col-form-label float-left" for="image">Upload Photos:*</label></div>
                         <div class="col-sm-12">
                             <div class="dashed_upload">
                                 <div class="wrapper">
@@ -76,13 +76,10 @@
                                                 click here to browse
                                             </div>
                                         </div>
-                                        <output id="list"></output><input id="files" multiple name="files[]" type="file"
-                                            accept="image/*" />
+                                        <input id="files" name="image" type="file" accept="image/*" />
                                     </div>
                                 </div>
                                 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-                                
                             </div>
                         </div>
                     </div>
@@ -100,7 +97,7 @@
                 </div>
             </div>
 
-            <div id="feature-block" class="bg-white rounded-lg shadow-sm p-5" style="display: none;margin:1%">
+            <!-- <div id="feature-block" class="bg-white rounded-lg shadow-sm p-5 container" style="display: none;margin:1%">
                 <div class="row">
                     <div class="col">
                         <div class="form-check" style="margin:1%">
@@ -127,8 +124,6 @@
                         <i class="fa fa-credit-card"></i>
                         <h4>Credit Card</h4>
                         <div id="nav-tab-card" class="tab-pane fade show active">
-                            <p class="alert alert-success" hidden>Some text success or error</p>
-                            <form role="form">
                                 <div class="form-group">
                                     <label for="cardName" class="float-left">Full name</label>
                                     <input type="text" id="cardName" placeholder="Your Name on Card" required
@@ -173,16 +168,14 @@
                                 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                                 <div class="g-recaptcha" data-sitekey="6LdBgnoaAAAAANqS73wudosG5HbwXII4QcvLZ5XB">
                                 </div>
-                                <button class="btn btn-primary" type="submit" value="OK">Confirm</button>
-                            </form>
+                                <button class="btn btn-primary" type="button" value="OK">Confirm</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="form-row">
                 <div class="col">
-                    <button class="btn btn-primary" type="submit" value="OK"
-                        style="margin-top: 10px;padding-right: 60px;padding-left: 60px;">POST</button>
+                    <input class="btn btn-primary" type="submit" value="POST" style="margin-top: 10px;padding-right: 60px;padding-left: 60px;">
                 </div>
             </div>
         </form>
