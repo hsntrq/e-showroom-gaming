@@ -7,8 +7,6 @@ package.json
 package-lock.json
 .vs
 *.json
-<<<<<<< HEAD
-=======
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -148,4 +146,3 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
->>>>>>> feature
