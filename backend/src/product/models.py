@@ -11,8 +11,9 @@ class Product(models.Model):
 
     CONDITION_TYPE = (
         ("New", "New"),
-        ("Used", "Used")
+        ("Used", "Used")    
     )
+    PACKAGES = {"1000":1000, "0":0, "2000": 2000, "5000":5000}
     ## will contain product information
     name = models.CharField(max_length=100)
     owner = models.CharField(max_length=50, default='HasanNaseem')
@@ -23,7 +24,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places = 2)
     image = models.ImageField(upload_to='main_product/', blank = True, null = True)
     created = models.DateTimeField(default = timezone.now)
-
+    featured = models.CharField(max_length=6, default = "z")
     slug = models.SlugField(blank=True, null=True)
 
     def image_url(self):

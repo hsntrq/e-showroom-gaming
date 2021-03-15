@@ -22,7 +22,7 @@
  <body>
      <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
          <div class="container">
-            <a class="navbar-brand" href="../">
+            <a class="navbar-brand" href=".">
                 <img src="{% static 'assets/img/logo.png' %}" alt="RIGGED logo" style="height: 50px;">
             </a>
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
@@ -99,11 +99,12 @@
         }
     });
     $("#post-ad").click(function(){
-        if (loggedin){
-            window.location.href = "post.html"
-        } else {
-            $('#LoginModal').modal('show');
-        }
+        // if (loggedin){
+        //     window.location.href = "post.html"
+        // } else {
+        //     $('#LoginModal').modal('show');
+        // }
+        window.location.href = "post.html";
     });
 </script>
 

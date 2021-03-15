@@ -12,4 +12,5 @@ class PostAd(forms.ModelForm):
            'condition',
             'category',
             'description',
-             'image']
+             'image',
+             'featured']

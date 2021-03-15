@@ -5,7 +5,7 @@ from .forms import PostAd
 # Create your views here.
 
 def productlist(request):
-    productlist = Product.objects.all() # will retrieve all the products in our database
+    productlist = Product.objects.all().order_by('featured') # will retrieve all the products in our database
     
     template = 'Product/product_list.html'
 
@@ -35,10 +35,6 @@ def create(request):
         print(form)
         if form.is_valid():
             print('yes')
-            # new = form.save(commit=False)
-            # new.image = request.FILES.get('image')
-            # new.save()
-
             form.save()
             form = PostAd(request.POST, request.FILES)
         else:
