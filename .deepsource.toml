@@ -1,0 +1,40 @@
+version = 1
+
+test_patterns = [
+    "*.py",
+    "*.html",
+    "*.js",
+    "*.css"
+]
+
+exclude_patterns = [
+    "*.log",
+    "local_settings.py",
+    ".env",
+    ".venv",
+    "env/",
+    "venv/",
+    "ENV/",
+    "env.bak/",
+    "venv.bak/",
+    "__pycache__/",
+    "*.py[cod]",
+    "*$py.class"
+]
+
+[[analyzers]]
+name = "python"
+enabled = true
+
+  [analyzers.meta]
+  runtime_version = "3.x.x"
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  environment = [
+    "browser",
+    "jquery"
+  ]
