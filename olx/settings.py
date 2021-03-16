@@ -138,3 +138,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # django_heroku.settings(locals())
+MIDDLEWARE_CLASSES = (
+    'raygun4py.middleware.django.Provider'
+)
+RAYGUN4PY_API_KEY = 'fmDpX72NyRuk7avFrsnFQ'
