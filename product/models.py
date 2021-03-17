@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
+import datetime
 from django.utils.text import slugify
 
 
@@ -23,7 +23,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=50 , default="Sony")
     price = models.DecimalField(max_digits=10, decimal_places = 2)
     image = models.ImageField(upload_to='main_product/', blank = True, null = True)
-    created = models.DateTimeField(default = timezone.now)
+    created = models.DateField(default = datetime.datetime.now)
     featured = models.CharField(max_length=6, default = "z")
     slug = models.SlugField(blank=True, null=True)
 

@@ -188,7 +188,7 @@
                             <label class="form-check-label" for="featured">5000 PKR</label>
                         </div>
                         <div class="form-check form-check-inline" style="margin: 0 5%;" hidden>
-                            <input class="form-check-input" type="radio" name="featured" id="pkg3" value="z" checked>
+                            <input class="form-check-input" type="radio" name="featured" id="pkg4" value="z" checked>
                         </div>
                     </div>
                 </div>
@@ -203,14 +203,15 @@
 </section>
 <script>
     $(document).ready(function(){
-        document.getElementById("feature-block").style.display = "none";
-        document.getElementById("post-ad").style.display = "none";
+        $("#feature-c").prop("checked", false);
+        checkfeature();
     });
     function checkfeature(){
         if (document.getElementById("feature-c").checked){
-            document.getElementById("feature-block").style.display = "block";
+            $("#feature-block").css("display","block");
         } else {
-            document.getElementById("feature-block").style.display = "none";
+            $("#feature-block").css("display","none");
+            $("#pkg4").prop("checked", true);
         }
     }
 
