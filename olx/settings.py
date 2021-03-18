@@ -76,19 +76,21 @@ WSGI_APPLICATION = 'olx.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'db.sqlite3')
-        # 'ENGINE' : 'sql_server.pyodbc',
-        # 'PORT' : '1433',
-        # 'NAME' : 'Test',
-        # 'PASSWORD' : 'rigged',
-        # 'OPTIONS': {
-        #     'driver': 'ODBC Driver 17 for SQL Server',
-        #     'unicode_results': True,
-        # },
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'rigged-db',
+        'USER': 'db-manage',
+        'PASSWORD': 'cc5e0cf6cc53ea7cbd5f015a_',
+        'HOST': 'riggd.database.windows.net',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR,'db.sqlite3')
     }
 }
 
+DATABASE_CONNECTION_POOLING = False
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
