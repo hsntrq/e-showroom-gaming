@@ -36,7 +36,8 @@ def create(request):
         if form.is_valid():
             print('yes')
             form.save()
-            form = PostAd(request.POST, request.FILES)
+            return redirect('/home')
+            # form = PostAd(request.POST, request.FILES)
         else:
             print('no')
         context = {
