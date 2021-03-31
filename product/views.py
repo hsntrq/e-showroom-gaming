@@ -14,9 +14,8 @@ def productlist(request):
     return render(request, template, context)
 
 def search(request):
-    
-    categorylist = models.Category.objects.all()
-    context = {'category_list' : categorylist}
+    productlist = models.Product.objects.all()
+    context = {'product_list' : productlist}
     template = 'Product/search.html'
     return render(request, template, context)
 
