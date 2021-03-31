@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'product',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -76,17 +77,17 @@ WSGI_APPLICATION = 'olx.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'rigged-db',
-        'USER': 'db-manage',
-        'PASSWORD': 'cc5e0cf6cc53ea7cbd5f015a_',
-        'HOST': 'riggd.database.windows.net',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR,'db.sqlite3')
+        # 'ENGINE': 'sql_server.pyodbc',
+        # 'NAME': 'rigged-db',
+        # 'USER': 'db-manage',
+        # 'PASSWORD': 'cc5e0cf6cc53ea7cbd5f015a_',
+        # 'HOST': 'riggd.database.windows.net',
+        # 'PORT': '1433',
+        # 'OPTIONS': {
+        #     'driver': 'ODBC Driver 17 for SQL Server',
+        # },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'db.sqlite3')
     }
 }
 
