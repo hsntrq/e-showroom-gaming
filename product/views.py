@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Product, ProductImages
+from . import models
 from .forms import PostAd 
 
 # Create your views here.
 
 def productlist(request):
-    productlist = Product.objects.all().order_by('featured') # will retrieve all the products in our database
+    productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
     
     template = 'Product/product_list.html'
 
@@ -13,14 +13,24 @@ def productlist(request):
     
     return render(request, template, context)
 
+def search(request):
+    
+    categorylist = models.Category.objects.all()
+    context = {'category_list' : categorylist}
+    template = 'Product/search.html'
+    return render(request, template, context)
 
+
+def chat(request):
+    template = 'Product/chat.html'
+    return render(request, template)
 
 def productdetail(request, product_slug):
     # print(product_slug)
     
     # print(product_slug)
-    productdetail = Product.objects.get(slug = product_slug)
-    productimages = ProductImages.objects.filter(product=productdetail)
+    productdetail = models.Product.objects.get(slug = product_slug)
+    productimages = models.ProductImages.objects.filter(product=productdetail)
     template = 'Product/product_detail.html'
     context = {'product_detail' : productdetail, 'product_images' : productimages}
     return render(request, template, context)
