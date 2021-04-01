@@ -3,14 +3,22 @@ from . import models
 from .forms import PostAd 
 from django.db.models import Q
 from django.db.models import Count
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from . import serializers
+
+ 
+
 # Create your views here.
 
 
-# class ProductListView(APIView):
-#     def get(self, request):
-#         p = models.Product.objects.all()
-#         serializer = serializers.ProductSerializer(p, many = True)
-#         return Response(serializer.data)
+class ProductListView(APIView):
+    def get(self, request):
+        p = models.Product.objects.all()
+        serializer = serializers.ProductSerializer(p, many = True)
+        return Response(serializer.data)
 
 
 # ******************************************************************************************************
