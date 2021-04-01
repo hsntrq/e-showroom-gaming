@@ -1,8 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
-# from . import serializers
+from django.shortcuts import render, redirect
 from . import models
 from .forms import PostAd 
 from django.db.models import Q
@@ -19,7 +15,6 @@ from django.db.models import Count
 
 # ******************************************************************************************************
 def productlist(request):
-        
     productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
     
     search_query = request.GET.get('q')
@@ -38,16 +33,16 @@ def productlist(request):
     
     return render(request, template, context)
 
-def categorylist(request):
-
-    CategoryList = models.Category.objects.annotate(total_products = Count('product'))
-    productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
-
-
-    context = {'category_list' : CategoryList}
+def search(request):
+    productlist = models.Product.objects.all()
     context = {'product_list' : productlist}
+    template = 'Product/search.html'
+    return render(request, template, context)
 
 
+def chat(request):
+    template = 'Product/chat.html'
+    return render(request, template)
 
 def productdetail(request, product_slug):
     # print(product_slug)
