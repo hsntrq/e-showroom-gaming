@@ -16,12 +16,13 @@
     <link rel="stylesheet" href="{% static 'assets/css/Drag--Drop-Upload-Form.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Search-Field-With-Icon.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/chat.css' %}">
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
+    <!-- <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
         <div class="container">
             <a class="navbar-brand" href="/home">
                 <img src="{% static 'assets/img/logo.png' %}" alt="RIGGED logo" style="height: 50px;">
@@ -30,6 +31,54 @@
             <div class="collapse navbar-collapse" id="navcol-1"></div>
             <button class="btn btn-primary ml-auto nav-b" role="button" id="login-b">Log In | Sign Up</button>
             <button class="btn btn-primary ml-auto nav-b" role="button" id="post-ad">Post Ad</button>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="{% static 'assets/img/logo.png' %}" alt="RIGGED logo" style="height: 50px;">
+            </a>
+            <div class="dropdown" style="margin-right: auto;">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  All Categories
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li> <a class="dropdown-item" href="#">Bikes</a> </li>
+                  <li><a class="dropdown-item" href="#">Generator</a> </li>
+                  <li><a class="dropdown-item" href="#">Mobile  &raquo;</a>
+                    <ul class="submenu dropdown-menu align-right" style="top: 0%; left: 100%;">
+                        <li><a class="dropdown-item" href="#">Oppo</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                      </ul>
+                  </li>
+                <li><a class="dropdown-item" href="#">Sports</a> </li>
+                <li><a class="dropdown-item" href="#">Cloths &raquo;</a> 
+                    <ul class="submenu dropdown-menu align-right" style="top: 0%; left: 100%;">
+                        <li><a class="dropdown-item" href="#">Oppo</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                        <li><a class="dropdown-item" href="#">QMobile</a></li>
+                      </ul>
+                </li>
+                <li><a class="dropdown-item" href="#">Other</a> </li>
+    
+                </div>
+            <form class="input-group" method="GET" action="{% url 'product:search' %}" style="width: 30%;">
+                <input type="text" aria-label="First name" class="form-control" placeholder="What are you looking for..." name="q" required>
+                <div class="input-group-prepend"  style="cursor: pointer;">
+                    <button type="submit" class="input-group-text">Search</button>
+                </div>  
+            </form>
+            <!-- <div class="collapse navbar-collapse" id="navcol-1"></div> -->
+            
+            <a class="btn btn-primary ml-auto nav-b" role="button" id="login-b" href="#">Log In | Sign Up</a>
+            <a class="btn btn-primary nav-b" role="button" id="post-ad" href="#">Post Ad</a>
+            
         </div>
     </nav>
 
@@ -182,7 +231,7 @@
             // } else {
             //     $('#LoginModal').modal('show');
             // }
-            window.location.href = "post.html";
+            window.location.href = "/home/post.html";
         });
     </script>
 

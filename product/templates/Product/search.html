@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block body %}
+
+  <!-- <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/img/logo.png" alt="RIGGED logo" style="height: 50px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
+        <div class="collapse navbar-collapse" id="navcol-1"></div><a class="btn btn-primary ml-auto nav-b" role="button" id="login-b" href="#">Log In | Sign Up</a><a class="btn btn-primary ml-auto nav-b" role="button" id="post-ad" href="#">Post Ad</a>
+    </div>
+</nav> -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3 mt-4">
+                <h5> PRICE </h5>
+                <p>Choose a range below</p>
+                <input class="form-group" size="8" placeholder="min" /> to <input placeholder="max" class="form-group" size="8" /> 
+                <button  type="button" class="btn btn-primary" style="margin-left: 60px;">Apply</button>
+            </div>
+            <div class="col-9 my-4">
+                <span style="font-size: 22px;">
+                    Sort By: 
+                </span>
+                <div class="dropdown" style="display: inline-block;">
+                    <button style="background: transparent; color: #000000;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Name
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Name</a>
+                        <a class="dropdown-item" href="#">Date</a>
+                        <a class="dropdown-item" href="#">Price-High</a>
+                        <a class="dropdown-item" href="#">Price-Low</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-3 col-9">
+
+                <!-- product -->
+              {% for product in product_list %}
+                <div class="card mb-3" style="max-width: 700px;">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img class="ad img-fluid" src="{{ product.image_url|default_if_none:'#' }}" alt="{{product.name}}" >
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{product.name}}</h5>
+                          <h6 class= "price" style="color: #FFC107">{{product.price}} </h6>
+                          <p class="card-text">{{product.description}}</p>
+                          <p class="card-text"><small class="text-muted">{{product.created}}</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock body %}
