@@ -119,12 +119,9 @@
                     <label class="float-left" for="category">Categories: *&nbsp;</label>
                     <select class="form-control" name="category" style="margin-bottom: 5px;" required>
                         <option selected disabled hidden>Select a Category for Your Product Here...</option>
-                        <option value="2">Console</option>
-                        <option value="4">Gaming Mouse</option>
-                        <option value="1">Gaming Keyboard</option>
-                        <option value="3">Headphones</option>
-                        <option value="5">Graphic Card</option>
-                        <option value="6">Processor</option>
+                        {% for category in category_list%}
+                            <option value="{{category.id }}">{{category.category_name}}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

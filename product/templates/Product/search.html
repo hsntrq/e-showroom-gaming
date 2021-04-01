@@ -16,9 +16,11 @@
         <div class="row">
             <div class="col-3 mt-4">
                 <h5> PRICE </h5>
-                <p>Choose a range below</p>
-                <input class="form-group" size="8" placeholder="min" /> to <input placeholder="max" class="form-group" size="8" /> 
-                <button  type="button" class="btn btn-primary" style="margin-left: 60px;">Apply</button>
+                <p>Choose a price range below</p>
+                <input id="min-price" class="form-group" size="8" value="" placeholder="min" />
+                 to 
+                <input id="max-price" placeholder="max" value="" class="form-group" size="8" /> 
+                <button type="button" class="btn btn-primary" style="margin-left: 60px;" onclick="price()">Apply</button>
             </div>
             <div class="col-9 my-4">
                 <span style="font-size: 22px;">
@@ -29,19 +31,20 @@
                       Name
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Name</a>
-                        <a class="dropdown-item" href="#">Date</a>
-                        <a class="dropdown-item" href="#">Price-High</a>
-                        <a class="dropdown-item" href="#">Price-Low</a>
+                        <a class="dropdown-item" onclick="sort('name')">Name</a>
+                        <a class="dropdown-item" onclick="sort('date')">Date</a>
+                        <a class="dropdown-item" onclick="sort('priceh')">Price-High</a>
+                        <a class="dropdown-item" onclick="sort('pricel')">Price-Low</a>
                     </div>
                   </div>
             </div>
         </div>
         <div class="row">
             <div class="offset-3 col-9">
-
+              {% if product_list %}
                 <!-- product -->
               {% for product in product_list %}
+              <a class="ad-box" href="{% url 'products:product_detail' product.slug %}">
                 <div class="card mb-3" style="max-width: 700px;">
                     <div class="row no-gutters">
                       <div class="col-md-4">
@@ -57,7 +60,14 @@
                       </div>
                     </div>
                   </div>
+                  </a>
               {% endfor %}
+
+              {% else %}
+            <section style="padding: 0 0 30% 0; text-align:left" >
+                <h4 style="color: #A52A2A">No Results Found</h1>
+            </section>
+              {% endif %}
             </div>
 
         </div>

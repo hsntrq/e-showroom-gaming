@@ -43,32 +43,21 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   All Categories
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form id="category_menu" method="GET" action="{% url 'product:search' %}">
+                    <ul class="dropdown-menu" name="category" style="margin-bottom: 5px;" aria-labelledby="dropdownMenuButton">
+                        {% for category in category_list%}
+                            <li><a class="dropdown-item" href="/home/search.html/?category={{category.category_name}}">
+                                {{category.category_name}}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </form>
+                
+                <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <li> <a class="dropdown-item" href="#">Bikes</a> </li>
-                  <li><a class="dropdown-item" href="#">Generator</a> </li>
-                  <li><a class="dropdown-item" href="#">Mobile  &raquo;</a>
-                    <ul class="submenu dropdown-menu align-right" style="top: 0%; left: 100%;">
-                        <li><a class="dropdown-item" href="#">Oppo</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                      </ul>
-                  </li>
-                <li><a class="dropdown-item" href="#">Sports</a> </li>
-                <li><a class="dropdown-item" href="#">Cloths &raquo;</a> 
-                    <ul class="submenu dropdown-menu align-right" style="top: 0%; left: 100%;">
-                        <li><a class="dropdown-item" href="#">Oppo</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                        <li><a class="dropdown-item" href="#">QMobile</a></li>
-                      </ul>
-                </li>
-                <li><a class="dropdown-item" href="#">Other</a> </li>
-    
-                </div>
-            <form class="input-group" method="GET" action="{% url 'product:search' %}" style="width: 30%;">
+                </ul> -->
+            </div>
+            <form id="searchbar" class="input-group" method="GET" action="{% url 'product:search' %}" style="width: 30%;">
                 <input type="text" aria-label="First name" class="form-control" placeholder="What are you looking for..." name="q" required>
                 <div class="input-group-prepend"  style="cursor: pointer;">
                     <button type="submit" class="input-group-text">Search</button>
