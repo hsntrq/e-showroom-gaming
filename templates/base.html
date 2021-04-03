@@ -46,7 +46,7 @@
                 <form id="category_menu" method="GET" action="{% url 'product:search' %}">
                     <ul class="dropdown-menu" name="category" style="margin-bottom: 5px;" aria-labelledby="dropdownMenuButton">
                         {% for category in category_list%}
-                            <li><a class="dropdown-item" href="/home/search.html/?category={{category.category_name}}">
+                            <li><a class="dropdown-item" href="/search/?category={{category.category_name}}">
                                 {{category.category_name}}
                             </a></li>
                         {% endfor %}
@@ -66,7 +66,7 @@
             <!-- <div class="collapse navbar-collapse" id="navcol-1"></div> -->
             
             <a class="btn btn-primary ml-auto nav-b" role="button" id="login-b" href="#">Log In | Sign Up</a>
-            <a class="btn btn-primary nav-b" role="button" id="post-ad" href="#">Post Ad</a>
+            <a class="btn btn-primary nav-b" role="button" id="post-ad">Post Ad</a>
             
         </div>
     </nav>
@@ -220,7 +220,7 @@
             // } else {
             //     $('#LoginModal').modal('show');
             // }
-            window.location.href = "/home/post.html";
+            window.location.href = "/post";
         });
     </script>
 

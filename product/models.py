@@ -13,9 +13,8 @@ class Product(models.Model):
         ("New", "New"),
         ("Used", "Used")    
     )
-    PACKAGES = {"1000":1000, "0":0, "2000": 2000, "5000":5000}
     ## will contain product information
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     owner = models.CharField(max_length=50, default='HasanNaseem')
     description = models.TextField(max_length=500)
     condition = models.CharField(max_length=100, choices = CONDITION_TYPE)
