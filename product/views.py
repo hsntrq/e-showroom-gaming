@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers
-
+from rest_framework.generics import ListAPIView
  
 
 # Create your views here.
@@ -25,18 +25,6 @@ class ProductListView(APIView):
 def productlist(request):
     CategoryList = models.Category.objects.all()
     productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
-    
-    # search_query = request.GET.get('q')
-    # if search_query:
-    #     print(search_query) # will print search query in cd
-    #     productlist = productlist.filter(
-    #         Q(name__icontains = search_query) | 
-    #         Q(description__icontains = search_query) | 
-    #         Q(condition__icontains = search_query) 
-    #         # Q(brand__brand_name__icontains = search_query)
-    #     )
-
-    
     template = 'Product/product_list.html'
     context = {'category_list' : CategoryList, 'product_list':productlist}
     
