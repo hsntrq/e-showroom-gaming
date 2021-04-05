@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import Home from "./home";
+import Products from './products';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 export default class App extends Component {
   constructor(props) {
@@ -9,9 +16,12 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <Home />
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/" render={() => {return <Redirect to="/home" />;}} />
+          <Route exact path="/home" component={Products}/>
+        </Switch>
+      </Router>
     );
   }
 }
