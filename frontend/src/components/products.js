@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 
+
+const headerStyle = {
+  background: "url({%static 'assets/img/banner.jpg'%}) no-repeat center center cover"
+  };
+
 export default class Products extends Component {
   constructor(props) {
     super(props);
@@ -20,38 +25,40 @@ export default class Products extends Component {
   }
 
   renderProducts() {
-
+    products.map();
   }
+
+  
 
   render() {
     return (
     <div>
-        <header class="text-center text-white masthead" style="background: url({%static 'assets/img/banner.jpg'%}) no-repeat center center; background-size: cover;">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">WHAT ARE YOU LOOKING FOR?</h1>
+        <header className="text-center text-white masthead" style={{background: "url({%static 'assets/img/banner.jpg'%}) no-repeat center center cover"}}>
+            <div className="overlay"></div>
+            <div className="container">
+                <div className="row">
+                <div className="col-xl-9 mx-auto">
+                    <h1 className="mb-5">WHAT ARE YOU LOOKING FOR?</h1>
                 </div>
-                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
                     <form method="GET" action="{% url 'api:search' %}">
-                    <div class="form-row">
-                        <div class="col-10 mb-2 mb-md-0">
+                    <div className="form-row">
+                        <div className="col-10 mb-2 mb-md-0">
                         <input
-                            class="form-control form-control-lg"
+                            className="form-control form-control-lg"
                             type="search"
                             name="q"
                             placeholder="Find Games Here..."
                             required
                         />
                         </div>
-                        <div class="col-2 col-xl-2">
+                        <div className="col-2 col-xl-2">
                         <button
-                            class="btn btn-primary btn-block btn-lg float-right"
+                            className="btn btn-primary btn-block btn-lg float-right"
                             type="submit"
-                            style="width: 100px; padding: auto"
+                            style={{width: "100px", padding: "auto"}}
                         >
-                            <i class="fa fa-search"></i>
+                            <i className="fa fa-search"></i>
                         </button>
                         </div>
                     </div>
@@ -60,22 +67,33 @@ export default class Products extends Component {
                 </div>
             </div>
         </header>
-        <section class="text-center">
+        <section className="text-center">
             <h1>PRODUCT CATALOG</h1>
-            <div class="container-fluid">
-                <div class="row" style="margin: 0 3%">
-                {products.map(item => <Product slug={item.slug} image={item.image} />)}
+            <div className="container-fluid">
+                <div className="row" style={{margin: "0 3%"}}>
+                {this.state.products.map((item, index) => <Product key={index} slug={item.slug} image={item.image} name={item.name} price={item.price} featured={item.featured} />)}
                 </div>
             </div>
         </section>
     </div>
-
     );
   }
 }
 
 class Product extends React.Component {
     render() {
-      return <li>{this.props.slug + " - " + this.props.image}</li>;
+      return (
+        <div className="col-lg-3 col-md-4 col-sm-6">
+            <a className="ad-box" href="{% url 'api:product_detail' {this.props.slug} %}">
+            <div className="mx-auto mb-5 mb-lg-3">
+                <div style={{height: "240px"}}>
+                <img className="ad" src={this.props.image} alt={this.props.name} style={{margin: "10px 0", width: "100%", height: "100%", overflow: "hidden"}}/>
+                <span className="badge badge-warning">{this.props.price}</span>
+                </div>
+                <h3 style={{margin: "20px 0 0"}}>{this.props.name}</h3>
+            </div>
+            </a>
+        </div>
+        );
     }
   }
