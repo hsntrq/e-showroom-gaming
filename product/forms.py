@@ -7,10 +7,10 @@ class PostAd(forms.ModelForm):
         fields = [
             'name',
             'owner',
-         'price',
-          'brand',
-           'condition',
+            'price',
+            'brand',
+            'condition',
             'category',
             'description',
-             'image',
-             'featured']
+            'image',
+            'featured']
