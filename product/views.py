@@ -78,28 +78,20 @@ def search(request):
     template = 'Product/search.html'
     context = {'category_list' : CategoryList, 'product_list':productlist}
     return render(request, template, context)
-    
-
 
 
 def chat(request):
     template = 'Product/chat.html'
     return render(request, template)
 
+
 def productdetail(request, product_slug):
     CategoryList = models.Category.objects.all()
-    # print(product_slug)
-    
-    # print(product_slug)
     productdetail = models.Product.objects.get(slug = product_slug)
     productimages = models.ProductImages.objects.filter(product=productdetail)
     template = 'Product/product_detail.html'
     context = {'product_detail' : productdetail, 'product_images' : productimages, 'category_list' : CategoryList}
     return render(request, template, context)
-
-
-
-#####
 
 
 def create(request):
@@ -110,7 +102,6 @@ def create(request):
     if form.is_valid():
         print('yes')
         form.save()
-        # form = PostAd(request.POST, request.FILES)
         return redirect('/home')
     else:
         print('no')
