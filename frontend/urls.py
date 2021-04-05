@@ -6,7 +6,8 @@ app_name = 'product'
 
 urlpatterns = [
     path('', views.index),
-    path('home/', views.index)
+    path('home/', views.index),
+    path('ad/<slug:product_slug>', views.index)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

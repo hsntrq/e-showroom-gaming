@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers
-from rest_framework.generics import ListAPIView
+from rest_framework import status
 
 
 class ProductListView(APIView):
@@ -16,6 +16,17 @@ class ProductListView(APIView):
         p = models.Product.objects.all().order_by('featured')
         serializer = serializers.ProductSerializer(p, many=True)
         return Response(serializer.data)
+
+class ProductView(APIView):
+    def get(self, request):
+        product_slug = request.GET.get('slug')
+        if product_slug:
+            productdetail = models.Product.objects.get(slug=product_slug)
+            if productdetail:
+                serializer = serializers.ProductSerializer(productdetail)
+                return Response(serializer.data)
+            return Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 # ******************************************************************************************************
 

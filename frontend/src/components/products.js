@@ -40,7 +40,7 @@ class Product extends React.Component {
   render() {
     return (
       <div className="col-lg-3 col-md-4 col-sm-6">
-          <a className="ad-box" href="{% url 'api:product_detail' {this.props.slug} %}">
+          <a className="ad-box" href={"/ad/" + this.props.slug}>
           <div className="mx-auto mb-5 mb-lg-3">
               <div style={{height: "240px"}}>
               <img className="ad" src={this.props.image} alt={this.props.name} style={{margin: "10px 0", width: "100%", height: "100%", overflow: "hidden", objectFit: "cover"}}/>
