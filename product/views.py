@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from . import models
-from .forms import PostAd 
+from . import forms 
 from django.db.models import Q
 from django.db.models import Count
 from django.http import HttpResponse
@@ -22,20 +22,10 @@ class ProductListView(APIView):
 
 
 # ******************************************************************************************************
+
 def productlist(request):
     CategoryList = models.Category.objects.all()
     productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
-    
-    # search_query = request.GET.get('q')
-    # if search_query:
-    #     print(search_query) # will print search query in cd
-    #     productlist = productlist.filter(
-    #         Q(name__icontains = search_query) | 
-    #         Q(description__icontains = search_query) | 
-    #         Q(condition__icontains = search_query) 
-    #         # Q(brand__brand_name__icontains = search_query)
-    #     )
-
     
     template = 'Product/product_list.html'
     context = {'category_list' : CategoryList, 'product_list':productlist}
@@ -55,7 +45,7 @@ def search(request):
             Q(description__icontains = search_query) | 
             Q(condition__icontains = search_query) |
             Q(brand__icontains = search_query) 
-            # Q(brand__brand_name__icontains = search_query)
+
         )
 
     category_query = request.GET.get('category')
@@ -100,9 +90,7 @@ def chat(request):
 
 def productdetail(request, product_slug):
     CategoryList = models.Category.objects.all()
-    # print(product_slug)
     
-    # print(product_slug)
     productdetail = models.Product.objects.get(slug = product_slug)
     productimages = models.ProductImages.objects.filter(product=productdetail)
     template = 'Product/product_detail.html'
@@ -117,12 +105,11 @@ def productdetail(request, product_slug):
 def create(request):
 
     CategoryList = models.Category.objects.all()
-    form = PostAd(request.POST, request.FILES)
+    form = forms.PostAd(request.POST, request.FILES)
     print(form)
     if form.is_valid():
         print('yes')
         form.save()
-        # form = PostAd(request.POST, request.FILES)
         return redirect('/home')
     else:
         print('no')
