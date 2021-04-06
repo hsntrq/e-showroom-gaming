@@ -11,7 +11,7 @@ export default class Product extends Component {
   }
 
   getProduct(){
-    fetch("/api/product?slug="+this.productSlug)
+    fetch("/api/product/?slug="+this.productSlug, {method: "GET"})
     .then((response) => response.json())
     .then((data) => {
       this.setState({
