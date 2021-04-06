@@ -1,10 +1,3 @@
-var user = "HasanNaseem";
-var pwd = "123456789";
-var loggedin = 0;
-var rem = 0;
-var rem_u;
-var rem_p;
-
 function sort(query){
     var curr_query = window.location.href;
     if (curr_query.search("&sort") == -1){

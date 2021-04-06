@@ -1,0 +1,399 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<div class="bg-white rounded-lg p-5 modal fade" role="dialog">
+  <div class="modal-dialog modal-lg" role="content">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Boost Your Ad</h4>
+        <button class="btn" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label class="float-left">Select Package:</label>
+            <div class="form-check">
+              <div class="form-check form-check-inline" style="margin: 0 5%">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="featured"
+                  id="pkg1"
+                  value="c"
+                />
+                <label class="form-check-label" for="featured">1000 PKR</label>
+              </div>
+              <div class="form-check form-check-inline" style="margin: 0 5%">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="featured"
+                  id="pkg2"
+                  value="b"
+                />
+                <label class="form-check-label" for="featured">2000 PKR</label>
+              </div>
+              <div class="form-check form-check-inline" style="margin: 0 5%">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="featured"
+                  id="pkg3"
+                  value="a"
+                />
+                <label class="form-check-label" for="featured">5000 PKR</label>
+              </div>
+              <div
+                class="form-check form-check-inline"
+                style="margin: 0 5%"
+                hidden
+              >
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="featured"
+                  id="pkg3"
+                  value="z"
+                  checked
+                />
+              </div>
+            </div>
+          </div>
+          <div style="width: 10%; margin: 0 auto">
+            <i class="fa fa-credit-card"></i>
+          </div>
+          <h4 style="width: 25%; margin: 0 auto">Credit Card</h4>
+          <div class="form-group">
+            <label for="cardName" class="float-left">Full name</label>
+            <input
+              type="text"
+              name="cardName"
+              placeholder="Your Name on Card"
+              required
+              disabled
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="cardNumber" class="float-left">Card number</label>
+            <div class="input-group">
+              <input
+                type="text"
+                name="cardNumber"
+                placeholder="Your Card Number"
+                class="form-control"
+                disabled
+                required
+              />
+              <div class="input-group-append">
+                <span class="input-group-text text-muted">
+                  <i class="fa fa-cc-visa mx-1"></i>
+                  <i class="fa fa-cc-amex mx-1"></i>
+                  <i class="fa fa-cc-mastercard mx-1"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label><span class="hidden-xs">Expiration</span></label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    placeholder="MM"
+                    id="cardMonth"
+                    class="form-control"
+                    disabled
+                    required
+                  />
+                  <input
+                    type="number"
+                    placeholder="YY"
+                    id="cardYear"
+                    class="form-control"
+                    disabled
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group mb-4">
+                <label
+                  data-toggle="tooltip"
+                  title="Three-digits code on the back of your card"
+                  >CVV
+                  <i class="fa fa-question-circle"></i>
+                </label>
+                <input
+                  type="text"
+                  id="CVV"
+                  required
+                  disabled
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <script
+            src="https://www.google.com/recaptcha/api.js"
+            async
+            defer
+          ></script>
+          <div
+            class="g-recaptcha"
+            data-sitekey="6LdBgnoaAAAAANqS73wudosG5HbwXII4QcvLZ5XB"
+          ></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="text-center" style="background: #ffffff">
+  <div class="container" style="border-radius: 8px; padding: 10px; width: auto">
+    <h2 id="postH" class="text-left" style="padding-left: 12px">
+      DETAILS OF YOUR PRODUCT:
+    </h2>
+    <form
+      style="background: #f4f4f4; padding: 15px; border-radius: 12px"
+      method="POST"
+      action="."
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="col-sm-12 col-md-6">
+          <label class="float-left" for="name">Ad Title: *&nbsp;</label>
+          <input
+            class="form-control"
+            type="text"
+            id="product_title"
+            name="name"
+            placeholder="Enter Product Title..."
+            required
+          />
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label class="float-left" for="price">Set a Price: *</label>
+          <input
+            class="form-control"
+            type="number"
+            id="price"
+            name="price"
+            placeholder="Enter Price..."
+            required
+          />
+        </div>
+        <div class="col-sm-12 col-md-6" hidden>
+          <label class="float-left" for="owner">Owner: *</label>
+          <input
+            class="form-control"
+            value="HasanNaseem"
+            type="text"
+            name="owner"
+            placeholder="Enter Your Name..."
+            required
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-sm-12 col-md-6">
+          <label class="float-left" for="brand">Brand: *&nbsp;</label>
+          <input
+            class="form-control"
+            type="text"
+            name="brand"
+            placeholder="Enter the Brand of Your Product..."
+            required
+          />
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label class="float-left" for="brand" style="display: block"
+            >Condition: *&nbsp;</label
+          >
+          <div class="float-left" style="padding-top: 30px; padding-left: 60px">
+            <div class="form-check" style="display: inline">
+              <input
+                type="radio"
+                id="radio-1"
+                class="form-check-input"
+                name="condition"
+                value="New"
+                required
+              />
+              <label class="form-check-label" for="condition">New</label>
+            </div>
+            <div class="form-check" style="display: inline; padding-left: 60px">
+              <input
+                type="radio"
+                id="radio-2"
+                class="form-check-input"
+                name="condition"
+                value="Used"
+              />
+              <label class="form-check-label" for="condition">Used</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-12">
+          <label class="float-left" for="category">Categories: *&nbsp;</label>
+          <select
+            class="form-control"
+            name="category"
+            style="margin-bottom: 5px"
+            required
+          >
+            <option selected disabled hidden>
+              Select a Category for Your Product Here...
+            </option>
+            {% for category in category_list%}
+            <option value="{{category.id }}">{{category.category_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-sm-12 col-md-6">
+          <label class="float-left" for="description"
+            >Description: *&nbsp;</label
+          >
+          <textarea
+            class="form-control"
+            name="description"
+            placeholder="Enter Description of Your Product Here... (less than 500 characters)"
+            style="height: 200px"
+            maxlength="500"
+            required
+          ></textarea>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-row">
+            <div class="col-sm-12">
+              <label class="col-form-label float-left" for="image"
+                >Upload Photos:*</label
+              >
+            </div>
+            <div class="col-sm-12">
+              <div class="dashed_upload">
+                <div class="wrapper">
+                  <div class="drop">
+                    <div class="cont">
+                      <i class="fa fa-cloud-upload"></i>
+                      <div class="tit">Drag & Drop</div>
+                      <div class="desc">or</div>
+                      <div class="browse">click here to browse</div>
+                    </div>
+                    <input
+                      id="files"
+                      name="image"
+                      type="file"
+                      accept="image/*"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <label class="float-left" for="feature-c"
+              >Do You Want To Feature Your Ad?</label
+            >
+            <label class="switch float-left">
+              <input
+                class="form-check-input"
+                id="feature-c"
+                type="checkbox"
+                onclick="checkfeature()"
+              />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row" id="feature-block">
+        <div class="form-group">
+          <label class="float-left">Select Package:</label>
+          <div class="form-check">
+            <div class="form-check form-check-inline" style="margin: 0 5%">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="featured"
+                id="pkg1"
+                value="a"
+              />
+              <label class="form-check-label" for="featured">1000 PKR</label>
+            </div>
+            <div class="form-check form-check-inline" style="margin: 0 5%">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="featured"
+                id="pkg2"
+                value="b"
+              />
+              <label class="form-check-label" for="featured">2000 PKR</label>
+            </div>
+            <div class="form-check form-check-inline" style="margin: 0 5%">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="featured"
+                id="pkg3"
+                value="c"
+              />
+              <label class="form-check-label" for="featured">5000 PKR</label>
+            </div>
+            <div
+              class="form-check form-check-inline"
+              style="margin: 0 5%"
+              hidden
+            >
+              <input
+                class="form-check-input"
+                type="radio"
+                name="featured"
+                id="pkg4"
+                value="z"
+                checked
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <input
+            class="btn btn-primary"
+            type="submit"
+            value="POST"
+            style="margin-top: 10px; padding-right: 60px; padding-left: 60px"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<script>
+  $(document).ready(function () {
+    $("#post-ad").css("display", "none");
+    $("#feature-c").prop("checked", false);
+    checkfeature();
+  });
+  function checkfeature() {
+    if (document.getElementById("feature-c").checked) {
+      $("#feature-block").css("display", "block");
+    } else {
+      $("#feature-block").css("display", "none");
+      $("#pkg4").prop("checked", true);
+    }
+  }
+</script>
+{% endblock body %}
