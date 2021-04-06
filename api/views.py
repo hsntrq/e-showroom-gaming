@@ -9,7 +9,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers
 from rest_framework import status
-
+from rest_framework.generics import (
+    CreateAPIView,
+    
+)
 
 class ProductListView(APIView):
     def get(self, request):
@@ -27,6 +30,12 @@ class ProductView(APIView):
                 return Response(serializer.data)
             return Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductCreateView(CreateAPIView):
+    queryset = models.Product.objects.all()
+    serializer_class = serializers.ProductSerializer
+    # permission_classes = (permissions.IsAuthenticated, )
 
 # ******************************************************************************************************
 
