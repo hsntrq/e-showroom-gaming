@@ -8,7 +8,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers
-from rest_framework import status
+from rest_framework import status, filters
+from rest_framework import generics
 from rest_framework.generics import (
     CreateAPIView,
     
@@ -36,6 +37,14 @@ class ProductCreateView(CreateAPIView):
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductSerializer
     # permission_classes = (permissions.IsAuthenticated, )
+
+
+class SearchAPIView(generics.ListCreateAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = models.Product.objects.all().order_by('featured')
+    serializer_class = serializers.ProductSerializer
+
 
 # ******************************************************************************************************
 
