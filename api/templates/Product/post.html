@@ -380,7 +380,23 @@
       </div>
     </form>
   </div>
+  <script>
+    $(document).ready(function () {
+      $("#post-ad").css("display", "none");
+      $("#feature-c").prop("checked", false);
+      checkfeature();
+    });
+    function checkfeature() {
+      if (document.getElementById("feature-c").checked) {
+        $("#feature-block").css("display", "block");
+      } else {
+        $("#feature-block").css("display", "none");
+        $("#pkg4").prop("checked", true);
+      }
+    }
+  </script>
 </section>
+{% comment %}
 <script>
   $(document).ready(function () {
     $("#post-ad").css("display", "none");
@@ -396,4 +412,4 @@
     }
   }
 </script>
-{% endblock body %}
+{% endcomment %} {% endblock body %}

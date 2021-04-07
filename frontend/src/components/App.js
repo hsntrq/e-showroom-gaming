@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import Products from './products';
 import Product from './product'
+import Post from './post'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +23,7 @@ export default class App extends Component {
           <Route exact path="/" render={() => {return <Redirect to="/home" />;}} />
           <Route exact path="/home" component={Products}/>
           <Route exact path="/ad/:productSlug" component={Product}/>
+          <Route exact path = "/post" component={Post}/>
         </Switch>
       </Router>
     );
