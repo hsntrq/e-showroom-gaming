@@ -17,7 +17,7 @@ from rest_framework.generics import (
 
 class ProductListView(APIView):
     def get(self, request):
-        p = models.Product.objects.all().order_by('featured')
+        p = models.Product.objects.all().order_by('featured')   
         serializer = serializers.ProductSerializer(p, many=True)
         return Response(serializer.data)
 
@@ -31,6 +31,34 @@ class ProductView(APIView):
                 return Response(serializer.data)
             return Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+ 
+class SearchFilter(APIView):   # to filter according to category
+    def get(self, request):
+        p = models.Product.objects.all()
+        
+        category_query = request.GET.get('category')
+        elif category_query:
+            category = models.Category.objects.all()
+            for c in category:
+                if category_query == c.category_name:
+                    category_id = c.id
+                    break
+            p = productlist.filter(category=category_id)
+            if p:
+                serializer = serializers.ProductSerializer(p)
+                return Response(serializer.data)
+            return Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+class CategoryList(APIView):         # to display categories in the dropdown menu
+    def get(self, request):
+        c = models.Category.objects.all()
+        serializer = serializers.CategorySerializer(c)
+        return Response(serializer.data)
+
+
+
+
 
 
 class ProductCreateView(CreateAPIView):
