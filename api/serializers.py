@@ -17,3 +17,10 @@ class ProductSerializer(serializers.ModelSerializer):
             'featured',
             'slug'
         ]
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Category
+        fields = [
+            'category_name',
+        ]
