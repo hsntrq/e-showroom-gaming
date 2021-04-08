@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from . import models
-from . import serializers
-from .forms import PostAd
 from django.db.models import Q, Count
+from . import(
+    models,
+    serializers,
+    forms
+)
 from rest_framework import(
     status,
     filters,
