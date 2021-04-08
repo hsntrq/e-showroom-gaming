@@ -7,13 +7,16 @@ export default class Searched extends Component {
       products: []
     };
     this.searchedProduct = this.props.match.params.query;
+    console.log(window.location.href);
     this.getProducts();
   }
 
   getProducts(){
+
     fetch("/api/products", {method: "GET"})
     .then((response) => response.json())
     .then((data) => {
+      console.log('here', data)
       this.setState({
         products: data
       });
@@ -49,15 +52,11 @@ export default class Searched extends Component {
                 <a className="dropdown-item" onClick="sort('pricel')">Price-Low</a>
               </div> */}
             </div>
+            {this.state.products.map((item, index) => <Product key={index} slug={item.slug} image={item.image} name={item.name} price={item.price} description={item.description} created={item.created}/>)}          
+          <h4 style={{ color: "#A52A2A" }}>No Results Found</h4>
           </div>
         </div>
         
-        <div className="row">
-          <div className="offset-3 col-9"></div>
-          {this.state.products.map((item, index) => <Product key={index} slug={item.slug} image={item.image} name={item.name} price={item.price} description={item.description} created={item.created}/>)}          
-          <h4 style={{ color: "#A52A2A" }}>No Results Found</h4>
-        </div>
-
       </div>
     )
   }

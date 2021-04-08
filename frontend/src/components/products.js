@@ -55,6 +55,13 @@ class Product extends React.Component {
 }
 
 class Header extends React.Component {
+
+
+ reroute(){
+   console.log(`http://localhost:8000/api/search/?q=${document.getElementById('searchval')}`)
+  //  window.location = `http://localhost:8000/api/search/?q=${document.getElementById('searchval')}`
+   window.location = `https://google.com`;
+ } 
   render() {
     return (
       <header className="text-center text-white masthead" style={{backgroundImage: "url(/static/assets/img/banner.jpg)", backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center"}}>
@@ -69,6 +76,7 @@ class Header extends React.Component {
                     <div className="form-row">
                         <div className="col-10 mb-2 mb-md-0">
                         <input
+                            id="searchval"
                             className="form-control form-control-lg"
                             type="search"
                             name="q"
@@ -80,6 +88,7 @@ class Header extends React.Component {
                         <button
                             className="btn btn-primary btn-block btn-lg float-right"
                             type="submit"
+                            onClick={() => this.reroute()}
                             style={{width: "100px", padding: "auto"}}
                         >
                             <i className="fa fa-search"></i>
