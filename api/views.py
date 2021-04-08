@@ -8,7 +8,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers
-from rest_framework import status
+# from serializers import PostSerializer
+from rest_framework import generics, status
 
 
 class ProductListView(APIView):
@@ -16,6 +17,7 @@ class ProductListView(APIView):
         p = models.Product.objects.all().order_by('featured')
         serializer = serializers.ProductSerializer(p, many=True)
         return Response(serializer.data)
+
 
 class ProductView(APIView):
     def get(self, request):
@@ -28,11 +30,36 @@ class ProductView(APIView):
             return Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class PostView(APIView):
+    serializer_class = serializers.PostSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request)
+
+        if serializer.is_valid():
+            name = serializer.data.name
+            owner = 'HasanNaseem'
+            brand = serializer.data.brand
+            condition = serializer.data.condition
+            category = 'Processors'
+            # category = models.Category(serializer.data.category)
+            description = serializer.data.description
+            image = serializer.data.image
+            featured = serializer.data.featured
+
+            product = forms.PostAd(name=name, owner=owner, brand=brand, condition=condition,
+                                   category=category, description=description, image=image, featured=featured)
+            product.save()
+
+        return Response(serializer.PostSerializer(product).data)
 # ******************************************************************************************************
+
 
 def productlist(request):
     CategoryList = models.Category.objects.all()
-    productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
+    productlist = models.Product.objects.all().order_by(
+        'featured')  # will retrieve all the products in our database
     template = 'Product/product_list.html'
     context = {'category_list': CategoryList, 'product_list': productlist}
 
@@ -41,8 +68,10 @@ def productlist(request):
 
 def search(request):
 
-    productlist = models.Product.objects.all() # will retrieve all the products in our database
-    CategoryList = models.Category.objects.annotate(total_products = Count('product'))
+    # will retrieve all the products in our database
+    productlist = models.Product.objects.all()
+    CategoryList = models.Category.objects.annotate(
+        total_products=Count('product'))
 
     search_query = request.GET.get('q')
     if search_query:
@@ -93,7 +122,8 @@ def productdetail(request, product_slug):
     productdetail = models.Product.objects.get(slug=product_slug)
     productimages = models.ProductImages.objects.filter(product=productdetail)
     template = 'Product/product_detail.html'
-    context = {'product_detail': productdetail, 'product_images': productimages, 'category_list': CategoryList}
+    context = {'product_detail': productdetail,
+               'product_images': productimages, 'category_list': CategoryList}
     return render(request, template, context)
 
 

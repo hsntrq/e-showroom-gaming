@@ -13,7 +13,8 @@ SECRET_KEY = '71a57fbc922ff2873dee70fb8fa52ef0707934803dc20e34'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rigged.herokuapp.com', 'rigged.rocks', 'www.rigged.rocks', 'localhost']
+ALLOWED_HOSTS = ['rigged.herokuapp.com', 'rigged.rocks',
+                 'www.rigged.rocks', 'localhost', 'laptop-pblf4vvj']
 
 
 # Application definition

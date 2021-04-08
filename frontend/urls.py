@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.index),
     path('home/', views.index),
     path('ad/<slug:product_slug>', views.index),
-    path('post', views.index)
+    path('post/', views.index)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
