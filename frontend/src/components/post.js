@@ -52,7 +52,7 @@ export default class Post extends Component{
         action="."
         encType="multipart/form-data"
     >
-        {% csrftoken %}
+        {/* {% csrftoken %} */}
         <div className="form-row">
         <div className="col-sm-12 col-md-6">
             <label className="float-left" htmlFor="name">Ad Title: *&nbsp;</label>
