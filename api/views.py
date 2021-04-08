@@ -35,9 +35,25 @@ class ProductView(APIView):
 class SearchFilter(APIView):   # to filter according to category
     def get(self, request):
         p = models.Product.objects.all()
+        search_query = request.GET.get('q')
+        if search_query:
+            p = p.filter(
+                Q(name__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(condition__icontains=search_query) |
+                Q(brand__icontains=search_query)
+            )
+            if p:
+                serializer = serializers.ProductSerializer(p)
+                return Response(serializer.data)
         
+        price_query = request.GET.get('price')
+        if price_query:
+            price_low, price_high = [int(x) for x in price_query.split()]
+            productlist = productlist.filter(price__range=(price_low, price_high))
+
         category_query = request.GET.get('category')
-        elif category_query:
+        if category_query:
             category = models.Category.objects.all()
             for c in category:
                 if category_query == c.category_name:
