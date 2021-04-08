@@ -62,7 +62,7 @@ class Header extends React.Component {
             <div className="container">
                 <div className="row">
                 <div className="col-xl-9 mx-auto">
-                    <h1 className="mb-5">WHAT ARE YOU LOOKING FOR?</h1>
+                    <h1 className="mb-5">What are you looking for?</h1>
                 </div>
                 <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
                     <form method="GET" action="{% url 'api:search' %}">

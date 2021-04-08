@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import Products from './products';
-import Product from './product'
+import Product from './product';
+import Searched from "./search";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +10,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+
 
 export default class App extends Component {
   constructor(props) {
@@ -22,6 +24,7 @@ export default class App extends Component {
           <Route exact path="/" render={() => {return <Redirect to="/home" />;}} />
           <Route exact path="/home" component={Products}/>
           <Route exact path="/ad/:productSlug" component={Product}/>
+          <Route exact path="/search" component={Searched}/>
         </Switch>
       </Router>
     );
