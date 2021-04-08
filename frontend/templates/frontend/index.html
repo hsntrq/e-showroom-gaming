@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <csrftoken>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -65,11 +66,7 @@
           >
             All Categories
           </button>
-          <form
-            id="category_menu"
-            method="GET"
-            action="{% url 'api:search' %}"
-          >
+          <form id="category_menu" method="GET" action="{% url 'api:search' %}">
             <ul
               class="dropdown-menu"
               name="category"
@@ -110,7 +107,7 @@
         </form>
 
         <a class="btn btn-primary ml-auto nav-b" role="button" id="login-b">
-        Log In | Sign Up
+          Log In | Sign Up
         </a>
         <a class="btn btn-primary nav-b" role="button" id="post-ad">Post Ad</a>
       </div>
@@ -318,9 +315,8 @@
     </div>
 
     <div id="main">
-        <div id="app"></div>
+      <div id="app"></div>
     </div>
-
 
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/script.js' %}"></script>
@@ -341,19 +337,19 @@
         $("#RegisterModal").modal("hide");
         $("#LoginModal").modal("show");
       });
-    //   $("#login-s").click(function () {
-    //    if (user == document.getElementById("usr-name").value) {
-    //      if (pwd == document.getElementById("usr-pwd").value) {
-    //        loggedin = 1;
-    //        if (document.getElementById("usr-rem").checked) {
-    //          rem_u = user;
-    //          rem_p = pwd;
-    //        }
-    //        document.getElementById("login-b").innerHTML = "Log Out";
-    //        $("#LoginModal").modal("hide");
-    //      }
-    //     }
-    //   });
+      //   $("#login-s").click(function () {
+      //    if (user == document.getElementById("usr-name").value) {
+      //      if (pwd == document.getElementById("usr-pwd").value) {
+      //        loggedin = 1;
+      //        if (document.getElementById("usr-rem").checked) {
+      //          rem_u = user;
+      //          rem_p = pwd;
+      //        }
+      //        document.getElementById("login-b").innerHTML = "Log Out";
+      //        $("#LoginModal").modal("hide");
+      //      }
+      //     }
+      //   });
       $("#post-ad").click(function () {
         // if (loggedin){
         //     window.location.href = "post.html"

@@ -42,8 +42,8 @@ class PostView(APIView):
             owner = 'HasanNaseem'
             brand = serializer.data.brand
             condition = serializer.data.condition
-            category = 'Processors'
-            # category = models.Category(serializer.data.category)
+            # category = 'Processors'
+            category = models.Category(serializer.data.category)
             description = serializer.data.description
             image = serializer.data.image
             featured = serializer.data.featured
