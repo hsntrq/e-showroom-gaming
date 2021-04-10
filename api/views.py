@@ -1,38 +1,34 @@
 from django.shortcuts import render, redirect
 from . import models
-from .forms import PostAd
-from django.db.models import Q
-from django.db.models import Count
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from . import serializers
-from rest_framework import status, filters
-from rest_framework import generics
-from rest_framework.generics import (
-    CreateAPIView,
-    
+from .forms import PostAd
+from django.db.models import Q, Count
+from rest_framework import(
+    status,
+    filters,
+    generics,
+    views,
+    response
 )
 
-class ProductListView(APIView):
+class ProductListView(views.APIView):
     def get(self, request):
         p = models.Product.objects.all().order_by('featured')   
         serializer = serializers.ProductSerializer(p, many=True)
-        return Response(serializer.data)
+        return response.Response(serializer.data)
 
-class ProductView(APIView):
+class ProductView(views.APIView):
     def get(self, request):
         product_slug = request.GET.get('slug')
         if product_slug:
             productdetail = models.Product.objects.get(slug=product_slug)
             if productdetail:
                 serializer = serializers.ProductSerializer(productdetail)
-                return Response(serializer.data)
-            return Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
-        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+                return response.Response(serializer.data)
+            return response.Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
+        return response.Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
  
-class SearchFilter(APIView):   # to filter according to category
+class SearchFilter(views.APIView):   # to filter according to category
     def get(self, request):
         p = models.Product.objects.all()
         search_query = request.GET.get('q')
@@ -62,22 +58,22 @@ class SearchFilter(APIView):   # to filter according to category
             p = productlist.filter(category=category_id)
             if p:
                 serializer = serializers.ProductSerializer(p)
-                return Response(serializer.data)
-            return Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
-        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+                return response.Response(serializer.data)
+            return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
+        return response.Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
-class CategoryList(APIView):         # to display categories in the dropdown menu
+class CategoryList(views.APIView):         # to display categories in the dropdown menu
     def get(self, request):
         c = models.Category.objects.all()
         serializer = serializers.CategorySerializer(c)
-        return Response(serializer.data)
+        return response.Response(serializer.data)
 
 
 
 
 
 
-class ProductCreateView(CreateAPIView):
+class ProductCreateView(generics.CreateAPIView):
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductSerializer
     # permission_classes = (permissions.IsAuthenticated, )
