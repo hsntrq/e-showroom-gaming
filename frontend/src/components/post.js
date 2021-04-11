@@ -7,13 +7,15 @@ export default class Post extends Component{
     constructor(props) {
     super(props);
     this.state = {
-        check : false
+        check : false,
+        products : {},
+        categories : []
     };
     $("#post-ad").css("display", "none");
     $("#feature-c").prop("checked", false);
-    // checkfeature();
+    checkfeature();
 
-    // this.postProduct();
+    this.postProduct();
     }
 
     checkfeature() {
@@ -27,8 +29,23 @@ export default class Post extends Component{
    
 
     getCategories(){
+        //  for (category in category_list)
+        //     <option value="{{category.id }}">{{category.category_name}}</option>
+        //     endfor 
 
+        fetch("/api/products", {method: "GET"})
+        .then((response) => response.json())
+        .then((data) => {
+            this.setState({
+                products: data
+            });
+        });
+
+        // var category_list = 
+
+        
     }
+
     postProduct(){
         fetch("/api/post", {method: "POST"})
         .then((response) =>  response.json())
@@ -80,7 +97,8 @@ export default class Post extends Component{
             <label className="float-left" htmlFor="owner">Owner: *</label>
             <input
             className="form-control"
-            value="HasanNaseem"
+            value={"HasanNaseem",onChange}
+            // onChange
             type="text"
             name="owner"
             placeholder="Enter Your Name..."
@@ -110,7 +128,8 @@ export default class Post extends Component{
                 id="radio-1"
                 className="form-check-input"
                 name="condition"
-                value="New"
+                value={"New",onChange}
+                // onChange
                 required
                 />
                 <label className="form-check-label" htmlFor="condition">New</label>
@@ -121,7 +140,8 @@ export default class Post extends Component{
                 id="radio-2"
                 className="form-check-input"
                 name="condition"
-                value="Used"
+                value={"Used",onChange}
+                // onChange
                 />
                 <label className="form-check-label" htmlFor="condition">Used</label>
             </div>
@@ -130,23 +150,27 @@ export default class Post extends Component{
         </div>
         <div className="form-row">
         <div className="col-12">
+            <div>
             <label className="float-left" htmlFor="category">Categories: *&nbsp;</label>
             <select
             className="form-control"
             name="category"
             style={{marginBottom: "5px"}}
-            // required
+            placeholder = 'Select a Category for Your Product Here...'
+            required
             >
             <option disabled hidden>
                 Select a Category for Your Product Here...
             </option>
-            {/* <ul>
-            { for category in category_list
-            <option value="{{category.id }}">{{category.category_name}}</option>
-            endfor }
-            </ul> */}
+            <ul>
+            {['category'].map(key => (
+            <select key={key}>{this.state.products.map(({ ['category']: value }) => <option key={value}>{value}</option>)}</select>
             
+            ))}
+            </ul>
             </select>
+            </div> 
+            
         </div>
         </div>
         <div className="form-row">
@@ -204,8 +228,7 @@ export default class Post extends Component{
                 <input
                 className="form-check-input"
                 id="feature-c"
-                checked = {this.state.check}
-                
+                checked = {this.state.check, onChange}
                 type="checkbox"
                 onClick={this.checkfeature()}
                 />
@@ -224,7 +247,8 @@ export default class Post extends Component{
                 type="radio"
                 name="featured"
                 id="pkg1"
-                value="a"
+                value={"a", readOnly}
+                // readOnly
                 />
                 <label className="form-check-label" htmlFor="featured">1000 PKR</label>
             </div>
@@ -234,7 +258,8 @@ export default class Post extends Component{
                 type="radio"
                 name="featured"
                 id="pkg2"
-                value="b"
+                value={"b",readOnly}
+                // readOnly
                 />
                 <label className="form-check-label" htmlFor="featured">2000 PKR</label>
             </div>
@@ -245,6 +270,7 @@ export default class Post extends Component{
                 name="featured"
                 id="pkg3"
                 value="c"
+                readOnly
                 />
                 <label className="form-check-label" htmlFor="featured">5000 PKR</label>
             </div>
@@ -259,6 +285,7 @@ export default class Post extends Component{
                 name="featured"
                 id="pkg4"
                 value="z"
+                readOnly
                 // checked
                 // onChange={defaultChecked}
                 />
@@ -285,3 +312,21 @@ export default class Post extends Component{
 
 }
 
+{/* 
+class Category extends React.Component {
+
+    getCategories() {
+        fetch("/api/post", {method: "GET"})
+        .then((response) => response.json())
+        .then((data) => {
+        this.setState({
+        products: data
+      });
+    });
+    }
+
+    // render() {
+    //     return();
+    // }
+
+} */}

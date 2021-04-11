@@ -23,7 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        form = forms.PostAd
+        model = models.Product
         fields = [
             'name',
             'description',

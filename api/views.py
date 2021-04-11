@@ -37,22 +37,22 @@ class PostView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request)
 
-        if serializer.is_valid():
-            name = serializer.data.name
-            owner = 'HasanNaseem'
-            brand = serializer.data.brand
-            condition = serializer.data.condition
-            # category = 'Processors'
-            category = models.Category(serializer.data.category)
-            description = serializer.data.description
-            image = serializer.data.image
-            featured = serializer.data.featured
+        # if serializer.is_valid():
+        name = serializer.data.name
+        owner = 'HasanNaseem'
+        brand = serializer.data.brand
+        condition = serializer.data.condition
+        # category = 'Processors'
+        category = models.Category(serializer.data.category)
+        description = serializer.data.description
+        image = serializer.data.image
+        featured = serializer.data.featured
 
-            product = forms.PostAd(name=name, owner=owner, brand=brand, condition=condition,
-                                   category=category, description=description, image=image, featured=featured)
-            product.save()
+        product = forms.PostAd(name=name, owner=owner, brand=brand, condition=condition,
+                               category=category, description=description, image=image, featured=featured)
+        product.save()
 
-        return Response(serializer.PostSerializer(product).data)
+        return Response(serializers.PostSerializer('product').data)
 # ******************************************************************************************************
 
 
