@@ -16,13 +16,12 @@ function sort(query){
 }
 
 function price(){
-    console.log('hello');
     var price_min = document.getElementById("min-price").value;
     var price_max = document.getElementById("max-price").value;
     if (!price_min) price_min=0;
     if (!price_max) price_max=1000000000;
     var curr_query = window.location.href;
-    if (curr_query.search("price") == -1){
+    if (curr_query.search("&price") == -1){
         new_query = curr_query + "&price="+price_min+"+"+price_max;
     }else{
         new_query = curr_query.replace(/(#|)price=\d*\+\d*/, "price="+price_min+"+"+price_max);
