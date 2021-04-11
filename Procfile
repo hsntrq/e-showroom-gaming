@@ -1,1 +1,1 @@
-web: gunicorn olx.wsgi
+web: gunicorn riggedproj.wsgi
