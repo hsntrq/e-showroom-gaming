@@ -4,6 +4,7 @@ import Products from './products';
 import Product from './product';
 import Searched from "./search";
 import Post from './post';
+import {Navbar, Footer} from './base';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,7 +13,6 @@ import {
   Redirect,
 } 
 from "react-router-dom";
-
 
 export default class App extends Component {
   constructor(props) {
@@ -35,4 +35,4 @@ export default class App extends Component {
 }
 
 const appDiv = document.getElementById("app");
-render(<App />, appDiv);
+render(<div><Navbar /> <App /> <Footer /></div>, appDiv);

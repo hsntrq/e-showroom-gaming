@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 
-export default class Top extends Component {
-  constructor(props) {
-    super(props);
-  };
+export class Navbar extends Component {
   render() 
   {
     return  (
@@ -72,6 +69,49 @@ export default class Top extends Component {
           <a className="btn btn-primary nav-b" role="button" id="post-ad">Post Ad</a>
         </div>
       </nav>
+    )
+  }
+}
+
+export class Footer extends Component {
+  render() 
+  {
+    return  (
+      <footer className="footer">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6 text-center text-lg-left my-auto h-100">
+            <ul className="list-inline mb-2">
+              <li className="list-inline-item"><a href="#">About</a></li>
+              <li className="list-inline-item"><span>⋅</span></li>
+              <li className="list-inline-item"><a href="#">Contact</a></li>
+              <li className="list-inline-item"><span>⋅</span></li>
+              <li className="list-inline-item">
+                <a href="#">Terms of &nbsp;Use</a>
+              </li>
+              <li className="list-inline-item"><span>⋅</span></li>
+              <li className="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p className="text-muted small mb-4 mb-lg-0">
+              © Brand 2021. All Rights Reserved.
+            </p>
+          </div>
+          <div className="col-lg-6 text-center text-lg-right my-auto h-100">
+            <ul className="list-inline mb-0">
+              <li className="list-inline-item">
+                <a href="#"><i className="fa fa-facebook fa-2x fa-fw"></i></a>
+              </li>
+              <li className="list-inline-item">
+                <a href="#"><i className="fa fa-twitter fa-2x fa-fw"></i></a>
+              </li>
+              <li className="list-inline-item">
+                <a href="#"><i className="fa fa-instagram fa-2x fa-fw"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
     )
   }
 }
