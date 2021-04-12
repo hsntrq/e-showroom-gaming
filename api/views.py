@@ -40,13 +40,20 @@ class SearchFilter(views.APIView):   # to filter according to category
                 Q(brand__icontains=search_query)
             )
             if p:
-                serializer = serializers.ProductSerializer(p)
-                return Response(serializer.data)
+                serializer = serializers.ProductSerializer(p, many=True)
+                print(serializer)
+                return response.Response(serializer.data)
+            return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
         
         price_query = request.GET.get('price')
         if price_query:
             price_low, price_high = [int(x) for x in price_query.split()]
-            productlist = productlist.filter(price__range=(price_low, price_high))
+            p = p.filter(price__range=(price_low, price_high))
+            if p:
+                serializer = serializers.ProductSerializer(p, many=True)
+                return response.Response(serializer.data)
+            return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
+
 
         category_query = request.GET.get('category')
         if category_query:
@@ -55,9 +62,10 @@ class SearchFilter(views.APIView):   # to filter according to category
                 if category_query == c.category_name:
                     category_id = c.id
                     break
-            p = productlist.filter(category=category_id)
+            p = p.filter(category=category_id)
             if p:
-                serializer = serializers.ProductSerializer(p)
+                serializer = serializers.ProductSerializer(p, many=True)
+                print(serializer)
                 return response.Response(serializer.data)
             return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
         return response.Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
