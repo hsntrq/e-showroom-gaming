@@ -1,4 +1,20 @@
 import React, { Component } from "react";
+import Top from "./header";
+
+// class Temp extends React.Component {
+//   constructor(props){
+//     super(props);
+//     this.state={}
+//   }
+
+//   render(){
+//     return(
+//       <div style = {{margin: 10}}>
+//         <h1 style={{fontSize: "20px"}}>testing 123</h1>
+//       </div>
+//     )
+//   }
+// }
 
 export default class Products extends Component {
   constructor(props) {
@@ -22,6 +38,7 @@ export default class Products extends Component {
   render() {
     return (
     <div>
+      <Top/>
       <Header />
       <section className="text-center">
           <h1>PRODUCT CATALOG</h1>
