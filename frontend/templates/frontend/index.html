@@ -5,40 +5,16 @@
   <head>
     <csrftoken>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
     <title>RIGGED</title>
     <link rel="icon" href="{% static 'assets/img/icon.png' %}" />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/fonts/fontawesome-all.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/fonts/font-awesome.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/css/Drag--Drop-Upload-Form.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/css/Search-Field-With-Icon.css' %}"
-    />
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/Drag--Drop-Upload-Form.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/Search-Field-With-Icon.css' %}"/>
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/chat.css' %}" />
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
@@ -53,44 +29,5 @@
 
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/script.js' %}"></script>
-    <script>
-      $("#login-b").click(function () {
-        //if (loggedin) {
-        //  document.getElementById("login-b").innerHTML = "Log In | Sign Up";
-        //  loggedin = 0;
-        //} else {
-        $("#LoginModal").modal("show");
-        //}
-      });
-      $("#register-m").click(function () {
-        $("#LoginModal").modal("hide");
-        $("#RegisterModal").modal("show");
-      });
-      $("#login-m").click(function () {
-        $("#RegisterModal").modal("hide");
-        $("#LoginModal").modal("show");
-      });
-      //   $("#login-s").click(function () {
-      //    if (user == document.getElementById("usr-name").value) {
-      //      if (pwd == document.getElementById("usr-pwd").value) {
-      //        loggedin = 1;
-      //        if (document.getElementById("usr-rem").checked) {
-      //          rem_u = user;
-      //          rem_p = pwd;
-      //        }
-      //        document.getElementById("login-b").innerHTML = "Log Out";
-      //        $("#LoginModal").modal("hide");
-      //      }
-      //     }
-      //   });
-      $("#post-ad").click(function () {
-        // if (loggedin){
-        //     window.location.href = "post.html"
-        // } else {
-        //     $('#LoginModal').modal('show');
-        // }
-        window.location.href = "/post";
-      });
-    </script>
   </body>
 </html>
