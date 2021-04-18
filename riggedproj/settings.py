@@ -16,6 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['rigged.herokuapp.com', 'rigged.rocks',
                  'www.rigged.rocks', 'localhost', 'laptop-pblf4vvj']
 
+AUTH_USER_MODEL = "user_control.CustomUser"
 
 # Application definition
 
@@ -28,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.APIConfig',
     'frontend.apps.FrontendConfig',
-    'rest_framework'
+    'rest_framework',
+    'user_control.apps.UserControlConfig'
 ]
 
 MIDDLEWARE = [
