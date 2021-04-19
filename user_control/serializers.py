@@ -3,17 +3,16 @@ from .models import CustomUser
 
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.CharField()
     password = serializers.CharField()
 
 
 class RegisterSerializer(serializers.Serializer):
     first_name = serializers.CharField()
     last_name = serializers.CharField()
-    email = serializers.EmailField()
+    email = serializers.CharField()
     contact = serializers.CharField()
     password = serializers.CharField()
-    confirm_password = serializers.CharField()
 
 
 class RefreshSerializer(serializers.Serializer):

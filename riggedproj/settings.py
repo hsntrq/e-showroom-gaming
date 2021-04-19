@@ -27,11 +27,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'phonenumber_field',
     'api.apps.APIConfig',
     'frontend.apps.FrontendConfig',
-    'rest_framework',
     'user_control.apps.UserControlConfig'
 ]
+
+PHONENUMBER_DEFAULT_REGION = 'PK'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

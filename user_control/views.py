@@ -87,9 +87,8 @@ class RegisterView(APIView):
         email = serializer.validated_data.pop("email")
         contact = serializer.validated_data.pop("contact")
         password = serializer.validated_data.pop("password")
-        confirm_password = serializer.validated_data.pop("confirm_password")
         CustomUser.objects.create_user(
-            email=email, first_name=first_name, last_name=last_name, contact=contact, password=password, confirm_password=confirm_password, **serializer.validated_data)
+            email=email, first_name=first_name, last_name=last_name, contact=contact, password=password, **serializer.validated_data)
 
         return Response({"success": "User created."}, status=201)
 

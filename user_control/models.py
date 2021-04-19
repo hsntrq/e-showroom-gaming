@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 # from message_control.models import GenericFileUpload
 from django.utils import timezone
-# from phonenumber_fields.modelfields import PhoneNumberField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, email, first_name, last_name, contact, password, confirm_password, **extra_fields):
+    def create_user(self, email, first_name, last_name, contact, password, **extra_fields):
         if not email:
             raise ValueError("Email field required")
 
@@ -25,23 +25,16 @@ class CustomUserManager(BaseUserManager):
                 raise ValueError("Password field required")
             raise ValueError("Password is too short!")
 
-        if not confirm_password or len(confirm_password) < 8 or confirm_password != password:
-            if not confirm_password:
-                raise ValueError("Confirm Password field required")
-
-            raise ValueError("Passwords donot match!")
-
+        email = models.EmailField(unique=True, blank=False)
         normalized_email = self.normalize_email(email)
-        email = self.model(email=normalized_email, **extra_fields)
         first_name = models.CharField(unique=True, max_length=100)
         last_name = models.CharField(unique=True, max_length=100)
-        # contact = models.PhoneNumberField(_(""))
-        contact = models.CharField(unique=True, max_length=12)
-        password = models.CharField(unique=True)
-        confirm_password = models.CharField(unique=True)
+        contact = PhoneNumberField(null=False, blank=False)
+        # contact = models.CharField(unique=True, max_length=12)
+        password = models.CharField(null=False, max_length=100)
 
-        user = self.model(email=email, first_name=first_name, last_name=last_name, contact=contact,
-                          password=password, confirm_password=confirm_password, **extra_fields)
+        user = self.model(email=normalized_email, first_name=first_name, last_name=last_name,
+                          contact=contact, password=password, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -59,16 +52,19 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(username, password, **extra_fields)
 
+# test with phone number field
+# remove confirm password
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(
-        unique=True, max_length=100, default="", editable=False)
+        max_length=100, default="", editable=False)
     last_name = models.CharField(
-        unique=True, max_length=100, default="", editable=False)
+        max_length=100, default="", editable=False)
     email = models.EmailField(unique=True)
-    contact = models.CharField(unique=True, max_length=12, default="")
-    password = models.CharField(unique=True, max_length=50)
-    confirm_password = models.CharField(unique=True, max_length=50, default="")
+    contact = models.CharField(max_length=12, default="")
+    password = models.CharField(max_length=50)
+    # confirm_password = models.CharField(max_length=50, default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
