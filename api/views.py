@@ -75,7 +75,7 @@ class SearchFilter(views.APIView):   # to filter according to category
 class CategoryList(views.APIView):         # to display categories in the dropdown menu
     def get(self, request):
         c = models.Category.objects.all()
-        serializer = serializers.CategorySerializer(c)
+        serializer = serializers.CategorySerializer(c, many=True)
         return response.Response(serializer.data)
 
 

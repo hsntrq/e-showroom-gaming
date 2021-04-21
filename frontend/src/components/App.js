@@ -17,22 +17,40 @@ from "react-router-dom";
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      categories: [],
+    };
+    this.getCategories();    
+  }
+
+  getCategories() {
+    fetch("/api/categories", { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          categories: data,
+        });
+      });
   }
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" render={() => {return <Redirect to="/home" />;}} />
-          <Route exact path="/home" component={Products}/>
-          <Route exact path="/ad/:productSlug" component={Product}/>
-          <Route exact path="/search" component={Searched}/>
-          <Route exact path="/post" component={Post}/>
-        </Switch>
-      </Router>
+      <div>
+        <Navbar categories={this.state.categories} /> 
+        <Router>
+          <Switch>
+            <Route exact path="/" render={() => {return <Redirect to="/home" />;}} />
+            <Route exact path="/home" component={Products}/>
+            <Route exact path="/ad/:productSlug" component={Product}/>
+            <Route exact path="/search" component={Searched}/>
+            <Route exact path="/post" render={() => <Post categories={this.state.categories} />} />
+          </Switch>
+        </Router>
+        <Footer />
+      </div>
     );
   }
 }
 
 const appDiv = document.getElementById("app");
-render(<div><Navbar /> <App /> <Footer /></div>, appDiv);
+render(<App />, appDiv);

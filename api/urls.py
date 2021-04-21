@@ -11,7 +11,7 @@ urlpatterns = [
     path('search/', views.SearchFilter.as_view(), name='search'),
     # path('search/', views.SearchAPIView.as_view(), name = 'search'),
     path('product/', views.ProductView.as_view(), name='product'),
-
+    path('categories/', views.CategoryList.as_view(), name='categories'),
     path('', views.productlist, name='product_list'),
     path('ad/<slug:product_slug>', views.productdetail, name='product_detail'),
     # path('post/', views.create, name="post"),

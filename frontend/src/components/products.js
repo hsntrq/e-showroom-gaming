@@ -45,7 +45,7 @@ export default class Products extends Component {
   }
 }
 
-class Product extends React.Component {
+class Product extends Component {
   render() {
     return (
       <div className="col-lg-3 col-md-4 col-sm-6">
@@ -74,7 +74,7 @@ class Product extends React.Component {
   }
 }
 
-class Header extends React.Component {
+class Header extends Component {
   render() {
     return (
       <header

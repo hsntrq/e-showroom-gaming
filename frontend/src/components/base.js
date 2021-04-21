@@ -13,34 +13,41 @@ export class Navbar extends Component {
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               All Categories
             </button>
-            <form id="category_menu" method="GET" action="{% url 'api:search' %}">
-              <ul className="dropdown-menu" name="category" style={{marginBottom: "5px"}} aria-labelledby="dropdownMenuButton">
-                {/* <li>
-                  <a
-                    className="dropdown-item"
-                    href="/api/search?category={{category.category_name}}"
-                  >
-                    {{category.category_name}}
-                  </a>
-                </li>
-                {% endfor %} */}
-              </ul>
-            </form>
+            <ul className="dropdown-menu" name="category" style={{marginBottom: "5px"}} aria-labelledby="dropdownMenuButton">
+              {this.props.categories.map((item, index) => (
+                <Category key={index} category={item.category_name}/>
+              ))}
+            </ul>
           </div>
+          {window.location.href.search('home')==-1 &&
           <form id="searchbar" className="input-group" method="GET" action="/search" style={{width: "30%"}}>
             <input type="text" aria-label="First name" className="form-control" placeholder="What are you looking for..." name="q" required/>
             <div className="input-group-prepend" style={{cursor: "pointer"}}>
               <button type="submit" className="input-group-text">Search</button>
             </div>
           </form>
-  
+          }
           <a className="btn btn-primary ml-auto nav-b" role="button" id="login-b">Log In | Sign Up</a>
-          <a className="btn btn-primary nav-b" role="button" id="post-ad">Post Ad</a>
+          {window.location.href.search('post')==-1 && <a className="btn btn-primary nav-b" role="button" id="post-ad" href="/post">Post Ad</a>}
         </div>
       </nav>
     )
   }
 }
+
+class Category extends Component{
+  render () {
+    return (
+      <li>
+        <a className="dropdown-item" href={"/search?category=" + this.props.category}>
+          {this.props.category}
+        </a>
+      </li>
+    );
+  }
+}
+
+
 
 export class Footer extends Component {
   render() 
