@@ -39,7 +39,8 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, password, **extra_fields):  
+        normalized_email = self.normalize_email(email)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -50,7 +51,10 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(username, password, **extra_fields)
+        # return self.create_user(email, password, **extra_fields)
+        user = self.model(email=normalized_email, password=password, **extra_fields)
+        user.set_password(password)
+        user.save()        
 
 # test with phone number field
 # remove confirm password
@@ -84,7 +88,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Jwt(models.Model):
     user = models.OneToOneField(
-        CustomUser, related_name="login_user", on_delete=models.CASCADE)
+        CustomUser, related_name="login_user", null=True, on_delete=models.SET_NULL)
     access = models.TextField()
     refresh = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
