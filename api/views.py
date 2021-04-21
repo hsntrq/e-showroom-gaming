@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from . import models
-from . import serializers
-from .forms import PostAd
 from django.db.models import Q, Count
+from . import(
+    models,
+    serializers,
+    forms
+)
 from rest_framework import(
     status,
     filters,
@@ -55,6 +57,7 @@ class SearchFilter(views.APIView):   # to filter according to category
             return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
 
 
+        
         category_query = request.GET.get('category')
         if category_query:
             category = models.Category.objects.all()
@@ -62,10 +65,9 @@ class SearchFilter(views.APIView):   # to filter according to category
                 if category_query == c.category_name:
                     category_id = c.id
                     break
-            p = p.filter(category=category_id)
+            p = productlist.filter(category=category_id)
             if p:
-                serializer = serializers.ProductSerializer(p, many=True)
-                print(serializer)
+                serializer = serializers.ProductSerializer(p)
                 return response.Response(serializer.data)
             return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
         return response.Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
@@ -75,10 +77,6 @@ class CategoryList(views.APIView):         # to display categories in the dropdo
         c = models.Category.objects.all()
         serializer = serializers.CategorySerializer(c)
         return response.Response(serializer.data)
-
-
-
-
 
 
 class ProductCreateView(generics.CreateAPIView):
@@ -96,9 +94,11 @@ class SearchAPIView(generics.ListCreateAPIView):
 
 # ******************************************************************************************************
 
+
 def productlist(request):
     CategoryList = models.Category.objects.all()
-    productlist = models.Product.objects.all().order_by('featured') # will retrieve all the products in our database
+    productlist = models.Product.objects.all().order_by(
+        'featured')  # will retrieve all the products in our database
     template = 'Product/product_list.html'
     context = {'category_list': CategoryList, 'product_list': productlist}
 
@@ -107,8 +107,10 @@ def productlist(request):
 
 def search(request):
 
-    productlist = models.Product.objects.all() # will retrieve all the products in our database
-    CategoryList = models.Category.objects.annotate(total_products = Count('product'))
+    # will retrieve all the products in our database
+    productlist = models.Product.objects.all()
+    CategoryList = models.Category.objects.annotate(
+        total_products=Count('product'))
 
     search_query = request.GET.get('q')
     if search_query:
@@ -159,19 +161,7 @@ def productdetail(request, product_slug):
     productdetail = models.Product.objects.get(slug=product_slug)
     productimages = models.ProductImages.objects.filter(product=productdetail)
     template = 'Product/product_detail.html'
-    context = {'product_detail': productdetail, 'product_images': productimages, 'category_list': CategoryList}
+    context = {'product_detail': productdetail,
+               'product_images': productimages, 'category_list': CategoryList}
     return render(request, template, context)
 
-
-def create(request):
-    CategoryList = models.Category.objects.all()
-    form = PostAd(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
-        return redirect('/home')
-    context = {
-        'form': form,
-        'category_list': CategoryList,
-    }
-    print('error', form)
-    return render(request, 'Product/post.html', context)

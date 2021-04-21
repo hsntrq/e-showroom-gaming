@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import Products from './products';
-import Product from './product'
+import Product from './product';
+import Searched from "./search";
+import Post from './post';
+import {Navbar, Footer} from './base';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect,
-} from "react-router-dom";
+} 
+from "react-router-dom";
 
 export default class App extends Component {
   constructor(props) {
@@ -22,6 +26,8 @@ export default class App extends Component {
           <Route exact path="/" render={() => {return <Redirect to="/home" />;}} />
           <Route exact path="/home" component={Products}/>
           <Route exact path="/ad/:productSlug" component={Product}/>
+          <Route exact path="/search" component={Searched}/>
+          <Route exact path="/post" component={Post}/>
         </Switch>
       </Router>
     );
@@ -29,4 +35,4 @@ export default class App extends Component {
 }
 
 const appDiv = document.getElementById("app");
-render(<App />, appDiv);
+render(<div><Navbar /> <App /> <Footer /></div>, appDiv);

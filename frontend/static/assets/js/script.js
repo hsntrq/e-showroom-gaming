@@ -22,3 +22,18 @@ function price(){
     }
     window.location.href = new_query;
 }
+
+$("#login-b").click(function () {
+    $("#LoginModal").modal("show");
+});
+$("#register-m").click(function () {
+    $("#LoginModal").modal("hide");
+    $("#RegisterModal").modal("show");
+});
+$("#login-m").click(function () {
+    $("#RegisterModal").modal("hide");
+    $("#LoginModal").modal("show");
+});
+$("#post-ad").click(function () {
+    window.location.href = "/post";
+});
