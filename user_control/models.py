@@ -25,13 +25,13 @@ class CustomUserManager(BaseUserManager):
                 raise ValueError("Password field required")
             raise ValueError("Password is too short!")
 
-        email = models.EmailField(unique=True, blank=False)
+        # email = models.CharField(unique=True, blank=False)
         normalized_email = self.normalize_email(email)
-        first_name = models.CharField(unique=True, max_length=100)
-        last_name = models.CharField(unique=True, max_length=100)
-        contact = PhoneNumberField(null=False, blank=False)
-        # contact = models.CharField(unique=True, max_length=12)
-        password = models.CharField(null=False, max_length=100)
+        # first_name = models.CharField(max_length=100, blank=False)
+        # last_name = models.CharField(max_length=100, blank=False)
+        # contact = PhoneNumberField(null=False, blank=False)
+        # # contact = models.CharField(unique=True, max_length=12)
+        # password = models.CharField(null=False, max_length=100)
 
         user = self.model(email=normalized_email, first_name=first_name, last_name=last_name,
                           contact=contact, password=password, **extra_fields)
@@ -61,7 +61,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         max_length=100, default="", editable=False)
     last_name = models.CharField(
         max_length=100, default="", editable=False)
-    email = models.EmailField(unique=True)
+    email = models.CharField(unique=True, max_length=40)
     contact = models.CharField(max_length=12, default="")
     password = models.CharField(max_length=50)
     # confirm_password = models.CharField(max_length=50, default="")
