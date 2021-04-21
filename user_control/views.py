@@ -76,6 +76,7 @@ class LoginView(APIView):
         return Response({"access": access, "refresh": refresh})
 
 
+# validate over here before sending it over to models.
 class RegisterView(APIView):
     serializer_class = RegisterSerializer
 
