@@ -27,7 +27,7 @@ export default class App extends Component {
           <Route exact path="/home" component={Products}/>
           <Route exact path="/ad/:productSlug" component={Product}/>
           <Route exact path="/search" component={Searched}/>
-          <Route exact path = "/post" component={Post}/>
+          <Route exact path="/post" component={Post}/>
         </Switch>
       </Router>
     );
