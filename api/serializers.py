@@ -4,6 +4,9 @@ from . import forms
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
+    # category = serializers.StringRelatedField(many=True)
+    # category = CategorySerializer(many=True, read_only=True)
     class Meta:
         model = models.Product
         fields = [
@@ -21,9 +24,17 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Category
+        fields = [
+            'category_name',
+        ]
+
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Product
+        form = forms.PostAd
         fields = [
             'name',
             'description',

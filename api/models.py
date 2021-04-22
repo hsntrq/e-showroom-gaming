@@ -32,7 +32,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
-            # will remove spaces in the product name and replace it with underscore
+            # will remove spaces in the product name and replace it with hyphen/ underscore
             self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
 
@@ -53,7 +53,6 @@ class ProductImages(models.Model):
 
 
 class Category(models.Model):
-    # for product category
 
     category_name = models.CharField(max_length=50)
 
@@ -66,7 +65,7 @@ class Category(models.Model):
 
 
 class Brand(models.Model):
-    # for product category
+    
 
     brand_name = models.CharField(max_length=50)
 
