@@ -31,10 +31,9 @@ class CategorySerializer(serializers.ModelSerializer):
             'category_name',
         ]
 
-
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        form = forms.PostAd
+        model = models.Product
         fields = [
             'name',
             'description',

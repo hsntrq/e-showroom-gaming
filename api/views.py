@@ -93,7 +93,7 @@ class SearchAPIView(generics.ListCreateAPIView):
 
 
 
-class PostView(APIView):
+class PostView(views.APIView):
     serializer_class = serializers.PostSerializer
 
     def post(self, request):
@@ -114,7 +114,7 @@ class PostView(APIView):
                                category=category, description=description, image=image, featured=featured)
         product.save()
 
-        return Response(serializers.PostSerializer('product').data)
+        return response.Response(serializers.PostSerializer('product').data)
 # ******************************************************************************************************
 
 

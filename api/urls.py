@@ -9,15 +9,9 @@ urlpatterns = [
     path('products/', views.ProductListView.as_view(), name='products'),
     path('create/', views.ProductCreateView.as_view(), name='post'),
     path('search/', views.SearchFilter.as_view(), name='search'),
-    # path('search/', views.SearchAPIView.as_view(), name = 'search'),
     path('product/', views.ProductView.as_view(), name='product'),
     path('categories/', views.CategoryList.as_view(), name='categories'),
-    path('', views.productlist, name='product_list'),
-    path('ad/<slug:product_slug>', views.productdetail, name='product_detail'),
-    # path('post/', views.create, name="post"),
-    # path('search/', views.search, name="search"),
-    path('chat/', views.chat, name="chat"),
-    path('create/', views.PostView.as_view(), name='create')
+    path('post/', views.PostView.as_view(), name='create')
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

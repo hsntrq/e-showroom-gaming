@@ -6,16 +6,14 @@ export default class Post extends Component {
     this.state = {
       check: false,
     };
-    //document.getElementById("post-ad").style.display = "none";
-    // $("#post-ad").css("display", "none");
-    $("#feature-c").prop("checked", false);
-    // checkfeature();
-
-    // this.postProduct();
   }
 
-  checkfeature() {
-    if (this.state.check) {
+  checkfeature(check) {
+    check = !check;
+    this.setState({
+      check: check
+    });
+    if (check) {
       $("#feature-block").css("display", "block");
     } else {
       $("#feature-block").css("display", "none");
@@ -46,11 +44,8 @@ export default class Post extends Component {
               padding: "15px",
               borderRadius: "12px",
             }}
-            method="POST"
-            action="."
-            encType="multipart/form-data"
+            onSubmit={this.postProduct}
           >
-            {/* {% csrftoken %} */}
             <div className="form-row">
               <div className="col-sm-12 col-md-6">
                 <label className="float-left" htmlFor="name">
@@ -157,16 +152,15 @@ export default class Post extends Component {
                   className="form-control"
                   name="category"
                   style={{ marginBottom: "5px" }}
-                  // required
+                  required
+                  defaultValue={""}
                 >
-                  <option disabled hidden>
+                  <option value="" disabled hidden>
                     Select a Category for Your Product Here...
                   </option>
-                  {/* <ul>
-            { for category in category_list
-            <option defaultValue="{{category.id }}">{{category.category_name}}</option>
-            endfor }
-            </ul> */}
+                  {this.props.categories.map((item, index) => (
+                    <option key={index} value={index+1}>{item.category_name}</option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -230,14 +224,14 @@ export default class Post extends Component {
                       id="feature-c"
                       checked={this.state.check}
                       type="checkbox"
-                      onClick={this.checkfeature()}
+                      onChange={this.checkfeature.bind(this, this.state.check)}
                     />
                     <span className="slider round"></span>
                   </label>
                 </div>
               </div>
             </div>
-            <div className="form-row" id="feature-block">
+            <div className="form-row" id="feature-block" style={{display: "none"}}>
               <div className="form-group">
                 <label className="float-left">Select Package:</label>
                 <div className="form-check">
@@ -297,8 +291,7 @@ export default class Post extends Component {
                       name="featured"
                       id="pkg4"
                       defaultValue="z"
-                      // checked
-                      // onChange={defaultChecked}
+                      defaultChecked
                     />
                   </div>
                 </div>

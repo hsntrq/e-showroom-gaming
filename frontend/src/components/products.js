@@ -65,6 +65,12 @@ class Product extends Component {
                 }}
               />
               <span className="badge badge-warning">{this.props.price}</span>
+              {this.props.featured != "z" && 
+                <i
+                  className="fa fa-star fa-2x"
+                  style={{ color: "#ffc107", position: "absolute", top: "30px", left: "30px"}}
+                />
+              }
             </div>
             <h3 style={{ margin: "20px 0 0" }}>{this.props.name}</h3>
           </div>
