@@ -47,7 +47,7 @@
   <body>
     <nav class="navbar navbar-light navbar-expand sticky-top navigation-clean">
       <div class="container">
-        <a class="navbar-brand" href="/home">
+        <a class="navbar-brand" href="/api">
           <img
             src="{% static 'assets/img/logo.png' %}"
             alt="RIGGED logo"
@@ -68,7 +68,7 @@
           <form
             id="category_menu"
             method="GET"
-            action="{% url 'product:search' %}"
+            action="{% url 'api:search' %}"
           >
             <ul
               class="dropdown-menu"
@@ -80,7 +80,7 @@
               <li>
                 <a
                   class="dropdown-item"
-                  href="/search?category={{category.category_name}}"
+                  href="/api/search?category={{category.category_name}}"
                 >
                   {{category.category_name}}
                 </a>
@@ -93,7 +93,7 @@
           id="searchbar"
           class="input-group"
           method="GET"
-          action="{% url 'product:search' %}"
+          action="{% url 'api:search' %}"
           style="width: 30%"
         >
           <input
@@ -319,7 +319,8 @@
     </div>
 
     {% block body %} {% endblock body %}
-
+      <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     <script src="{% static 'assets/js/script.js' %}"></script>
     <script>
       $("#login-b").click(function () {
@@ -357,7 +358,7 @@
         // } else {
         //     $('#LoginModal').modal('show');
         // }
-        window.location.href = "/post";
+        window.location.href = "post";
       });
     </script>
 
