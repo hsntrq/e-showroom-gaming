@@ -90,6 +90,7 @@ class Header extends Component {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          backgroundAttachment: "fixed"
         }}
       >
         <div className="overlay"></div>
