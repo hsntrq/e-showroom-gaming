@@ -11,7 +11,6 @@ urlpatterns = [
     path('search/', views.SearchFilter.as_view(), name='search'),
     path('product/', views.ProductView.as_view(), name='product'),
     path('categories/', views.CategoryList.as_view(), name='categories'),
-    path('post/', views.PostView.as_view(), name='create')
-]
+    ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
