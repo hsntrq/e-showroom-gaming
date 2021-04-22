@@ -21,15 +21,23 @@ export default class Post extends Component {
     }
   }
 
-  postProduct() {
-    fetch("/api/post", { method: "POST" })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          post_product: data,
-        });
-      });
+  postProduct(e){
+    e.preventDefault();
+    const data = new FormData(e.target);
+
+    fetch("/api/create/", {method: "POST", body: data, encType: "multipart/form-data"})
+    .then((response) => {
+      if (response.status == 201) return response.json()
+    })
+    .then((data) => {      
+      if (data) window.location.href = window.location.href.replace(/post\//, "ad/"+ data.slug);
+      else alert('wrong data');
+    });
   }
+
+  method="POST"
+  action="/api/create/"
+  encType="multipart/form-data"
 
   render() {
     return (
