@@ -39,7 +39,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):  
+    def create_superuser(self, email, password, **extra_fields):
         normalized_email = self.normalize_email(email)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -52,9 +52,10 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
 
         # return self.create_user(email, password, **extra_fields)
-        user = self.model(email=normalized_email, password=password, **extra_fields)
+        user = self.model(email=normalized_email,
+                          password=password, **extra_fields)
         user.set_password(password)
-        user.save()        
+        user.save()
 
 # test with phone number field
 # remove confirm password
@@ -84,6 +85,38 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         ordering = ("created_at",)
+
+
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(
+#         CustomUser, related_name="user_profile", on_delete=models.CASCADE)
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
+#     caption = models.CharField(max_length=250)
+#     about = models.TextField()
+#     profile_picture = models.ForeignKey(
+#         GenericFileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     def __str__(self):
+#         return self.user.username
+
+#     class Meta:
+#         ordering = ("created_at",)
+
+
+# class Favorite(models.Model):
+#     user = models.OneToOneField(
+#         CustomUser, related_name="user_favorites", on_delete=models.CASCADE)
+#     favorite = models.ManyToManyField(CustomUser, related_name="user_favoured")
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return f"{self.user.username}"
+
+#     class Meta:
+#         ordering = ("created_at",)
 
 
 class Jwt(models.Model):
