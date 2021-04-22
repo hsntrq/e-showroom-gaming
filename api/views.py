@@ -1,17 +1,6 @@
-from django.shortcuts import render, redirect
-from django.db.models import Q, Count
-from . import(
-    models,
-    serializers,
-    forms
-)
-from rest_framework import(
-    status,
-    filters,
-    generics,
-    views,
-    response
-)
+from django.db.models import Q
+from . import models, serializers
+from rest_framework import status, generics, views, response
 
 
 class ProductListView(views.APIView):
@@ -71,7 +60,7 @@ class SearchFilter(views.APIView):   # to filter according to category
             elif sort_query == "pricel":
                 productlist = productlist.order_by('price')
         if productlist:
-            serializer = serializers.ProductSerializer(p)
+            serializer = serializers.ProductSerializer(productlist)
             return response.Response(serializer.data)
         return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -86,4 +75,3 @@ class CategoryList(views.APIView):         # to display categories in the dropdo
 class ProductCreateView(generics.CreateAPIView):
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductSerializer
-    # permission_classes = (permissions.IsAuthenticated, )
