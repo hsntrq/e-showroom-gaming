@@ -84,37 +84,6 @@ class ProductCreateView(generics.CreateAPIView):
     serializer_class = serializers.ProductSerializer
     # permission_classes = (permissions.IsAuthenticated, )
 
-
-class SearchAPIView(generics.ListCreateAPIView):
-    search_fields = ['name']
-    filter_backends = (filters.SearchFilter,)
-    queryset = models.Product.objects.all().order_by('featured')
-    serializer_class = serializers.ProductSerializer
-
-
-
-class PostView(views.APIView):
-    serializer_class = serializers.PostSerializer
-
-    def post(self, request):
-        serializer = self.serializer_class(data=request)
-
-        # if serializer.is_valid():
-        name = serializer.data.name
-        owner = 'HasanNaseem'
-        brand = serializer.data.brand
-        condition = serializer.data.condition
-        # category = 'Processors'
-        category = models.Category(serializer.data.category)
-        description = serializer.data.description
-        image = serializer.data.image
-        featured = serializer.data.featured
-
-        product = forms.PostAd(name=name, owner=owner, brand=brand, condition=condition,
-                               category=category, description=description, image=image, featured=featured)
-        product.save()
-
-        return response.Response(serializers.PostSerializer('product').data)
 # ******************************************************************************************************
 
 
