@@ -1,10 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 import datetime
 from django.utils.text import slugify
-
-
-# Create your models here.
 
 
 class Product(models.Model):
@@ -29,10 +25,10 @@ class Product(models.Model):
     def image_url(self):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
+        return None
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
-            # will remove spaces in the product name and replace it with hyphen/ underscore
             self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
 
@@ -65,7 +61,6 @@ class Category(models.Model):
 
 
 class Brand(models.Model):
-    
 
     brand_name = models.CharField(max_length=50)
 

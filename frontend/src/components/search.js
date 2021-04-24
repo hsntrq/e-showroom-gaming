@@ -12,8 +12,7 @@ export default class Searched extends Component {
   getProducts() {
     fetch(window.location.href.replace(/search/, "api/search"), {method: "GET",})
       .then((response) => {
-        if (response.ok) return response.json();
-        else return [];
+        return response.ok ? response.json() : [];
       })
       .then((data) => {
         this.setState({
@@ -24,11 +23,9 @@ export default class Searched extends Component {
 
   sort(query) {
     var curr_query = window.location.href;
-    if (curr_query.search("&sort") == -1) {
-      window.location.href = curr_query + "&sort=" + query;
-    } else {
-      window.location.href = curr_query.replace(/(#|)&sort=(name|date|priceh|pricel)/, "&sort=" + query);
-    }
+    curr_query.search("&sort") == -1
+      ? (window.location.href = curr_query + "&sort=" + query)
+      : (window.location.href = curr_query.replace(/(#|)&sort=(name|date|priceh|pricel)/, "&sort=" + query));
   }
 
   price() {
