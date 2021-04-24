@@ -24,7 +24,7 @@ export default class Products extends Component {
       <div>
         <Header />
         <section className="text-center">
-          <h1>PRODUCT CATALOG</h1>
+          <h1>{'PRODUCT CATALOG'}</h1>
           <div className="container-fluid">
             <div className="row" style={{ margin: "0 3%" }}>
               {this.state.products.map((item, index) => (
@@ -97,7 +97,7 @@ class Header extends Component {
         <div className="container">
           <div className="row">
             <div className="col-xl-9 mx-auto">
-              <h1 className="mb-5">What are you looking for?</h1>
+              <h1 className="mb-5">{'What are you looking for?'}</h1>
             </div>
             <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
               <form method="GET" action="/search">

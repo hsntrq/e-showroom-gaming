@@ -5,8 +5,8 @@ from rest_framework import status, generics, views, response
 
 class ProductListView(views.APIView):
     def get(self, request):
-        p = models.Product.objects.all().order_by('featured')
-        serializer = serializers.ProductSerializer(p, many=True)
+        productlist = models.Product.objects.all().order_by('featured')
+        serializer = serializers.ProductSerializer(productlist, many=True)
         return response.Response(serializer.data)
 
 

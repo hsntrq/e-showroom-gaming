@@ -40,7 +40,7 @@ export default class Post extends Component {
       <section className="text-center" style={{ background: "#ffffff" }}>
         <div className="container" style={{ borderRadius: "8px", padding: "10px", width: "auto" }}>
           <h2 id="postH" className="text-left" style={{ paddingLeft: "12px" }}>
-            DETAILS OF YOUR PRODUCT:
+            {'DETAILS OF YOUR PRODUCT:'}
           </h2>
           <form
             style={{
@@ -53,7 +53,7 @@ export default class Post extends Component {
             <div className="form-row">
               <div className="col-sm-12 col-md-6">
                 <label className="float-left" htmlFor="name">
-                  Ad Title: *&nbsp;
+                  {'Ad Title: *'}
                 </label>
                 <input
                   className="form-control"
@@ -66,7 +66,7 @@ export default class Post extends Component {
               </div>
               <div className="col-sm-12 col-md-6">
                 <label className="float-left" htmlFor="price">
-                  Set a Price: *
+                  {'Set a Price: *'}
                 </label>
                 <input
                   className="form-control"
@@ -79,7 +79,7 @@ export default class Post extends Component {
               </div>
               <div className="col-sm-12 col-md-6" hidden>
                 <label className="float-left" htmlFor="owner">
-                  Owner: *
+                  {'Owner: *'}
                 </label>
                 <input
                   className="form-control"
@@ -94,7 +94,7 @@ export default class Post extends Component {
             <div className="form-row">
               <div className="col-sm-12 col-md-6">
                 <label className="float-left" htmlFor="brand">
-                  Brand: *&nbsp;
+                  {'Brand: *'}
                 </label>
                 <input
                   className="form-control"
@@ -110,7 +110,7 @@ export default class Post extends Component {
                   htmlFor="brand"
                   style={{ display: "block" }}
                 >
-                  Condition: *&nbsp;
+                  {'Condition: *'}
                 </label>
                 <div
                   className="float-left"
@@ -126,7 +126,7 @@ export default class Post extends Component {
                       required
                     />
                     <label className="form-check-label" htmlFor="condition">
-                      New
+                      {'New'}
                     </label>
                   </div>
                   <div
@@ -141,7 +141,7 @@ export default class Post extends Component {
                       defaultValue="Used"
                     />
                     <label className="form-check-label" htmlFor="condition">
-                      Used
+                      {'Used'}
                     </label>
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default class Post extends Component {
             <div className="form-row">
               <div className="col-12">
                 <label className="float-left" htmlFor="category">
-                  Categories: *&nbsp;
+                  {'Categories: *'}
                 </label>
                 <select
                   className="form-control"
@@ -171,7 +171,7 @@ export default class Post extends Component {
             <div className="form-row">
               <div className="col-sm-12 col-md-6">
                 <label className="float-left" htmlFor="description">
-                  Description: *&nbsp;
+                  {'Description: *'}
                 </label>
                 <textarea
                   className="form-control"
@@ -189,7 +189,7 @@ export default class Post extends Component {
                       className="col-form-label float-left"
                       htmlFor="image"
                     >
-                      Upload Photos:*
+                      {'Upload Photos:*'}
                     </label>
                   </div>
                   <div className="col-sm-12">
@@ -220,7 +220,7 @@ export default class Post extends Component {
               <div className="col-12">
                 <div className="form-check form-switch">
                   <label className="float-left" htmlFor="feature-c">
-                    Do You Want To Feature Your Ad?
+                    {'Do You Want To Feature Your Ad?'}
                   </label>
                   <label className="switch float-left">
                     <input
@@ -248,10 +248,10 @@ export default class Post extends Component {
                       type="radio"
                       name="featured"
                       id="pkg1"
-                      defaultValue="a"
+                      defaultValue="c"
                     />
                     <label className="form-check-label" htmlFor="featured">
-                      1000 PKR
+                      {'1000 PKR'}
                     </label>
                   </div>
                   <div
@@ -266,7 +266,7 @@ export default class Post extends Component {
                       defaultValue="b"
                     />
                     <label className="form-check-label" htmlFor="featured">
-                      2000 PKR
+                      {'2000 PKR'}
                     </label>
                   </div>
                   <div
@@ -278,10 +278,10 @@ export default class Post extends Component {
                       type="radio"
                       name="featured"
                       id="pkg3"
-                      defaultValue="c"
+                      defaultValue="a"
                     />
                     <label className="form-check-label" htmlFor="featured">
-                      5000 PKR
+                      {'5000 PKR'}
                     </label>
                   </div>
                   <div
@@ -312,7 +312,7 @@ export default class Post extends Component {
                     paddingLeft: "60px",
                   }}
                 >
-                  POST
+                  {'POST'}
                 </button>
               </div>
             </div>

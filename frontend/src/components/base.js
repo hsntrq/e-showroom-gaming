@@ -11,7 +11,7 @@ export class Navbar extends Component {
           </a>
           <div className="dropdown" style={{marginRight: "auto"}}>
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              All Categories
+              {'All Categories'}
             </button>
             <ul className="dropdown-menu" name="category" style={{marginBottom: "5px"}} aria-labelledby="dropdownMenuButton">
               {this.props.categories.map((item, index) => (
@@ -23,11 +23,11 @@ export class Navbar extends Component {
           <form id="searchbar" className="input-group" method="GET" action="/search" style={{width: "30%"}}>
             <input type="text" aria-label="First name" className="form-control" placeholder="What are you looking for..." name="q" required/>
             <div className="input-group-prepend" style={{cursor: "pointer"}}>
-              <button type="submit" className="input-group-text">Search</button>
+              <button type="submit" className="input-group-text">{'Search'}</button>
             </div>
           </form>
           }
-          <a className="btn btn-primary ml-auto nav-b" role="button" id="login-b">Log In | Sign Up</a>
+          <a className="btn btn-primary ml-auto nav-b" role="button" id="login-b">{'Log In | Sign Up'}</a>
           {window.location.href.search('post')==-1 && <a className="btn btn-primary nav-b" role="button" id="post-ad" href="/post">Post Ad</a>}
         </div>
       </nav>

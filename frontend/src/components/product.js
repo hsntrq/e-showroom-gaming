@@ -30,7 +30,7 @@ export default class Product extends Component {
               <img className="img-responsive center-block" src={this.state.product.image} style={{width: "100%", borderRadius: "10px 10px 0 0"}}/>
             </div>
             <button className="btn btn-info btn-block" type="button" style={{width: "100%", borderRadius: "0 0 10px 10px"}}>
-              CHAT WITH SELLER
+              {'CHAT WITH SELLER'}
             </button>
           </div>
           <div className="col-md-6 align-self-center" style={{padding: "15px"}}>
@@ -87,8 +87,8 @@ export default class Product extends Component {
               <h3 className="text-left">Seller Info:</h3>
               <p className="text-left d-inline-flex float-right" style={{width: "78%"}}>
                 {this.state.product.owner}<br />
-                Phone number : xxxx-xxxxxxx <br />
-                email address : ''''@''''''.''''
+                {'Phone number : xxxx-xxxxxxx'}<br />
+                {"email address : ''''@''''''.''''"}
               </p>
               <div style={{width: "20%"}}>
                 <img
