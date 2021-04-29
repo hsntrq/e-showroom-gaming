@@ -82,8 +82,51 @@ class PostView(views.APIView):
             product.save()
 
         return response.Response(serializer.PostSerializer(product).data)
-# ******************************************************************************************************
 
+
+class AddToCartView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        slug = request.data.get('slug', None)
+        if slug is None:
+            return Response({"message": "Invalid request"}, status=HTTP_400_BAD_REQUEST)
+
+        product = get_object_or_404(models.Product, slug=slug)
+
+        product_order_qs = models.ProductOrder.objects.filter(
+            product=product,
+            user=request.user,
+            ordered=False
+        )
+
+        if product_order_qs.exists():
+            product_order = product_order_qs.first()
+            product_order.quantity += 1
+            product_order.save()
+        else:
+            product_order = models.ProductOrder.objects.create(
+                product=product,
+                user=request.user,
+                ordered=False
+            )
+            product_order.save()
+
+        order_qs = models.Order.objects.filter(user=request.user, ordered=False)
+        if order_qs.exists():
+            order = order_qs[0]
+            if not order.products.filter(item__id=order_item.id).exists():
+                order.items.add(order_item)
+                return Response(status=HTTP_200_OK)
+
+        else:
+            ordered_date = timezone.now()
+            order = models.Order.objects.create(
+                user=request.user, ordered_date=ordered_date)
+            order.products.add(order_item)
+            return Response(status=HTTP_200_OK)
+
+
+# ******************************************************************************************************
+#Backup Code
 
 def productlist(request):
     CategoryList = models.Category.objects.all()

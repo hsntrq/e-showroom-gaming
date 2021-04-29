@@ -3,6 +3,11 @@ from . import models
 from . import forms
 
 
+
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
@@ -40,3 +45,54 @@ class PostSerializer(serializers.ModelSerializer):
             'image',
             'featured'
         ]
+
+class ProductOrderSerializer(serializers.ModelSerializer):
+    product = serializers.SerializerMethodField()
+    final_price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.ProductOrder
+        fields = (
+            'id',
+            'product',
+            'quantity',
+            'final_price'
+        )
+
+    def get_item(self, obj):
+        return ProductSerializer(obj.product).data
+
+    def get_final_price(self, obj):
+        return obj.get_final_price()
+
+class OrderSerializer(serializers.ModelSerializer):
+    order_items = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.Order
+        fields = (
+            'id',
+            'order_items',
+            'total'
+        )
+
+    def get_order_items(self, obj):
+        return ProductOrderSerializer(obj.products.all(), many=True).data
+
+    def get_total(self, obj):
+        return obj.get_total()
+
+
+class AddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Address
+        fields = (
+            'id',
+            'user',
+            'street_address',
+            'apartment_address',
+            'zip',
+            'default'
+        )

@@ -1,7 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 import datetime
 from django.utils.text import slugify
+from django.db.models import Sum
+from user_control.models import CustomUser
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 # Create your models here.
@@ -75,3 +77,63 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.brand_name
+
+
+class ProductOrder(models.Model):       #Orderlist product, qty, feedback, rating, *user, *ordered, ref_code(FK)
+    user = models.ForeignKey('user_control.CustomUser', on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.product.name}"
+
+    def get_total_product_price(self):
+        return self.quantity * self.product.price
+
+
+class Order(models.Model):             #user, ref_code, ordered_date, delivery_date, shipping address, *order
+    user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
+    ref_code = models.CharField(max_length=20, blank=True, null=True)
+    products = models.ManyToManyField(ProductOrder)
+    start_date = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField()
+    ordered = models.BooleanField(default=False)
+    shipping_address = models.ForeignKey(
+        'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    received = models.BooleanField(default=False)
+
+    '''
+    1. Item added to cart
+    2. Adding a billing address
+    (Failed checkout)
+    3. Payment
+    (Preprocessing, processing, packaging etc.)
+    4. Being delivered
+    5. Received
+    6. Refunds
+    '''
+
+    def __str__(self):
+        return self.user.first_name
+
+    def get_total(self):
+        total = 0
+        for order_item in self.products.all():
+            total += order_item.get_total_product_price()
+        return total
+    
+class Address(models.Model):
+    user = models.ForeignKey('user_control.CustomUser', on_delete=models.CASCADE)
+    street_address = models.CharField(max_length=100)
+    apartment_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=58)
+    zip = models.CharField(max_length=100)
+    phone_number = PhoneNumberField(max_length=12)
+    default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.first_name
+
+    class Meta:
+        verbose_name_plural = 'Addresses'
