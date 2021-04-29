@@ -9,6 +9,9 @@ class StringSerializer(serializers.StringRelatedField):
         return value
 
 class ProductSerializer(serializers.ModelSerializer):
+    # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
+    # category = serializers.StringRelatedField(many=True)
+    # category = CategorySerializer(many=True, read_only=True)
     class Meta:
         model = models.Product
         fields = [
@@ -34,7 +37,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        form = forms.PostAd
+        model = models.Product
         fields = [
             'name',
             'description',

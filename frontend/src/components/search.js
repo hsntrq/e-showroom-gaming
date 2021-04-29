@@ -6,13 +6,16 @@ export default class Searched extends Component {
     this.state = {
       products: []
     };
-    this.searchedProduct = this.props.match.params.query;
     this.getProducts();
   }
 
   getProducts(){
-    fetch("/api/products", {method: "GET"})
-    .then((response) => response.json())
+
+    fetch(window.location.href.replace(/search/, "api/search"), {method: "GET"})
+    .then((response) => {
+      if (response.ok) return response.json();
+      else return [];
+    })
     .then((data) => {
       this.setState({
         products: data
@@ -20,46 +23,99 @@ export default class Searched extends Component {
     });
   }
 
+  sort(query){
+    var curr_query = window.location.href;
+    if (curr_query.search("&sort") == -1){
+      window.location.href  = curr_query + "&sort="+query;
+    }else{
+      window.location.href  = curr_query.replace(/(#|)&sort=(name|date|priceh|pricel)/, "&sort="+query);
+    }
+  }
+  
+  price(){
+      console.log("hello");
+    var price_min = document.getElementById("min-price").value;
+    var price_max = document.getElementById("max-price").value;
+    if (!price_min) price_min=0;
+    if (!price_max) price_max=10000000;
+    var curr_query = window.location.href;
+    if (curr_query.search("&price") == -1){
+      window.location.href = curr_query + "&price="+price_min+"+"+price_max;
+    }else{
+      window.location.href = curr_query.replace(/(#|)price=\d*\+\d*/, "price="+price_min+"+"+price_max);
+    }
+  }
+
   render() 
   {
-    return  (
+    return (
       <div className="container">
         <div className="row">
           <div className="col-3 mt-4">
-            <h5> PRICE </h5>
-            <p>Choose a price range below</p>
-            <input type="number" id="min-price" className="form-group" size="8" placeholder="min" />
-        to
-        <input type="number" id="max-price" placeholder="max" className="form-group" size="8" />
-            <button type="button" className="btn btn-primary" style={{marginLeft: "60px"}} >Apply</button>
+            <h5>{'PRICE'}</h5>
+            <p>{'Choose a price range below'}</p>
+            <input
+              type="number"
+              id="min-price"
+              className="form-group"
+              size="8"
+              placeholder="min"
+            />
+            {'to'}
+            <input
+              type="number"
+              id="max-price"
+              placeholder="max"
+              className="form-group"
+              size="8"
+            />
+            <button
+              className="btn btn-primary"
+              style={{ marginLeft: "60px" }}
+              onClick={this.price}
+            >
+              {'Apply'}
+            </button>
           </div>
           <div className="col-9 my-4">
-            <span style={{ fontSize: "22px" }}>
-              Sort By:
-        </span>
+            <span style={{ fontSize: "22px" }}>{'Sort By:'}</span>
             <div className="dropdown" style={{ display: "inline-block" }}>
-              <button style={{ background: "transparent", color: "#000000" }} className="btn btn-secondary dropdown-toggle" type="button"
-                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Name
-          </button>
-              {/* <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a className="dropdown-item" onClick="sort('name')">Name</a>
-                <a className="dropdown-item" onClick="sort('date')">Date</a>
-                <a className="dropdown-item" onClick="sort('priceh')">Price-High</a>
-                <a className="dropdown-item" onClick="sort('pricel')">Price-Low</a>
-              </div> */}
+              <button
+                style={{ background: "transparent", color: "#000000" }}
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {'Name'}
+              </button>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button className="dropdown-item" onClick={this.sort.bind(this,'name')}>{'Name'}</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'date')}>{'Date'}</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'priceh')}>{'Price-High'}</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'pricel')}>{'Price-Low'}</button>
+              </div>
             </div>
+            {this.state.products.map((item, index) => (
+              <Product
+                key={index}
+                slug={item.slug}
+                image={item.image}
+                name={item.name}
+                price={item.price}
+                description={item.description}
+                created={item.created}
+              />
+            ))}
+            {!this.state.products.length && (
+              <h4 style={{ color: "#A52A2A" }}>{'No Results Found'}</h4>
+            )}
           </div>
         </div>
-        
-        <div className="row">
-          <div className="offset-3 col-9"></div>
-          {this.state.products.map((item, index) => <Product key={index} slug={item.slug} image={item.image} name={item.name} price={item.price} description={item.description} created={item.created}/>)}          
-          <h4 style={{ color: "#A52A2A" }}>No Results Found</h4>
-        </div>
-
       </div>
-    )
+    );
   }
 }
 

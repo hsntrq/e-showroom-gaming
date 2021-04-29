@@ -24,7 +24,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=50, default="Sony")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='main_product/', blank=True, null=True)
-    created = models.DateField(default=datetime.datetime.now)
+    created = models.DateField(default=datetime.date.today)
     featured = models.CharField(max_length=6, default="z")
     slug = models.SlugField(blank=True, null=True)
 
