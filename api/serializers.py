@@ -49,12 +49,12 @@ class PostSerializer(serializers.ModelSerializer):
             'featured'
         ]
 
-class ProductOrderSerializer(serializers.ModelSerializer):
+class OrderlistSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField()
     final_price = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.ProductOrder
+        model = models.Orderlist
         fields = (
             'id',
             'product',
@@ -63,10 +63,10 @@ class ProductOrderSerializer(serializers.ModelSerializer):
         )
 
     def get_item(self, obj):
-        return ProductSerializer(obj.product).data
+        return ProductSerializer(obj.product_id).data
 
     def get_final_price(self, obj):
-        return obj.get_final_price()
+        return obj.get_total_product_price()
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = serializers.SerializerMethodField()
@@ -81,7 +81,7 @@ class OrderSerializer(serializers.ModelSerializer):
         )
 
     def get_order_items(self, obj):
-        return ProductOrderSerializer(obj.products.all(), many=True).data
+        return OrderlistSerializer(obj.products.all(), many=True).data
 
     def get_total(self, obj):
         return obj.get_total()

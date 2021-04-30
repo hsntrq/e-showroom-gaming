@@ -40,6 +40,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 
 class ProductImages(models.Model):
@@ -79,49 +80,38 @@ class Brand(models.Model):
         return self.brand_name
 
 
-class ProductOrder(models.Model):       #Orderlist product, qty, feedback, rating, *user, *ordered, ref_code(FK)
-    user = models.ForeignKey('user_control.CustomUser', on_delete=models.CASCADE)
+class Orderlist(models.Model):       #Orderlist productid, qty, orderid, *user, *ordered, ref_code(FK)
     ordered = models.BooleanField(default=False)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    orderlistid = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return f"{self.quantity} of {self.product.name}"
+        return f"{self.quantity} of {self.product_id.name}"
 
     def get_total_product_price(self):
-        return self.quantity * self.product.price
+        return self.quantity * self.product_id.price
 
 
 class Order(models.Model):             #user, ref_code, ordered_date, delivery_date, shipping address, *order
-    user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
-    ref_code = models.CharField(max_length=20, blank=True, null=True)
-    products = models.ManyToManyField(ProductOrder)
+    user_id = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
+    orderid = models.ForeignKey(Orderlist, on_delete = models.CASCADE)
+    products = models.ManyToManyField(Orderlist)
     start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    delivery_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     received = models.BooleanField(default=False)
 
-    '''
-    1. Item added to cart
-    2. Adding a billing address
-    (Failed checkout)
-    3. Payment
-    (Preprocessing, processing, packaging etc.)
-    4. Being delivered
-    5. Received
-    6. Refunds
-    '''
-
     def __str__(self):
         return self.user.first_name
-
     def get_total(self):
         total = 0
         for order_item in self.products.all():
-            total += order_item.get_total_product_price()
+            total += order_item.get_total_price()
         return total
+
     
 class Address(models.Model):
     user = models.ForeignKey('user_control.CustomUser', on_delete=models.CASCADE)
