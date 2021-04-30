@@ -51,9 +51,6 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save()
 
-# test with phone number field
-# remove confirm password
-
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(
@@ -63,7 +60,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(unique=True, max_length=40)
     contact = PhoneNumberField(max_length=12)
     password = models.CharField(max_length=50)
-    # confirm_password = models.CharField(max_length=50, default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
@@ -89,7 +85,7 @@ class UserProfile(models.Model):
     caption = models.CharField(max_length=250)
     about = models.TextField()
     profile_picture = models.ForeignKey(
-        GenericFileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
+        FileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -98,19 +94,6 @@ class UserProfile(models.Model):
 
     class Meta:
         ordering = ("created_at",)
-
-
-# class Favorite(models.Model):
-#     user = models.OneToOneField(
-#         CustomUser, related_name="user_favorites", on_delete=models.CASCADE)
-#     favorite = models.ManyToManyField(CustomUser, related_name="user_favoured")
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"{self.user.username}"
-
-#     class Meta:
-#         ordering = ("created_at",)
 
 
 class Jwt(models.Model):
