@@ -117,3 +117,54 @@ class RefreshView(APIView):
         active_jwt.save()
 
         return Response({"access": access, "refresh": refresh})
+
+
+class UserProfileView(ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+        if self.request.method.lower() != "get":
+            return self.queryset
+
+        data = self.request.query_params.dict()
+        data.pop("page", None)
+        keyword = data.pop("keyword", None)
+
+        if keyword:
+            search_fields = (
+                "user__username", "first_name", "last_name", "user__email"
+            )
+            query = self.get_query(keyword, search_fields)
+            try:
+                return self.queryset.filter(query).filter(**data).exclude(
+                    Q(user_id=self.request.user.id) |
+                    Q(user__is_superuser=True)
+                ).annotate(
+                    fav_count=Count(self.user_fav_query(self.request.user))
+                ).order_by("-fav_count")
+            except Exception as e:
+                raise Exception(e)
+
+        result = self.queryset.filter(**data).exclude(
+            Q(user_id=self.request.user.id) |
+            Q(user__is_superuser=True)
+        ).annotate(
+            fav_count=Count(self.user_fav_query(self.request.user))
+        ).order_by("-fav_count")
+        return result
+
+
+class FileUploadView(APIView):
+    queryset = FileUpload.objects.all()
+    serializer_class = FileUploadSerializer
+
+
+class LogoutView(APIView):
+
+    def get(self, request):
+        user_id = request.user.id
+
+        Jwt.objects.filter(user_id=user_id).delete()
+
+        return Response("logged out successfully", status=200)
