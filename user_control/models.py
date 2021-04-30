@@ -25,13 +25,7 @@ class CustomUserManager(BaseUserManager):
                 raise ValueError("Password field required")
             raise ValueError("Password is too short!")
 
-        # email = models.CharField(unique=True, blank=False)
         normalized_email = self.normalize_email(email)
-        # first_name = models.CharField(max_length=100, blank=False)
-        # last_name = models.CharField(max_length=100, blank=False)
-        # contact = PhoneNumberField(null=False, blank=False)
-        # # contact = models.CharField(unique=True, max_length=12)
-        # password = models.CharField(null=False, max_length=100)
 
         user = self.model(email=normalized_email, first_name=first_name, last_name=last_name,
                           contact=contact, password=password, **extra_fields)
@@ -87,23 +81,23 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ordering = ("created_at",)
 
 
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(
-#         CustomUser, related_name="user_profile", on_delete=models.CASCADE)
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     caption = models.CharField(max_length=250)
-#     about = models.TextField()
-#     profile_picture = models.ForeignKey(
-#         GenericFileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        CustomUser, related_name="user_profile", on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    caption = models.CharField(max_length=250)
+    about = models.TextField()
+    profile_picture = models.ForeignKey(
+        GenericFileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-#     def __str__(self):
-#         return self.user.username
+    def __str__(self):
+        return self.user.username
 
-#     class Meta:
-#         ordering = ("created_at",)
+    class Meta:
+        ordering = ("created_at",)
 
 
 # class Favorite(models.Model):
