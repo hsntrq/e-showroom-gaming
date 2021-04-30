@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 import django_heroku
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,11 +20,11 @@ ALLOWED_HOSTS = ['rigged.herokuapp.com', 'rigged.rocks',
 
 AUTH_USER_MODEL = "user_control.CustomUser"
 
+
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -120,12 +122,35 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+# AWS
+
+S3_BUCKET_URL = config('S3_BUCKET_URL')
+
+AWS_ACCESS_KEY_ID = config('AWS_S3_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_S3_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_HOST_REGION = config('AWS_HOST_REGION')
+AWS_S3_CUSTOM_DOMAIN = 's3.aws.amazon.com/s3/bucket/%s' % AWS_STORAGE_BUCKET_NAME
+AWS_DEFAULT_ACL = None
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+
+DEFAULT_FILE_STORAGE = 'chatapi.backend_storage.MediaStorage'
+
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles", "static", "static_root")
 STATICFILES_DIRS = [os.path.join(BASE_DIR,  "static")]
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+MEDIA_URL = 'https://%s/' % (AWS_S3_CUSTOM_DOMAIN)
+MEDIAFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # django_heroku.settings(locals())
 MIDDLEWARE_CLASSES = ('raygun4py.middleware.django.Provider')
