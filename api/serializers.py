@@ -3,10 +3,10 @@ from . import models
 from . import forms
 
 
-
 class StringSerializer(serializers.StringRelatedField):
     def to_internal_value(self, value):
         return value
+
 
 class ProductSerializer(serializers.ModelSerializer):
     # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
@@ -27,8 +27,10 @@ class ProductSerializer(serializers.ModelSerializer):
             'image',
             'created',
             'featured',
-            'slug'
+            'slug',
+            'quantity'
         ]
+
     def get_category(self, obj):
         return CategorySerializer(obj.category).data['category_name']
 
@@ -54,12 +56,14 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'quantity'
         ]
 
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
         fields = [
             'category_name',
         ]
+
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -74,6 +78,7 @@ class PostSerializer(serializers.ModelSerializer):
             'image',
             'featured'
         ]
+
 
 class OrderlistSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField()
@@ -93,6 +98,7 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
     def get_final_price(self, obj):
         return obj.get_total_product_price()
+
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = serializers.SerializerMethodField()
