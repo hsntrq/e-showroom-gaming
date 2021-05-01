@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'api.apps.APIConfig',
     'frontend.apps.FrontendConfig',
-    'user_control.apps.UserControlConfig'
+    'user_control.apps.UserControlConfig',
 ]
 
 PHONENUMBER_DEFAULT_REGION = 'PK'

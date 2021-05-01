@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, FileUpload, UserProfile
 
 
 class LoginSerializer(serializers.Serializer):
@@ -56,7 +56,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
             sender_id=obj.user.id, receiver_id=user_id, is_read=False).distinct()
 
         return message.count()
-
-
-# class FavoriteSerializer(serializers.Serializer):
-#     favorite_id = serializers.IntegerField()

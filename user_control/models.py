@@ -77,6 +77,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ordering = ("created_at",)
 
 
+class FileUpload(models.Model):
+    file_upload = models.FileField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.file_upload}"
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(
         CustomUser, related_name="user_profile", on_delete=models.CASCADE)

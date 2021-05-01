@@ -1,13 +1,13 @@
 import jwt
 from django.shortcuts import render
-from .models import Jwt, CustomUser
+from .models import Jwt, CustomUser, FileUpload, UserProfile
 from datetime import datetime, timedelta
 from django.conf import settings
 import random
 import string
 from rest_framework.views import APIView
 from .serializers import (
-    LoginSerializer, RegisterSerializer, RefreshSerializer
+    LoginSerializer, RegisterSerializer, RefreshSerializer, UserProfileSerializer, FileUploadSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
