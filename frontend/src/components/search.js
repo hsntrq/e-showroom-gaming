@@ -12,38 +12,13 @@ export default class Searched extends Component {
   getProducts(){
 
     fetch(window.location.href.replace(/search/, "api/search"), {method: "GET"})
-    .then((response) => {
-      if (response.ok) return response.json();
-      else return [];
-    })
+    .then((response) => response.json())
     .then((data) => {
+      console.log('here', data)
       this.setState({
         products: data
       });
     });
-  }
-
-  sort(query){
-    var curr_query = window.location.href;
-    if (curr_query.search("&sort") == -1){
-      window.location.href  = curr_query + "&sort="+query;
-    }else{
-      window.location.href  = curr_query.replace(/(#|)&sort=(name|date|priceh|pricel)/, "&sort="+query);
-    }
-  }
-  
-  price(){
-      console.log("hello");
-    var price_min = document.getElementById("min-price").value;
-    var price_max = document.getElementById("max-price").value;
-    if (!price_min) price_min=0;
-    if (!price_max) price_max=10000000;
-    var curr_query = window.location.href;
-    if (curr_query.search("&price") == -1){
-      window.location.href = curr_query + "&price="+price_min+"+"+price_max;
-    }else{
-      window.location.href = curr_query.replace(/(#|)price=\d*\+\d*/, "price="+price_min+"+"+price_max);
-    }
   }
 
   render() 
@@ -52,8 +27,8 @@ export default class Searched extends Component {
       <div className="container">
         <div className="row">
           <div className="col-3 mt-4">
-            <h5>{'PRICE'}</h5>
-            <p>{'Choose a price range below'}</p>
+            <h5> PRICE </h5>
+            <p>Choose a price range below</p>
             <input
               type="number"
               id="min-price"
@@ -61,7 +36,7 @@ export default class Searched extends Component {
               size="8"
               placeholder="min"
             />
-            {'to'}
+            to
             <input
               type="number"
               id="max-price"
@@ -70,15 +45,15 @@ export default class Searched extends Component {
               size="8"
             />
             <button
+              type="button"
               className="btn btn-primary"
               style={{ marginLeft: "60px" }}
-              onClick={this.price}
             >
-              {'Apply'}
+              Apply
             </button>
           </div>
           <div className="col-9 my-4">
-            <span style={{ fontSize: "22px" }}>{'Sort By:'}</span>
+            <span style={{ fontSize: "22px" }}>Sort By:</span>
             <div className="dropdown" style={{ display: "inline-block" }}>
               <button
                 style={{ background: "transparent", color: "#000000" }}
@@ -89,14 +64,14 @@ export default class Searched extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {'Name'}
+                Name
               </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button className="dropdown-item" onClick={this.sort.bind(this,'name')}>{'Name'}</button>
-                <button className="dropdown-item" onClick={this.sort.bind(this,'date')}>{'Date'}</button>
-                <button className="dropdown-item" onClick={this.sort.bind(this,'priceh')}>{'Price-High'}</button>
-                <button className="dropdown-item" onClick={this.sort.bind(this,'pricel')}>{'Price-Low'}</button>
-              </div>
+              {/* <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a className="dropdown-item" onClick="sort('name')">Name</a>
+                <a className="dropdown-item" onClick="sort('date')">Date</a>
+                <a className="dropdown-item" onClick="sort('priceh')">Price-High</a>
+                <a className="dropdown-item" onClick="sort('pricel')">Price-Low</a>
+              </div> */}
             </div>
             {this.state.products.map((item, index) => (
               <Product
@@ -110,7 +85,7 @@ export default class Searched extends Component {
               />
             ))}
             {!this.state.products.length && (
-              <h4 style={{ color: "#A52A2A" }}>{'No Results Found'}</h4>
+              <h4 style={{ color: "#A52A2A" }}>No Results Found</h4>
             )}
           </div>
         </div>
