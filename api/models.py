@@ -82,37 +82,39 @@ class Brand(models.Model):
 
 
 class Orderlist(models.Model):      
-    user_id = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     orderlistid = models.AutoField(primary_key=True)
     feedback = models.TextField(max_length=250)
-    orderid = models.ForeignKey('Order', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.quantity} of {self.product_id.name}"
+        return f"{self.quantity} of {self.product.name}"
 
     def get_total_product_price(self):
-        return self.quantity * self.product_id.price
+        return self.quantity * self.product.price
 
 
 class Order(models.Model):             
-    user_id = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
+    user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
     orderid = models.AutoField(primary_key=True)
     start_date = models.DateTimeField(auto_now_add=True)
     delivery_date = models.DateTimeField()
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     received = models.BooleanField(default=False)
+    cashOnDelivery = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.first_name
 
     def get_total(self):
         total = 0
-        for order_item in self.products.all():
-            total += order_item.get_total_price()
+        orderList = Orderlist.objects.filter(order_id=self.orderid)
+        for orderItem in orderList:
+            total += orderItem.get_total_product_price()
         return total
 
     
