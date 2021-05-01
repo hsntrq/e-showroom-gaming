@@ -59,7 +59,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         max_length=100, default="", editable=False)
     email = models.CharField(unique=True, max_length=40)
     contact = PhoneNumberField(max_length=12)
-    password = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
