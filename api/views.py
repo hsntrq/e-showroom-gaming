@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from . import models, serializers
 from rest_framework import status, generics, views, response
 
@@ -74,4 +75,35 @@ class CategoryList(views.APIView):         # to display categories in the dropdo
 
 class ProductCreateView(generics.CreateAPIView):
     queryset = models.Product.objects.all()
-    serializer_class = serializers.ProductSerializer
+    serializer_class = serializers.ProductCreateSerializer
+
+
+class AddToCartView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        slug = request.data.get('slug', None)
+        if slug is None:
+            return response.Response({"message": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+
+        product = get_object_or_404(models.Product, slug=slug)
+
+        cart_order = models.Orderlist.objects.filter(
+            product_id=product,
+            user_id=request.user,
+            ordered=False
+        )
+
+        if cart_order.exists():
+            cart_order = cart_order.first()
+            cart_order.quantity += 1
+            cart_order.save()
+        else:
+            cart_order = models.Orderlist.objects.create(
+                product_id=product,
+                user_id=request.user,
+                quantity=1,
+                ordered=False
+            )
+
+class CheckOutView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        pass

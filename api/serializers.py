@@ -33,6 +33,27 @@ class ProductSerializer(serializers.ModelSerializer):
         return CategorySerializer(obj.category).data['category_name']
 
 
+class ProductCreateSerializer(serializers.ModelSerializer):
+    # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
+    # category = serializers.StringRelatedField(many=True)
+    # category = CategorySerializer(many=True, read_only=True)
+    class Meta:
+        model = models.Product
+        fields = [
+            'name',
+            'owner',
+            'description',
+            'condition',
+            'category',
+            'brand',
+            'price',
+            'image',
+            'created',
+            'featured',
+            'slug',
+            'quantity'
+        ]
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
