@@ -23,6 +23,7 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     brand = models.CharField(max_length=50, default="Sony")
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.IntegerField(default=1)
     image = models.ImageField(upload_to='main_product/', blank=True, null=True)
     created = models.DateField(default=datetime.date.today)
     featured = models.CharField(max_length=6, default="z")
@@ -80,11 +81,14 @@ class Brand(models.Model):
         return self.brand_name
 
 
-class Orderlist(models.Model):       #Orderlist productid, qty, orderid, *user, *ordered, ref_code(FK)
-    ordered = models.BooleanField(default=False)
+class Orderlist(models.Model):      
+    user_id = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
     product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    orderlistid = models.DecimalField(max_digits=5, decimal_places=2)
+    orderlistid = models.AutoField(primary_key=True)
+    feedback = models.TextField(max_length=250)
+    orderid = models.ForeignKey('Order', on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.quantity} of {self.product_id.name}"
@@ -93,19 +97,18 @@ class Orderlist(models.Model):       #Orderlist productid, qty, orderid, *user, 
         return self.quantity * self.product_id.price
 
 
-class Order(models.Model):             #user, ref_code, ordered_date, delivery_date, shipping address, *order
+class Order(models.Model):             
     user_id = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
-    orderid = models.ForeignKey(Orderlist, on_delete = models.CASCADE)
-    products = models.ManyToManyField(Orderlist)
+    orderid = models.AutoField(primary_key=True)
     start_date = models.DateTimeField(auto_now_add=True)
     delivery_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     received = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.first_name
+
     def get_total(self):
         total = 0
         for order_item in self.products.all():

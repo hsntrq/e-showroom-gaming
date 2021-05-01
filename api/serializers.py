@@ -12,6 +12,8 @@ class ProductSerializer(serializers.ModelSerializer):
     # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
     # category = serializers.StringRelatedField(many=True)
     # category = CategorySerializer(many=True, read_only=True)
+    category = serializers.SerializerMethodField()
+
     class Meta:
         model = models.Product
         fields = [
@@ -27,6 +29,9 @@ class ProductSerializer(serializers.ModelSerializer):
             'featured',
             'slug'
         ]
+    def get_category(self, obj):
+        return CategorySerializer(obj.category).data['category_name']
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
