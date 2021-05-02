@@ -87,7 +87,7 @@ class Orderlist(models.Model):
     quantity = models.IntegerField(default=1)
     orderlistid = models.AutoField(primary_key=True)
     feedback = models.TextField(max_length=250)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
     ordered = models.BooleanField(default=False)
 
     def __str__(self):
@@ -101,14 +101,14 @@ class Order(models.Model):
     user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
     orderid = models.AutoField(primary_key=True)
     start_date = models.DateTimeField(auto_now_add=True)
-    delivery_date = models.DateTimeField()
+    delivery_date = models.DateTimeField(default=datetime.datetime.now()+datetime.timedelta(days=30))
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     received = models.BooleanField(default=False)
     cashOnDelivery = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.email + str(self.orderid)
 
     def get_total(self):
         total = 0
@@ -123,12 +123,12 @@ class Address(models.Model):
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     city = models.CharField(max_length=58)
-    zip = models.CharField(max_length=100)
+    zipC = models.CharField(max_length=100)
     phone_number = PhoneNumberField(max_length=12)
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.email + str(self.id)
 
     class Meta:
         verbose_name_plural = 'Addresses'

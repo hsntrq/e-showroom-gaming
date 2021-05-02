@@ -88,7 +88,6 @@ class AddToCartView(views.APIView):
 
         cart_order = models.Orderlist.objects.filter(
             product_id=product,
-            user_id=request.user,
             ordered=False
         )
 
@@ -96,14 +95,97 @@ class AddToCartView(views.APIView):
             cart_order = cart_order.first()
             cart_order.quantity += 1
             cart_order.save()
+            return response.Response({"Created": "201"}, status=status.HTTP_201_CREATED)
         else:
             cart_order = models.Orderlist.objects.create(
-                product_id=product,
-                user_id=request.user,
+                product_id=product.id,
+                user_id=4,
                 quantity=1,
                 ordered=False
             )
+            return response.Response({"Created": "201"}, status=status.HTTP_201_CREATED)
+
 
 class CheckOutView(views.APIView):
     def post(self, request, *args, **kwargs):
-        pass
+
+        user = 4
+
+        cart_orders = models.Orderlist.objects.filter(
+            user_id=user,
+            ordered=False
+        )
+
+        if not cart_orders.exists():
+            return response.Response({"Bad Request":"No orders to checkout"}, status=status.HTTP_400_BAD_REQUEST)
+
+        street_address = request.data.get('street_address', None)
+        apartment_address = request.data.get('appartment_address', None)
+        city = request.data.get('city', None)
+        zipC = request.data.get('zipC', None)
+        phone_number = request.data.get('phone_number', None)
+        default = request.data.get('default', False)
+        cashOD = request.data.get('cashOnDelivery', True)
+
+        address = models.Address.objects.create(
+            user_id=user,
+            street_address=street_address,
+            apartment_address=apartment_address,
+            city=city,
+            zipC=zipC
+        )
+
+        address.save(force_update=True)
+
+        Order = models.Order.objects.create(
+            shipping_address=address,
+            cashOnDelivery=(cashOD == 'True'),
+            user_id=user,
+
+        )
+
+        Order.save()
+
+        for cart_order in cart_orders:
+            if cart_order.product.quantity >= cart_order.quantity:
+                cart_order.ordered = True
+                cart_order.product.quantity -= cart_order.quantity
+                cart_order.product.save()
+                cart_order.order = Order
+                cart_order.save()
+
+        return response.Response({"Created": "201"}, status=status.HTTP_201_CREATED)
+
+class OrderQuantityUpdateView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        user=4
+        slug = request.data.get('slug', None)
+        increase = request.data.get('increase', "True") == "True"
+        if slug is None:
+            return response.Response({"message": "Invalid data"}, status=HTTP_400_BAD_REQUEST)
+        product = get_object_or_404(models.Product, slug=slug)
+        
+        cart_order = models.Orderlist.objects.filter(
+            product_id=product,
+            ordered=False
+        )
+
+        if cart_order.exists():
+            cart_order = cart_order.first()
+            # check if the order item is in the order
+            if cart_order.product.filter(item__slug=item.slug).exists():
+                order_item = OrderItem.objects.filter(
+                    item=item,
+                    user=request.user,
+                    ordered=False
+                )[0]
+                if order_item.quantity > 1:
+                    order_item.quantity -= 1
+                    order_item.save()
+                else:
+                    order.items.remove(order_item)
+                return response.Response(status=status.HTTP_200_OK)
+            else:
+                return response.Response({"message": "This item was not in your cart"}, status=HTTP_400_BAD_REQUEST)
+        else:
+            return response.Response({"message": "You do not have an active order"}, status=HTTP_400_BAD_REQUEST)
