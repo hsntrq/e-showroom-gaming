@@ -9,9 +9,6 @@ class StringSerializer(serializers.StringRelatedField):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
-    # category = serializers.StringRelatedField(many=True)
-    # category = CategorySerializer(many=True, read_only=True)
     category = serializers.SerializerMethodField()
 
     class Meta:
@@ -36,9 +33,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-    # category = serializers.PrimaryKeyRelatedField(queryset=models.Category.objects.all())
-    # category = serializers.StringRelatedField(many=True)
-    # category = CategorySerializer(many=True, read_only=True)
     class Meta:
         model = models.Product
         fields = [
@@ -87,36 +81,35 @@ class OrderlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Orderlist
         fields = (
-            'id',
             'product',
             'quantity',
             'final_price'
         )
 
-    def get_item(self, obj):
-        return ProductSerializer(obj.product_id).data
+    def get_product(self, obj):
+        return ProductSerializer(obj.product).data['name']
 
     def get_final_price(self, obj):
         return obj.get_total_product_price()
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    order_items = serializers.SerializerMethodField()
-    total = serializers.SerializerMethodField()
+# class OrderSerializer(serializers.ModelSerializer):
+#     order_items = serializers.SerializerMethodField()
+#     total = serializers.SerializerMethodField()
 
-    class Meta:
-        model = models.Order
-        fields = (
-            'id',
-            'order_items',
-            'total'
-        )
+#     class Meta:
+#         model = models.Order
+#         fields = (
+#             'id',
+#             'order_items',
+#             'total'
+#         )
 
-    def get_order_items(self, obj):
-        return OrderlistSerializer(obj.products.all(), many=True).data
+#     def get_order_items(self, obj):
+#         return OrderlistSerializer(obj.products.all(), many=True).data
 
-    def get_total(self, obj):
-        return obj.get_total()
+#     def get_total(self, obj):
+#         return obj.get_total()
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -131,3 +124,37 @@ class AddressSerializer(serializers.ModelSerializer):
             'zip',
             'default'
         )
+
+class CartViewSerializer(serializers.ModelSerializer):
+    product = serializers.SerializerMethodField()
+    price = serializers.SerializerMethodField()
+    class Meta: 
+        model = models.Orderlist
+        fields = [
+            'orderlistid',
+            'product',
+            'quantity',
+            'price',
+        ]
+    def get_price(self, obj):
+        return ProductSerializer(obj.product).data['price']
+
+    def get_product(self, obj):
+        return ProductSerializer(obj.product).data['name']
+    
+class MyorderSerializer(serializers.ModelSerializer):
+    total_price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.Order
+        fields = [
+            'orderid',
+            'start_date',
+            'delivery_date',
+            'received',
+            'cashOnDelivery',
+            'total_price',
+        ]
+    def get_total_price(self, obj):
+        return obj.get_total()
+

@@ -13,6 +13,10 @@ urlpatterns = [
     path('categories/', views.CategoryList.as_view(), name='categories'),
     path('addtocart/', views.AddToCartView.as_view(), name='addtocart'),
     path('checkout/', views.CheckOutView.as_view(), name='checkout'),
+    path('cart/', views.CartView.as_view(), name='cart'),
+    path('orders/', views.MyorderView.as_view(), name='orders'),
+    path('orderlist/', views.OrderlistView.as_view(), name='orderlist'),
+    path('deletefromcart/<id>', views.DeleteFromCartView.as_view(), name='deletefromcart'),
     ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

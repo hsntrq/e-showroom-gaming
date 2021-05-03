@@ -181,3 +181,55 @@ class OrderQuantityUpdateView(views.APIView):
 
         return response.Response({"Not Found": "Order not found in checkout"}, status=status.HTTP_404_NOT_FOUND)
 
+class CartView(views.APIView):
+    def get(self, request):
+        user = 4
+        cartorder = models.Orderlist.objects.filter(
+            user_id = user,
+            ordered=False
+        )
+        if cartorder.exists():
+            serializer = serializers.CartViewSerializer(cartorder, many = True)
+            return response.Response(serializer.data)
+        return response.Response({'Order not found': 'There exists no order in cart'}, status=status.HTTP_404_NOT_FOUND)
+
+class MyorderView(views.APIView):
+    def get(self, request):
+        user = 4
+        order = models.Order.objects.filter(
+            user_id = user
+        )
+
+        if order.exists():
+            serializer = serializers.MyorderSerializer(order, many = True)
+            return response.Response(serializer.data)
+        return response.Response({'Order not found': 'You do not have Orders Placed at the moment'}, status=status.HTTP_404_NOT_FOUND)
+
+class OrderlistView(views.APIView):
+    def get(self, request):
+        user = 4
+        order_id = request.GET.get('id')
+        if not order_id:
+            return response.Response({'Order not found': 'No Orders found for the order id'}, status=status.HTTP_404_NOT_FOUND)
+        orderlist = models.Orderlist.objects.filter(
+            user_id = user,
+            order_id = order_id,
+        )
+        if orderlist.exists(): 
+            serializer = serializers.OrderlistSerializer(orderlist, many = True)
+            return response.Response(serializer.data)
+        return response.Response({'Order not found': 'No Orders found for the order id'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+class DeleteFromCartView(views.APIView):
+    def delete(self, request, id):
+        # id = request.data.get('id', None)
+        if id:
+            cartorder = models.Orderlist.objects.filter(
+                orderlistid = id,
+            )
+            if cartorder.exists(): 
+                cartorder.delete()
+                return response.Response({"Order Deleted" : "OK"}, status=status.HTTP_202_ACCEPTED)
+        return response.Response({'Order not deleted': 'No Orders found for the order id'}, status=status.HTTP_404_NOT_FOUND)
+       
