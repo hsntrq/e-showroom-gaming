@@ -117,7 +117,7 @@ class CheckOutView(views.APIView):
         )
 
         if not cart_orders.exists():
-            return response.Response({"Bad Request":"No orders to checkout"}, status=status.HTTP_400_BAD_REQUEST)
+            return response.Response({"Bad Request": "No orders to checkout"}, status=status.HTTP_400_BAD_REQUEST)
 
         street_address = request.data.get('street_address', None)
         apartment_address = request.data.get('appartment_address', None)
@@ -156,15 +156,16 @@ class CheckOutView(views.APIView):
 
         return response.Response({"Created": "201"}, status=status.HTTP_201_CREATED)
 
+
 class OrderQuantityUpdateView(views.APIView):
     def post(self, request, *args, **kwargs):
-        user=4
+        user = 4
         slug = request.data.get('slug', None)
         increase = request.data.get('increase', "True") == "True"
         if slug is None:
-            return response.Response({"message": "Invalid data"}, status=HTTP_400_BAD_REQUEST)
+            return response.Response({"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST)
         product = get_object_or_404(models.Product, slug=slug)
-        
+
         cart_order = models.Orderlist.objects.filter(
             product_id=product,
             ordered=False
@@ -172,20 +173,10 @@ class OrderQuantityUpdateView(views.APIView):
 
         if cart_order.exists():
             cart_order = cart_order.first()
-            # check if the order item is in the order
-            if cart_order.product.filter(item__slug=item.slug).exists():
-                order_item = OrderItem.objects.filter(
-                    item=item,
-                    user=request.user,
-                    ordered=False
-                )[0]
-                if order_item.quantity > 1:
-                    order_item.quantity -= 1
-                    order_item.save()
-                else:
-                    order.items.remove(order_item)
-                return response.Response(status=status.HTTP_200_OK)
-            else:
-                return response.Response({"message": "This item was not in your cart"}, status=HTTP_400_BAD_REQUEST)
-        else:
-            return response.Response({"message": "You do not have an active order"}, status=HTTP_400_BAD_REQUEST)
+            cart_order.quantity = cart_order.quantity + \
+                1 if increase else cart_order.quantity - 1
+            cart_order.save()
+            return response.Response({"Created": "201"}, status=status.HTTP_201_CREATED)
+
+        return response.Response({"Bad Request": "Order not found in checkout"}, status=status.HTTP_400_BAD_REQUEST)
+
