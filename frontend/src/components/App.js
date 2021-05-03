@@ -5,9 +5,8 @@ import Product from './product';
 import Searched from "./search";
 import Post from './post';
 import {Navbar, Footer} from './base';
-import CartPage from './cartPage';
 import login from './login';
-import Profile from './profile';
+import Ship from './ship';
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,8 +47,7 @@ export default class App extends Component {
             <Route exact path="/search" component={Searched}/>
             <Route exact path="/post" render={() => <Post categories={this.state.categories} />} />
             <Route exact path="/login" component={login}/>
-            <Route exact path="/cart" component={CartPage}/>
-            <Route exact path="/profile" component={Profile}/>
+            <Route exact path="/shipping" component={Ship}/>
           </Switch>
         </Router>
         <Footer />
