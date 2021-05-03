@@ -20,7 +20,8 @@ class Product(models.Model):
     owner = models.CharField(max_length=50, default='HasanNaseem')
     description = models.TextField(max_length=500)
     condition = models.CharField(max_length=100, choices=CONDITION_TYPE)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(
+        'Category', on_delete=models.SET_NULL, null=True)
     brand = models.CharField(max_length=50, default="Sony")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField(default=1)
@@ -41,7 +42,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
 
 
 class ProductImages(models.Model):
@@ -69,7 +69,6 @@ class Category(models.Model):
 
 
 class Brand(models.Model):
-    
 
     brand_name = models.CharField(max_length=50)
 
@@ -81,13 +80,15 @@ class Brand(models.Model):
         return self.brand_name
 
 
-class Orderlist(models.Model):      
-    user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
+class Orderlist(models.Model):
+    user = models.ForeignKey('user_control.CustomUser',
+                             on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     orderlistid = models.AutoField(primary_key=True)
     feedback = models.TextField(max_length=250)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
+    order = models.ForeignKey(
+        'Order', on_delete=models.CASCADE, blank=True, null=True)
     ordered = models.BooleanField(default=False)
 
     def __str__(self):
@@ -97,11 +98,13 @@ class Orderlist(models.Model):
         return self.quantity * self.product.price
 
 
-class Order(models.Model):             
-    user = models.ForeignKey('user_control.CustomUser',on_delete=models.CASCADE)
+class Order(models.Model):
+    user = models.ForeignKey('user_control.CustomUser',
+                             on_delete=models.CASCADE)
     orderid = models.AutoField(primary_key=True)
     start_date = models.DateTimeField(auto_now_add=True)
-    delivery_date = models.DateTimeField(default=datetime.datetime.now()+datetime.timedelta(days=30))
+    delivery_date = models.DateTimeField(
+        default=datetime.datetime.now()+datetime.timedelta(days=30))
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     received = models.BooleanField(default=False)
@@ -117,9 +120,10 @@ class Order(models.Model):
             total += orderItem.get_total_product_price()
         return total
 
-    
+
 class Address(models.Model):
-    user = models.ForeignKey('user_control.CustomUser', on_delete=models.CASCADE)
+    user = models.ForeignKey('user_control.CustomUser',
+                             on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     city = models.CharField(max_length=58)
