@@ -81,6 +81,7 @@ class OrderlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Orderlist
         fields = (
+            'orderlistid',
             'product',
             'quantity',
             'final_price'
@@ -91,25 +92,6 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
     def get_final_price(self, obj):
         return obj.get_total_product_price()
-
-
-# class OrderSerializer(serializers.ModelSerializer):
-#     order_items = serializers.SerializerMethodField()
-#     total = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = models.Order
-#         fields = (
-#             'id',
-#             'order_items',
-#             'total'
-#         )
-
-#     def get_order_items(self, obj):
-#         return OrderlistSerializer(obj.products.all(), many=True).data
-
-#     def get_total(self, obj):
-#         return obj.get_total()
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -128,19 +110,29 @@ class AddressSerializer(serializers.ModelSerializer):
 class CartViewSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+    product_quantity = serializers.SerializerMethodField()
+    
     class Meta: 
         model = models.Orderlist
         fields = [
-            'orderlistid',
             'product',
             'quantity',
             'price',
+            'image',
+            'product_quantity',
         ]
     def get_price(self, obj):
         return ProductSerializer(obj.product).data['price']
 
     def get_product(self, obj):
         return ProductSerializer(obj.product).data['name']
+    
+    def get_image(self, obj):
+        return ProductSerializer(obj.product).data['image']
+
+    def get_product_quantity(self, obj):
+        return ProductSerializer(obj.product).data['quantity']
     
 class MyorderSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
