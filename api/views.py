@@ -167,6 +167,7 @@ class OrderQuantityUpdateView(views.APIView):
         product = get_object_or_404(models.Product, slug=slug)
 
         cart_order = models.Orderlist.objects.filter(
+            user_id=user,
             product_id=product,
             ordered=False
         )
@@ -178,5 +179,5 @@ class OrderQuantityUpdateView(views.APIView):
             cart_order.save()
             return response.Response({"Created": "201"}, status=status.HTTP_201_CREATED)
 
-        return response.Response({"Bad Request": "Order not found in checkout"}, status=status.HTTP_400_BAD_REQUEST)
+        return response.Response({"Not Found": "Order not found in checkout"}, status=status.HTTP_404_NOT_FOUND)
 
