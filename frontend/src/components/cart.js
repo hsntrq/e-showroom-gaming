@@ -163,7 +163,7 @@ export default class Cart extends Component {
                       Rs. <span id="total_cart_amt">0.00</span>
                     </p>
                   </div>
-                  <button className="btn btn-primary text-uppercase">
+                  <button className="btn btn-primary text-uppercase" onClick={()=>{window.location.href="/shipping"}}>
                     {" "}
                     Proceed to checkout
                   </button>

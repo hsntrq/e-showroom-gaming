@@ -50,6 +50,7 @@ export default class App extends Component {
             <Route exact path="/login" component={login}/>
             <Route exact path="/shipping" component={Ship}/>
             <Route exact path="/cart" component={Cart}/>
+            <Route exact path="/confirm" render={() => {return <h1>Order Placed</h1>}}/>
           </Switch>
         </Router>
         <Footer />
