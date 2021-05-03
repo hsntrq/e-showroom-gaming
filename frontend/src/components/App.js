@@ -7,6 +7,7 @@ import Post from './post';
 import {Navbar, Footer} from './base';
 import login from './login';
 import Ship from './ship';
+import Cart from './cart';
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,6 +49,7 @@ export default class App extends Component {
             <Route exact path="/post" render={() => <Post categories={this.state.categories} />} />
             <Route exact path="/login" component={login}/>
             <Route exact path="/shipping" component={Ship}/>
+            <Route exact path="/cart" component={Cart}/>
           </Switch>
         </Router>
         <Footer />

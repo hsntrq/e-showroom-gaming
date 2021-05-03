@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-//import "./cart.css";
+import "./cart.css";
 
-export default class Ship extends Component {
+export default class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],
     };
-    this.getProducts();
   }
 
   render() {

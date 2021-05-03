@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import "./ship.css";
+import "./ship.css";
 
 export default class Ship extends Component {
   constructor(props) {
@@ -7,7 +7,6 @@ export default class Ship extends Component {
     this.state = {
       products: [],
     };
-    this.getProducts();
   }
 
   render() {
