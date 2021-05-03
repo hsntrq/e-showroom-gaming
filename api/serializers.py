@@ -112,7 +112,7 @@ class CartViewSerializer(serializers.ModelSerializer):
     price = serializers.SerializerMethodField()
     image = serializers.SerializerMethodField()
     product_quantity = serializers.SerializerMethodField()
-    
+    slug = serializers.SerializerMethodField()    
     class Meta: 
         model = models.Orderlist
         fields = [
@@ -121,6 +121,7 @@ class CartViewSerializer(serializers.ModelSerializer):
             'price',
             'image',
             'product_quantity',
+            'slug',
         ]
     def get_price(self, obj):
         return ProductSerializer(obj.product).data['price']
@@ -133,6 +134,9 @@ class CartViewSerializer(serializers.ModelSerializer):
 
     def get_product_quantity(self, obj):
         return ProductSerializer(obj.product).data['quantity']
+
+    def get_slug(self, obj):
+        return ProductSerializer(obj.product).data['slug']
     
 class MyorderSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
