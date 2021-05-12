@@ -6,6 +6,7 @@ export default class Cart extends Component {
     super(props);
     this.state = {
       products: [],
+      total: 0,
     };
     this.getProducts();
   }
@@ -17,46 +18,54 @@ export default class Cart extends Component {
         this.setState({
           products: data,
         });
+        this.updateTotalPrice();
       });
   }
 
-  updatequantity(index, inc, slug, product_quantity) {
+  updatequantity(index, inc, item) {
     let box = document.getElementById("textbox" + index);
-    if (inc && product_quantity == box.value+1){
+    if (inc && item.product_quantity == parseInt(box.value)) {
       alert("Stock finished");
-    }
-    else if (inc == false && box.value == 1){
-      alert("quantity can not be empty")
-    }
-    else{
-    let increase = inc ? "True" : "False";
-    console.log(slug);
-    fetch("/api/updatequantity/", {
-      method: "POST",
-      body: JSON.stringify({ increase: increase, slug: slug }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then((response) => {
-        return response.status == 201;
+    } else if (!inc && box.value == 1) {
+      alert("quantity can not be zero");
+    } else {
+      let increase = inc ? "True" : "False";
+      fetch("/api/updatequantity/", {
+        method: "POST",
+        body: JSON.stringify({ increase: increase, slug: item.slug }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((status) => {
-        if (status) {
-          let ch = inc ? 1:-1;
-          box.value = parseInt(box.value) + ch;
-        }
-      });
+        .then((response) => {
+          return response.status == 201;
+        })
+        .then((status) => {
+          if (status) {
+            let ch = inc ? 1 : -1;
+            this.setState(state => {
+              const products = state.products.map((itm, j) => {
+                if (j==index) {
+                  itm.quantity += ch;
+                }
+                  return itm;
+              });
+              return {products,};
+            });
+            this.updateTotalPrice();
+          }
+        });
     }
   }
 
-  totalPrice(){
+  updateTotalPrice() {
     let price = 0;
-    this.state.products.map(index => {
-      price += item.price;
+    this.state.products.map((item) => {
+      price += item.price * item.quantity;
     });
-    console.log(price);
-    return price
+    this.setState({
+      total: price,
+    });
   }
 
   render() {
@@ -89,13 +98,14 @@ export default class Cart extends Component {
                                 <li className="page-item">
                                   <button
                                     className="page-link "
-                                    id = {"minus"+index}
-                                    onClick={() => this.updatequantity(
-                                      index,
-                                      false,
-                                      item.slug,
-                                      item.product_quantity,
-                                    )}
+                                    id={"minus" + index}
+                                    onClick={() =>
+                                      this.updatequantity(
+                                        index,
+                                        false,
+                                        item
+                                      )
+                                    }
                                   >
                                     <i className="fas fa-minus"></i>{" "}
                                   </button>
@@ -112,13 +122,14 @@ export default class Cart extends Component {
                                 <li className="page-item">
                                   <button
                                     className="page-link"
-                                    id = {"plus"+index}
-                                    onClick={() => this.updatequantity(
-                                      index,
-                                      true,
-                                      item.slug,
-                                      item.product_quantity,
-                                    )}
+                                    id={"plus" + index}
+                                    onClick={() =>
+                                      this.updatequantity(
+                                        index,
+                                        true,
+                                        item
+                                      )
+                                    }
                                   >
                                     {" "}
                                     <i className="fas fa-plus"></i>
@@ -147,23 +158,29 @@ export default class Cart extends Component {
                   <div className="price_indiv d-flex justify-content-between">
                     <p>Product amount</p>
                     <p>
-                      Rs. <span id="product_total_amt">{()=> this.totalPrice()}</span>
+                      Rs. <span id="product_total_amt">{this.state.total}</span>
                     </p>
                   </div>
                   <div className="price_indiv d-flex justify-content-between">
                     <p>Shipping Charge</p>
                     <p>
-                      Rs. <span id="shipping_charge">50.0</span>
+                      Rs. <span id="shipping_charge">50.00</span>
                     </p>
                   </div>
                   <hr />
                   <div className="total-amt d-flex justify-content-between font-weight-bold">
                     <p>The total amount of (including VAT)</p>
                     <p>
-                      Rs. <span id="total_cart_amt">0.00</span>
+                      Rs.{" "}
+                      <span id="total_cart_amt">{this.state.total + 50}</span>
                     </p>
                   </div>
-                  <button className="btn btn-primary text-uppercase" onClick={()=>{window.location.href="/shipping"}}>
+                  <button
+                    className="btn btn-primary text-uppercase"
+                    onClick={() => {
+                      window.location.href = "/shipping";
+                    }}
+                  >
                     {" "}
                     Proceed to checkout
                   </button>

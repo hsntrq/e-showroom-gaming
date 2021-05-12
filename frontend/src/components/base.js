@@ -24,61 +24,42 @@ export class Navbar extends Component {
               >
                 {"All Categories"}
               </button>
-              <form
-                id="category_menu"
-                method="GET"
-                action="{% url 'api:search' %}"
+              <ul
+                className="dropdown-menu"
+                name="category"
+                style={{ marginBottom: "5px" }}
+                aria-labelledby="dropdownMenuButton"
               >
-                <ul
-                  className="dropdown-menu"
-                  name="category"
-                  style={{ marginBottom: "5px" }}
-                  aria-labelledby="dropdownMenuButton"
-                >
-                  {/* <li>
-                  <a
-                    className="dropdown-item"
-                    href="/api/search?category={{category.category_name}}"
-                  >
-                    {{category.category_name}}
-                  </a>
-                </li>
-                {% endfor %} */}
-                </ul>
-              </form>
+                {this.props.categories.map((item, index) => (
+                  <Category key={index} category={item.category_name} />
+                ))}
+              </ul>
             </div>
-            <form
-              id="searchbar"
-              className="input-group"
-              method="GET"
-              action="/search"
-              style={{ width: "30%" }}
-            >
-              <input
-                type="text"
-                aria-label="First name"
-                className="form-control"
-                placeholder="What are you looking for..."
-                name="q"
-                required
-              />
-              <div
-                className="input-group-prepend"
-                style={{ cursor: "pointer" }}
-              >
-                <button type="submit" className="input-group-text">
-                  {"Search"}
-                </button>
-              </div>
-            </form>
-            
-            <a
+            {window.location.href.search('home')==-1 &&
+          <form id="searchbar" className="input-group" method="GET" action="/search" style={{width: "30%"}}>
+            <input type="text" aria-label="First name" className="form-control" placeholder="What are you looking for..." name="q" required/>
+            <div className="input-group-prepend" style={{cursor: "pointer"}}>
+              <button type="submit" className="input-group-text">{'Search'}</button>
+            </div>
+          </form>
+          }
+
+            {/* <a
               className="btn btn-primary ml-auto nav-b"
               role="button"
               id="login-b"
             >
               {"Log In | Sign Up"}
-            </a>
+            </a> */}
+            <div className="dropdown nav-b ml-auto" >
+              <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton profile" style={{backgroundColor: 'transparent', border: 'none', }} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="https://www.seekpng.com/png/detail/110-1100707_person-avatar-placeholder.png" className="img-fluid" alt="*" style={{borderRadius: '50%', height: '37px', width: '40px'}} />
+              </button>
+                <ul className="dropdown-menu" name="profile" style={{marginBottom: "5px"}} aria-labelledby="dropdownMenuButton">
+                  <li><a href="/profile" className="dropdown-item"> {'View My Profile'} </a></li>
+                  <li><a href="" className="dropdown-item"> {'Logout'} </a></li>
+                </ul>
+            </div>
             {window.location.href.search("post") == -1 && (
               <a
                 className="btn btn-primary nav-b"
@@ -87,6 +68,16 @@ export class Navbar extends Component {
                 href="/post"
               >
                 Post Ad
+              </a>
+            )}
+            {window.location.href.search("cart") == -1 && (
+              <a style={{margin:"10px"}}
+                className="btn btn-primary nav-b"
+                role="button"
+                id="post-ad"
+                href="/cart"
+              >
+                <i className="fas fa-shopping-cart"></i>
               </a>
             )}
           </div>
@@ -246,6 +237,18 @@ export class Navbar extends Component {
           </div>
         </div>
       </>
+    );
+  }
+}
+
+class Category extends Component{
+  render () {
+    return (
+      <li>
+        <a className="dropdown-item" href={"/search?category=" + this.props.category}>
+          {this.props.category}
+        </a>
+      </li>
     );
   }
 }
