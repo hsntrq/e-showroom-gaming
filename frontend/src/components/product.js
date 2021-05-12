@@ -103,8 +103,8 @@ export default class Product extends Component {
               <h3 className="text-left">Seller Info:</h3>
               <p className="text-left d-inline-flex float-right" style={{width: "78%"}}>
                 {this.state.product.owner}<br />
-                Phone number : xxxx-xxxxxxx <br />
-                email address : ''''@''''''.''''
+                {'Phone number : xxxx-xxxxxxx'}<br />
+                {"email address : ''''@''''''.''''"}
               </p>
               <div style={{width: "20%"}}>
                 <img

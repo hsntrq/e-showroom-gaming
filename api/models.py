@@ -6,9 +6,6 @@ from user_control.models import CustomUser
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-# Create your models here.
-
-
 class Product(models.Model):
 
     CONDITION_TYPE = (
@@ -33,10 +30,10 @@ class Product(models.Model):
     def image_url(self):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
+        return None
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
-            # will remove spaces in the product name and replace it with hyphen/ underscore
             self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
 

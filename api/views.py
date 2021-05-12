@@ -6,8 +6,8 @@ from rest_framework import status, generics, views, response
 
 class ProductListView(views.APIView):
     def get(self, request):
-        p = models.Product.objects.all().order_by('featured')
-        serializer = serializers.ProductSerializer(p, many=True)
+        productlist = models.Product.objects.all().order_by('featured')
+        serializer = serializers.ProductSerializer(productlist, many=True)
         return response.Response(serializer.data)
 
 
@@ -19,8 +19,14 @@ class ProductView(views.APIView):
             if productdetail:
                 serializer = serializers.ProductSerializer(productdetail)
                 return response.Response(serializer.data)
-            return response.Response({'Ad Not Found': 'Invalid Ad Name'}, status=status.HTTP_404_NOT_FOUND)
-        return response.Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+            return response.Response(
+                {'Ad Not Found': 'Invalid Ad Name'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        return response.Response(
+            {'Bad Request': 'Code paramater not found in request'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 class SearchFilter(views.APIView):   # to filter according to category
@@ -63,7 +69,10 @@ class SearchFilter(views.APIView):   # to filter according to category
         if productlist:
             serializer = serializers.ProductSerializer(productlist, many=True)
             return response.Response(serializer.data)
-        return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
+        return response.Response(
+            {'No Search Results Found': 'No Products exists under this query'},
+            status=status.HTTP_404_NOT_FOUND
+        )
 
 
 class CategoryList(views.APIView):         # to display categories in the dropdown menu
