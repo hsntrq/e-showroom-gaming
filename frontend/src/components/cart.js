@@ -61,7 +61,7 @@ export default class Cart extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid cart">
         <div className="row">
           <div className="col-md-10 col-11 mx-auto">
             <div className="row mt-5 gx-3">

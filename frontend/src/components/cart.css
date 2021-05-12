@@ -1,60 +1,60 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap");
-* {
+.cart {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Mulish", sans-serif;
 }
-:root {
+.cart :root {
     --text-clr: #4f4f4f;
 }
-p {
+.cart p {
     color: #6c757d;
 }
-a {
+.cart a {
     text-decoration: none;
     color: var(--text-clr);
 }
-a:hover {
+.cart a:hover {
     text-decoration: none;
     color: var(--text-clr);
 }
-h2 {
+.cart h2 {
     color: var(--text-clr);
     font-size: 1.5rem;
 }
-.main_cart {
+.cart .main_cart {
     background: #fff;
 }
-.card {
+.cart .card {
     border: none;
 }
-.product_img img {
+.cart .product_img img {
     min-width: 200px;
     max-height: 200px;
 }
-.product_name {
+.cart .product_name {
     color: black;
     font-size: 1.4rem;
     text-transform: capitalize;
     font-weight: 500;
 }
-.card-title p {
+.cart .card-title p {
     font-size: 0.9rem;
     font-weight: 500;
 }
-.remove-and-wish p {
+.cart .remove-and-wish p {
     font-size: 0.8rem;
     margin-bottom: 0;
 }
-.price-money h3 {
+.cart .price-money h3 {
     font-size: 1rem;
     font-weight: 600;
 }
-.set_quantity {
+.cart .set_quantity {
     position: relative;
 }
-.set_quantity::after {
+.cart .set_quantity::after {
     content: "(Note, 1 piece)";
     width: auto;
     height: auto;
@@ -64,7 +64,7 @@ h2 {
     right: 1.5rem;
     font-size: 0.8rem;
 }
-.page-link {
+.cart .page-link {
     line-height: 16px;
     width: 45px;
     font-size: 1rem;
@@ -73,7 +73,7 @@ h2 {
     align-items: center;
     color: #495057;
 }
-.page-item input {
+.cart .page-item input {
     line-height: 22px;
     padding: 3px;
     font-size: 15px;
@@ -82,17 +82,17 @@ h2 {
     align-items: center;
     text-align: center;
 }
-.page-link:hover {
+.cart .page-link:hover {
     text-decoration: none;
     color: #495057;
     outline: none !important;
 }
-.page-link:focus {
+.cart .page-link:focus {
     box-shadow: none;
 }
-.price_indiv p {
+.cart .price_indiv p {
     font-size: 1.1rem;
 }
-.fa-heart:hover {
+.cart .fa-heart:hover {
     color: red;
 }
