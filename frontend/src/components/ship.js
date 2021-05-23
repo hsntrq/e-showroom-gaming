@@ -5,18 +5,19 @@ export default class Ship extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      street: "",
-      apartment: "",
+      street_address: "",
+      apartment_address: "",
       city: "",
-      no: "",
-      zip: "",
-      cOD: true,
+      phone_number: "",
+      zipC: "",
+      cashOnDelivery: true,
     };
   }
 
   checkout(state) {
     return (e) => {
       e.preventDefault();
+      console.log(state);
       fetch("/api/checkout/", {
         method: "POST",
         body: JSON.stringify(state),
@@ -27,8 +28,10 @@ export default class Ship extends Component {
         .then((response) => {
           return response.status == 201;
         })
-        .then(() => {
-          window.location.href = "/confirm";
+        .then((status) => {
+          if (status){
+            window.location.href = "/confirm";
+          }
         });
     };
   }
@@ -46,19 +49,19 @@ export default class Ship extends Component {
                     <input
                       type="text"
                       id="fname"
-                      name="firstname"
+                      name="street_address"
                       placeholder="Shipping Address*"
                       onChange={() =>
-                        this.setState({ street: event.target.value })
+                        this.setState({ street_address: event.target.value })
                       }
                     />
                     <input
                       type="text"
-                      id="Appartment Address"
-                      name="address"
+                      id="appartment_address"
+                      name="apartment_address"
                       placeholder="Apartment Address*"
                       onChange={() =>
-                        this.setState({ apartment: event.target.value })
+                        this.setState({ apartment_address: event.target.value })
                       }
                     />
                     <input
@@ -74,36 +77,54 @@ export default class Ship extends Component {
                       <div className="col-50">
                         <input
                           type="text"
-                          id="state"
-                          name="state"
+                          id="phone_number"
+                          name="phone_number"
                           placeholder="Phone Number"
                           onChange={() =>
-                            this.setState({ no: event.target.value })
+                            this.setState({ phone_number: event.target.value })
                           }
                         />
                       </div>
                       <div className="col-50">
                         <input
                           type="text"
-                          id="zip"
-                          name="zip"
+                          id="zipC"
+                          name="zipC"
                           placeholder="Zip Code"
                           onChange={() =>
-                            this.setState({ zip: event.target.value })
+                            this.setState({ zipC: event.target.value })
                           }
                         />
                       </div>
                       <div className="row">
-                        <div className="col-50">
-                          <label>
-                            <input
-                              type="checkbox"
-                              checked="checked"
-                              name="cod"
-                            />{" "}
-                            Payment Method - Cash on Delivery.
-                          </label>
+                        <div className="col-75">
+                            <div className="form-check" style={{ display: "inline" }}>
+                              <input
+                                type="radio"
+                                id="radio-1"
+                                className="form-check-input"
+                                name="cashOnDelivery"
+                                defaultValue={true}
+                                required
+                              />
+                              <label className="form-check-label" htmlFor="cashOnDelivery">
+                                {'Cash on Delivery'}
+                              </label>
+                            </div>
+                            <div className="form-check" style={{ display: "inline" }}>
+                              <input
+                                type="radio"
+                                id="radio-2"
+                                className="form-check-input"
+                                name="cashOnDelivery"
+                                defaultValue={false}
+                              />
+                              <label className="form-check-label" htmlFor="cashOnDelivery">
+                                {'Pay with card'}
+                              </label>
+                            </div>
                         </div>
+                        
                         <input
                           type="submit"
                           value="Place my order"
