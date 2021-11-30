@@ -67,7 +67,7 @@ class SearchFilter(views.APIView):   # to filter according to category
                     break
             p = productlist.filter(category=category_id)
             if p:
-                serializer = serializers.ProductSerializer(p)
+                serializer = serializers.ProductSerializer(p, many = True)
                 return response.Response(serializer.data)
             return response.Response({'No Search Results Found': 'No Products exists under this Category'}, status=status.HTTP_404_NOT_FOUND)
         return response.Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
