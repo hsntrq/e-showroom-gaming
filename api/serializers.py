@@ -23,7 +23,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'slug'
         ]
 
-
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category

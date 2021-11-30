@@ -35,10 +35,6 @@ export default class Post extends Component {
     });
   }
 
-  method="POST"
-  action="/api/create/"
-  encType="multipart/form-data"
-
   render() {
     return (
       <section className="text-center" style={{ background: "#ffffff" }}>

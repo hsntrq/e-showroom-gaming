@@ -52,8 +52,8 @@ export default class Searched extends Component {
       <div className="container">
         <div className="row">
           <div className="col-3 mt-4">
-            <h5> PRICE </h5>
-            <p>Choose a price range below</p>
+            <h5>{'PRICE'}</h5>
+            <p>{'Choose a price range below'}</p>
             <input
               type="number"
               id="min-price"
@@ -61,7 +61,7 @@ export default class Searched extends Component {
               size="8"
               placeholder="min"
             />
-            to
+            {'to'}
             <input
               type="number"
               id="max-price"
@@ -74,11 +74,11 @@ export default class Searched extends Component {
               style={{ marginLeft: "60px" }}
               onClick={this.price}
             >
-              Apply
+              {'Apply'}
             </button>
           </div>
           <div className="col-9 my-4">
-            <span style={{ fontSize: "22px" }}>Sort By:</span>
+            <span style={{ fontSize: "22px" }}>{'Sort By:'}</span>
             <div className="dropdown" style={{ display: "inline-block" }}>
               <button
                 style={{ background: "transparent", color: "#000000" }}
@@ -89,13 +89,13 @@ export default class Searched extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Name
+                {'Name'}
               </button>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button className="dropdown-item" onClick={this.sort.bind(this,'name')}>Name</button>
-                <button className="dropdown-item" onClick={this.sort.bind(this,'date')}>Date</button>
-                <button className="dropdown-item" onClick={this.sort.bind(this,'priceh')}>Price-High</button>
-                <button className="dropdown-item" onClick={this.sort.bind(this,'pricel')}>Price-Low</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'name')}>{'Name'}</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'date')}>{'Date'}</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'priceh')}>{'Price-High'}</button>
+                <button className="dropdown-item" onClick={this.sort.bind(this,'pricel')}>{'Price-Low'}</button>
               </div>
             </div>
             {this.state.products.map((item, index) => (
@@ -110,7 +110,7 @@ export default class Searched extends Component {
               />
             ))}
             {!this.state.products.length && (
-              <h4 style={{ color: "#A52A2A" }}>No Results Found</h4>
+              <h4 style={{ color: "#A52A2A" }}>{'No Results Found'}</h4>
             )}
           </div>
         </div>
