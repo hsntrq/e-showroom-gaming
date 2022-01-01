@@ -1,6 +1,4 @@
-from pathlib import Path
 import os
-import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -16,6 +14,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['rigged.herokuapp.com', 'rigged.rocks',
                  'www.rigged.rocks', 'localhost', 'laptop-pblf4vvj']
 
+AUTH_USER_MODEL = "user_control.CustomUser"
 
 # Application definition
 
@@ -26,10 +25,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'phonenumber_field',
     'api.apps.APIConfig',
     'frontend.apps.FrontendConfig',
-    'rest_framework'
+    'user_control.apps.UserControlConfig',
 ]
+
+PHONENUMBER_DEFAULT_REGION = 'PK'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,7 +83,6 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
-
 DATABASE_CONNECTION_POOLING = False
 
 # Password validation
@@ -133,4 +135,5 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'COERCE_DECIMAL_TO_STRING': False,
 }

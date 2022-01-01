@@ -38,3 +38,4 @@ enabled = true
     "browser",
     "jquery"
   ]
+  plugins = ["react"]
